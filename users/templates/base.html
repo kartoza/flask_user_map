@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Map</title>
+    <link rel="shortcut icon" href="/users/static/img/favicon.ico"/>
+    <link rel="stylesheet" href="/users/static/css/bootstrap.css"
+          type="text/css" static="screen, projection"/>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+     <!--[if lte IE 8]>
+         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+     <![endif]-->
+    <link rel="stylesheet" href="/users/static/css/user-map.css"
+          type="text/css" static="screen, projection"/>
+     <script language="javascript"
+                type="text/javascript" src="/users/static/js/jquery.js"></script>
+    <script language="javascript"
+            type="text/javascript" src="/users/static/js/user-map.js"></script>
+     <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        {% if error %}
+        <div class="alert alert-error">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+           <strong>Oops!</strong> {{ error }}
+        </div>
+        {% endif %}
+        <div class="hero-unit">
+            <h1>User map</h1>
+            <p>This page lists people who are users of <strong
+                >{{ current_tag_name }}</strong> data to a map.</p>
+            <p><a href="#" onclick="downloadShape();">Download</a> this
+                building data as a zipped shapefile.</p>
+        </div>
+
+        <div class="row">
+            <div class="span12" id="map">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span4">
+                <h2>About</h2>
+                <p><img src="/users/static/img/linfiniti-logo-300.png"/></p>
+                <p>This application was created by
+                    <a href="http://linfiniti.com">Linfiniti</a>. The source
+                    code for this app is
+                    <a href="https://github.com/timlinux/user_map">
+                        available on GitHub</a>.
+                </p>
+            </div>
+            <div class="span8">
+                <h2>{{ current_tag_name|capitalize }} Users</h2>
+                <p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date Added</th>
+                                <th>Name</th>
+                                <th>Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for myEntry in mySortedUserList %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ myEntry.name }}
+                                {%  if loop.first %}
+                                    <span class="label label-important">
+                                        First user!</span>
+                                {% endif %}
+                                </td>
+                                <td>{{ myEntry.ways }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            map = L.map('map', {
+                updateStatsControl: {{ display_update_control }},
+                statsControlOptions: {
+                    choices: {{ available_tag_names|safe }},
+                    selected: "{{ current_tag_name }}"
+                }
+            });
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
+                maxZoom: 18
+            }).addTo(map);
+            var bounds = [[ 90, -180, -90, 180 ],]
+            map.fitBounds(bounds);
+            window.bbox = map.getBounds().toBBoxString();
+        });
+        function downloadShape()
+        {
+            var url = '/buildings-shp?bbox=' + map.getBounds().toBBoxString();
+            console.log('New url: ' + url + ' <--');
+            window.location.replace(url);
+        }
+
+    </script>
+</body>
