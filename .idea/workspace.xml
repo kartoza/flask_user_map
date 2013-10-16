@@ -111,7 +111,7 @@
       <file leaf-file-name="logged_unittest.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/users/test/logged_unittest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="22" selection-start="903" selection-end="903" vertical-scroll-proportion="0.8784" vertical-offset="59" max-vertical-offset="741">
+            <state line="32" column="25" selection-start="907" selection-end="907" vertical-scroll-proportion="0.8784" vertical-offset="59" max-vertical-offset="741">
               <folding />
             </state>
           </provider>
@@ -757,7 +757,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/users/test/logged_unittest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="22" selection-start="903" selection-end="903" vertical-scroll-proportion="0.8784" vertical-offset="59" max-vertical-offset="741">
+        <state line="32" column="25" selection-start="907" selection-end="907" vertical-scroll-proportion="0.8784" vertical-offset="59" max-vertical-offset="741">
           <folding />
         </state>
       </provider>
