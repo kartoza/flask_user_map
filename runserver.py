@@ -5,7 +5,7 @@ see http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 """
 import optparse
 
-from users import app, LOGGER
+from users import APP, LOGGER
 from users.static import static_file
 
 if __name__ == '__main__':
@@ -18,12 +18,12 @@ if __name__ == '__main__':
     if options.debug:
         print 'Running in debug mode'
         LOGGER.info('Running in debug mode')
-        app.debug = True
+        APP.debug = True
         # set up flask to serve static content
-        app.add_url_rule('/<path:path>', 'static_file', static_file)
+        APP.add_url_rule('/<path:path>', 'static_file', static_file)
     else:
         print 'Running in production mode'
         LOGGER.info('Running in production mode')
 
     print 'Starting.....'
-    app.run()
+    APP.run()

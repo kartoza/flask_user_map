@@ -46,7 +46,7 @@ def setup_logger():
     if 'USER_MAP_LOGFILE' in os.environ:
         file_name = os.environ['USER_MAP_LOGFILE']
     else:
-        file_name = os.path.join(temp_dir, 'reporter.log')
+        file_name = os.path.join(temp_dir, 'user-map.log')
     file_handler = logging.FileHandler(file_name)
     file_handler.setLevel(handler_level)
     # create console handler with a higher log level
@@ -82,9 +82,9 @@ def setup_logger():
 setup_logger()
 LOGGER = logging.getLogger('user_map')
 
-app = Flask(__name__)
+APP = Flask(__name__)
 # Don't import actual view methods themselves - see:
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 # Also views must be imported AFTER app is created above.
 # noinspection PyUnresolvedReferences
-import views
+import users.views

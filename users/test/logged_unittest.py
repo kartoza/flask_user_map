@@ -26,4 +26,8 @@ s
 
         """
         LOGGER.exception(msg)
+
+        #pylint: disable=E1101
+        #noinspection PyUnresolvedReferences
         return self.super(LoggedTestCase, self).failure_exception(msg)
+        #pylint: enable=E1101

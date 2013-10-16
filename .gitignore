@@ -1,3 +1,5 @@
+venv
+users.db
 *.py[cod]
 
 # C extensions

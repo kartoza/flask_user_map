@@ -6,24 +6,25 @@
 import os
 import sqlite3
 
-from flask import request, jsonify, render_template, Response, abort
+from flask import render_template, Response  # request, jsonify, abort
 # App declared directly in __init__ as per
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
-from . import app
+from . import APP
 
 
-@app.route('/')
-def map():
+@APP.route('/')
+def map_view():
     """Default view - shows a map with users."""
     context = dict(
         current_tag_name='None',
         error='None',
     )
+    #pylint: disable=W0142
     return render_template('base.html', **context)
 
 
-@app.route('/users.json')
-def users():
+@APP.route('/users.json')
+def users_view():
     """Return a json document of users who have registered themselves."""
 
     db_file = os.path.abspath(
@@ -67,7 +68,7 @@ def users():
         json, mimetype='application/json')
 
 
-@app.route('/add_user')
+@APP.route('/add_user')
 def add_user():
     """View to add a user.
 

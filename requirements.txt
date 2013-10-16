@@ -1,1 +1,5 @@
 flask
+Flask-Testing
+raven
+pylint
+pep8
