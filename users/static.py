@@ -9,7 +9,7 @@ from flask import abort, Response
 #
 # These are only used to serve static files when testing
 #
-file_suffix_to_mimetype = {
+FILE_SUFFIX_MIMETYPES = {
     '.css': 'text/css',
     '.jpg': 'image/jpeg',
     '.html': 'text/html',
@@ -31,11 +31,12 @@ def static_file(path):
     """
     try:
         path = os.path.join(os.path.dirname(__file__), os.path.pardir, path)
-        f = open(path)
+        static_resource = open(path)
     except IOError:
         abort(404)
         return
     _, ext = os.path.splitext(path)
-    if ext in file_suffix_to_mimetype:
-        return Response(f.read(), mimetype=file_suffix_to_mimetype[ext])
-    return f.read()
+    if ext in FILE_SUFFIX_MIMETYPES:
+        return Response(
+            static_resource.read(), mimetype=FILE_SUFFIX_MIMETYPES[ext])
+    return static_resource.read()

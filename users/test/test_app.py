@@ -3,7 +3,7 @@
 :copyright: (c) 2013 by Tim Sutton
 :license: GPLv3, see LICENSE for more details.
 """
-from users.views import app
+from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
 from users import LOGGER
 
@@ -12,8 +12,8 @@ class AppTestCase(LoggedTestCase):
     """Test the application."""
     def setUp(self):
         """Constructor."""
-        app.config['TESTING'] = True
-        self.app = app.test_client()
+        APP.config['TESTING'] = True
+        self.app = APP.test_client()
 
     def tearDown(self):
         """Destructor."""

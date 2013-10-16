@@ -82,9 +82,9 @@ def setup_logger():
 setup_logger()
 LOGGER = logging.getLogger('user_map')
 
-app = Flask(__name__)
+APP = Flask(__name__)
 # Don't import actual view methods themselves - see:
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 # Also views must be imported AFTER app is created above.
 # noinspection PyUnresolvedReferences
-import views
+import users.views
