@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3376b0ff-b4d3-4930-b279-2a52a826caac" name="Default" comment="" />
+    <list default="true" id="3376b0ff-b4d3-4930-b279-2a52a826caac" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../osm-reporter/reporter/resources/buildings.qml" afterPath="$PROJECT_DIR$/../osm-reporter/reporter/resources/buildings.qml" />
+    </list>
     <ignored path="user_map.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,31 +33,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="13" selection-start="1618" selection-end="1618" vertical-scroll-proportion="8.678572" vertical-offset="908" max-vertical-offset="1349">
-              <folding>
-                <marker date="1381770618000" expanded="true" signature="21:1008" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="315:368" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="461:586" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="652:705" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="738:813" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="922:999" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="1015:2289" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="1068:2281" placeholder="..." />
-                <marker date="1381770618000" expanded="true" signature="1102:1766" placeholder="{...}" />
-                <marker date="1381770618000" expanded="true" signature="1201:1434" placeholder="{&quot;attribution&quot;: '© &lt;a href=&quot;http://www.openstreetmap.org&quot; target=&quot;_parent&quot;&gt;OpenStreetMap&lt;/a&gt; and contributors, under an &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot; target=&quot;_parent&quot;&gt;open license&lt;/a&gt;'...}" />
-                <marker date="1381770618000" expanded="true" signature="1584:1760" placeholder="{&quot;type&quot;: &quot;GET&quot;...}" />
-                <marker date="1381770618000" expanded="true" signature="1690:1754" placeholder="{...}" />
-                <marker date="1381770618000" expanded="true" signature="1795:1849" placeholder="{...}" />
-                <marker date="1381770618000" expanded="true" signature="1883:2086" placeholder="{...}" />
-                <marker date="1381770618000" expanded="true" signature="2116:2271" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="requirements.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
@@ -95,10 +72,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="static.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="static.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/static.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.6656" vertical-offset="211" max-vertical-offset="912">
+            <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0" vertical-offset="211" max-vertical-offset="912">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pylintrc" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/users/pylintrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="0" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.5588235" vertical-offset="0" max-vertical-offset="612">
               <folding />
             </state>
           </provider>
@@ -158,7 +144,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/user_map.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/views.py" />
         <option value="$PROJECT_DIR$/users/user_map.py" />
@@ -174,6 +159,7 @@
         <option value="$PROJECT_DIR$/users/views.py" />
         <option value="$PROJECT_DIR$/users/__init__.py" />
         <option value="$PROJECT_DIR$/users/static.py" />
+        <option value="$PROJECT_DIR$/users/pylintrc" />
       </list>
     </option>
   </component>
@@ -347,7 +333,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="vcs.Git" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../osm-reporter" />
@@ -645,13 +631,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../osm-reporter/reporter/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1957">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/runserver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="48" selection-start="686" selection-end="686" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="665">
@@ -691,21 +670,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="13" selection-start="1618" selection-end="1618" vertical-scroll-proportion="8.678572" vertical-offset="908" max-vertical-offset="1349">
           <folding>
-            <marker date="1381770618000" expanded="true" signature="21:1008" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="315:368" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="461:586" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="652:705" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="738:813" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="922:999" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="1015:2289" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="1068:2281" placeholder="..." />
-            <marker date="1381770618000" expanded="true" signature="1102:1766" placeholder="{...}" />
-            <marker date="1381770618000" expanded="true" signature="1201:1434" placeholder="{&quot;attribution&quot;: '© &lt;a href=&quot;http://www.openstreetmap.org&quot; target=&quot;_parent&quot;&gt;OpenStreetMap&lt;/a&gt; and contributors, under an &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot; target=&quot;_parent&quot;&gt;open license&lt;/a&gt;'...}" />
-            <marker date="1381770618000" expanded="true" signature="1584:1760" placeholder="{&quot;type&quot;: &quot;GET&quot;...}" />
-            <marker date="1381770618000" expanded="true" signature="1690:1754" placeholder="{...}" />
-            <marker date="1381770618000" expanded="true" signature="1795:1849" placeholder="{...}" />
-            <marker date="1381770618000" expanded="true" signature="1883:2086" placeholder="{...}" />
-            <marker date="1381770618000" expanded="true" signature="2116:2271" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="{&quot;attribution&quot;: '© &lt;a href=&quot;http://www.openstreetmap.org&quot; target=&quot;_parent&quot;&gt;OpenStreetMap&lt;/a&gt; and contributors, under an &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot; target=&quot;_parent&quot;&gt;open license&lt;/a&gt;'...}" />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="{&quot;type&quot;: &quot;GET&quot;...}" />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -771,7 +750,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/users/static.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.6656" vertical-offset="211" max-vertical-offset="912">
+        <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0" vertical-offset="211" max-vertical-offset="912">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/pylintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.5588235" vertical-offset="0" max-vertical-offset="612">
           <folding />
         </state>
       </provider>
