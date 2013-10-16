@@ -26,4 +26,8 @@ class LoggedTestCase(unittest.TestCase):
 
         """
         LOGGER.exception(msg)
+
+        #pylint: disable=1101
+        #noinspection PyUnresolvedReferences
         return self.super(LoggedTestCase, self).failure_exception(msg)
+        #pylint: enable=1101
