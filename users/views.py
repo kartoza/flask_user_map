@@ -64,3 +64,15 @@ def users():
 
     return Response(
         json, mimetype='application/json')
+
+
+@app.route('/add_user')
+def add_user():
+    """View to add a user.
+
+    handle post request via ajax
+    add the user to the user.db
+    return a new json doc as in users.json
+    js on client must update the map on ajax completion callback
+    """
+    pass
