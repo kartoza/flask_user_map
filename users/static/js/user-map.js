@@ -1,97 +1,76 @@
+function addBasemap(){
+   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
+      maxZoom: 18
+    }).addTo(map);
+}
 
-/* Update stats */
-L.Control.UpdateStats = L.Control.extend({
-
-    onAdd: function (map) {
-        var className = 'leaflet-control-stats',
-            container = L.DomUtil.create('div', className),
-            option,
-            choice;
-
-        L.DomEvent.disableClickPropagation(container);
-        var div = L.DomUtil.create('div', "", container);
-        var select = L.DomUtil.create('select', "", div);
-        for (var i = 0, l = this.options.choices.length; i<l; i++) {
-            option = L.DomUtil.create('option', "", select);
-            choice = this.options.choices[i];
-            option.value = option.innerHTML = choice;
-            if (choice == this.options.selected) {
-                option.selected = "selected";
-            }
-        }
-
-        var link = L.DomUtil.create('a', "", container);
-        link.href = '#';
-        link.innerHTML = "&nbsp;";
-        link.title = "Get stats for this view";
-        var fn = function (e) {
-            var bounds = map.getBounds(),
-                bbox = bounds.toBBoxString();
-            window.location = "?bbox=" + bbox + "&obj=" + select.value;
-        };
-
-        L.DomEvent
-            .on(link, 'click', L.DomEvent.stopPropagation)
-            .on(link, 'click', L.DomEvent.preventDefault)
-            .on(link, 'click', fn, map)
-            .on(link, 'dblclick', L.DomEvent.stopPropagation);
-
-        return container;
-    }
-});
-
-L.Map.addInitHook(function () {
-    if (this.options.updateStatsControl) {
-        var options = this.options.statsControlOptions ? this.options.statsControlOptions : {};
-        this.updateStatsControl = new L.Control.UpdateStats(options);
-        this.addControl(this.updateStatsControl);
-    }
-});
-
-$(function(){
-  $('.view-hm').click(function(e){
-    var username = $(this).attr("data-user");
-    $.ajax("/user", {
-      data: {username: username,
-             bbox: window.bbox},
-      success: function(data){
-        if (window.hmlayer) {
-          window.map.removeLayer(window.hmlayer);
-        }
-        var heatmap = new L.TileLayer.HeatCanvas({},{'step':0.07, 'degree':HeatCanvas.LINEAR, 'opacity':0.7});
-        $.each(data.d, function(i,e){
-          heatmap.pushData(e[0], e[1], 1);
-        })
-        window.map.addLayer(heatmap);
-        window.hmlayer = heatmap;
+function addUsersLayer(){
+  $.ajax({
+      type: "GET",
+      url: "/users.json",
+      dataType: 'json',
+      success: function (response) {
+        geojsonLayer = L.geoJson(response).addTo(map);
       }
     });
-  });
+}
 
-  $('.clear-hm').click(function(e){
-    if (window.hmlayer) {
-      window.map.removeLayer(window.hmlayer);
-      delete window.hmlayer;
-    }
-  });
+function onMapClick(e) {
+  var markerLocation = e.latlng
+  marker_new_user = L.marker(markerLocation)
+  map.addLayer(marker_new_user);
+  var form = '<h3 class="alert alert-info">Add Me As InaSAFE User!</h3>'+
+      '<form id="add_user" enctype="multipart/form-data" class="well">' +
+      '<label><strong>Name:</strong></label>' +
+      '<input type="text" class="span3" placeholder="Required" id="name" name="name" />' +
 
-  // Set up detail row hiding etc.
+      '<label><strong>Email:</strong></label>' +
+      '<input type="text" class="span3" placeholder="Required" id="email" name="email" />' +
 
-  $('.details-toggle').click(function(e){
-        var rowId = $(this).attr("value");
-        $("#"+rowId).toggle();
-  });
-  $('#all-details').click(function(e){
-        var status = $(this).attr("checked");
-        if (status)
-        {
-            $(".details-row").show();
+      '<label><strong>Role:</strong></label>' +
+      '<input type="radio" name="role" value="No"> User  '+
+      '<input type="radio" name="role" value="Yes" checked> Developer</br>'+
+
+      '<label><strong>Notifications:</strong></label>' +
+      '<input type="checkbox" name="notification" value="Yes" /> Receive project news and updates' +
+
+      '<input style="display: none;" type="text" id="lat" name="lat" value="' + markerLocation.lat.toFixed(6) + '" />' +
+      '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" /><br><br>' +
+
+      '<div class="row-fluid">' +
+      '<div class="span6" style="text-align:center;"><button type="button" class="btn" onclick="cancelAddUser()">Cancel</button></div>' +
+      '<div class="span6" style="text-align:center;"><button type="button" class="btn btn-primary" onclick="addUser()">Done!</button></div>' +
+      '</div>' +
+      '</form>'
+    marker_new_user.bindPopup(form).openPopup()
+}
+
+function addUser() {
+  $.ajax({
+        type: "GET",
+        url: "/add_user",
+        dataType: 'json',
+        success: function (response) {
+          geojsonLayer = L.geoJson(response).addTo(map);
         }
-        else
-        {
-            $(".details-row").hide();
-        }
-        $('.details-toggle').attr("checked", status);
-  });
-});
+      });
+}
 
+function cancelAddUser() {
+  map.removeLayer(marker_new_user);
+}
+
+function onLocationFound(e) {
+  var radius = e.accuracy / 2;
+  L.marker(e.latlng).addTo(map)
+      .bindPopup("You are within " + radius + " meters from this point")
+      .openPopup();
+  L.circle(e.latlng, radius).addTo(map);
+}
+
+function downloadShape(map) {
+  var url = '/buildings-shp?bbox=' + map.getBounds().toBBoxString();
+  console.log('New url: ' + url + ' <--');
+  window.location.replace(url);
+}
