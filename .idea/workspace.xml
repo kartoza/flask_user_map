@@ -35,6 +35,31 @@
         <entry file="file://$PROJECT_DIR$/users/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
             <state line="35" column="13" selection-start="1618" selection-end="1618" vertical-scroll-proportion="8.678572" vertical-offset="908" max-vertical-offset="1349">
+              <folding>
+                <marker date="1381770618000" expanded="true" signature="21:1008" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="315:368" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="461:586" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="652:705" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="738:813" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="922:999" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="1015:2289" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="1068:2281" placeholder="..." />
+                <marker date="1381770618000" expanded="true" signature="1102:1766" placeholder="{...}" />
+                <marker date="1381770618000" expanded="true" signature="1201:1434" placeholder="{&quot;attribution&quot;: '© &lt;a href=&quot;http://www.openstreetmap.org&quot; target=&quot;_parent&quot;&gt;OpenStreetMap&lt;/a&gt; and contributors, under an &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot; target=&quot;_parent&quot;&gt;open license&lt;/a&gt;'...}" />
+                <marker date="1381770618000" expanded="true" signature="1584:1760" placeholder="{&quot;type&quot;: &quot;GET&quot;...}" />
+                <marker date="1381770618000" expanded="true" signature="1690:1754" placeholder="{...}" />
+                <marker date="1381770618000" expanded="true" signature="1795:1849" placeholder="{...}" />
+                <marker date="1381770618000" expanded="true" signature="1883:2086" placeholder="{...}" />
+                <marker date="1381770618000" expanded="true" signature="2116:2271" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="requirements.txt" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="0" selection-start="38" selection-end="38" vertical-scroll-proportion="0.235732" vertical-offset="0" max-vertical-offset="403">
               <folding />
             </state>
           </provider>
@@ -43,11 +68,20 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="0" selection-start="1824" selection-end="1824" vertical-scroll-proportion="0.0" vertical-offset="729" max-vertical-offset="1596">
+            <state line="39" column="46" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.0" vertical-offset="406" max-vertical-offset="1596">
               <folding>
                 <marker date="1381891589000" expanded="true" signature="1073:1131" placeholder="CREATE TABLE..user..." />
                 <marker date="1381891589000" expanded="true" signature="1228:1246" placeholder="SELECT * FRO..user..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/users/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="53" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.0" vertical-offset="1079" max-vertical-offset="1824">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -70,10 +104,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logged_unittest.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="logged_unittest.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/test/logged_unittest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="660" selection-end="660" vertical-scroll-proportion="0.5539906" vertical-offset="201" max-vertical-offset="665">
+            <state line="23" column="0" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0" vertical-offset="201" max-vertical-offset="665">
               <folding />
             </state>
           </provider>
@@ -115,12 +149,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/REQUIREMENTS.txt" />
         <option value="$PROJECT_DIR$/user_map.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/views.py" />
         <option value="$PROJECT_DIR$/users/user_map.py" />
-        <option value="$PROJECT_DIR$/users/__init__.py" />
         <option value="$PROJECT_DIR$/runserver.py" />
         <option value="$PROJECT_DIR$/users/static.py" />
         <option value="$PROJECT_DIR$/users/static/css/user-map.css" />
@@ -131,6 +163,8 @@
         <option value="$PROJECT_DIR$/users/test/logged_unittest.py" />
         <option value="$PROJECT_DIR$/users/test/test_app.py" />
         <option value="$PROJECT_DIR$/users/views.py" />
+        <option value="$PROJECT_DIR$/users/__init__.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
       </list>
     </option>
   </component>
@@ -536,9 +570,9 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32840237" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32840237" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.60091746" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874617" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32840237" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39792898" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -602,13 +636,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../osm-reporter/README.rst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.49565217" vertical-offset="285" max-vertical-offset="3021">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../osm-reporter/reporter/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1957">
@@ -626,13 +653,6 @@
     <entry file="file://$PROJECT_DIR$/users/test/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="20" selection-start="2661" selection-end="2661" vertical-scroll-proportion="0.6357827" vertical-offset="1198" max-vertical-offset="1824">
           <folding />
         </state>
       </provider>
@@ -675,7 +695,23 @@
     <entry file="file://$PROJECT_DIR$/users/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="13" selection-start="1618" selection-end="1618" vertical-scroll-proportion="8.678572" vertical-offset="908" max-vertical-offset="1349">
-          <folding />
+          <folding>
+            <marker date="1381770618000" expanded="true" signature="21:1008" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="315:368" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="461:586" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="652:705" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="738:813" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="922:999" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="1015:2289" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="1068:2281" placeholder="..." />
+            <marker date="1381770618000" expanded="true" signature="1102:1766" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="1201:1434" placeholder="{&quot;attribution&quot;: '© &lt;a href=&quot;http://www.openstreetmap.org&quot; target=&quot;_parent&quot;&gt;OpenStreetMap&lt;/a&gt; and contributors, under an &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot; target=&quot;_parent&quot;&gt;open license&lt;/a&gt;'...}" />
+            <marker date="1381770618000" expanded="true" signature="1584:1760" placeholder="{&quot;type&quot;: &quot;GET&quot;...}" />
+            <marker date="1381770618000" expanded="true" signature="1690:1754" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="1795:1849" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="1883:2086" placeholder="{...}" />
+            <marker date="1381770618000" expanded="true" signature="2116:2271" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -683,16 +719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="379">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="0" selection-start="1824" selection-end="1824" vertical-scroll-proportion="0.0" vertical-offset="729" max-vertical-offset="1596">
-          <folding>
-            <marker date="1381891589000" expanded="true" signature="1073:1131" placeholder="CREATE TABLE..user..." />
-            <marker date="1381891589000" expanded="true" signature="1228:1246" placeholder="SELECT * FRO..user..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -712,7 +738,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/users/test/logged_unittest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="660" selection-end="660" vertical-scroll-proportion="0.5539906" vertical-offset="201" max-vertical-offset="665">
+        <state line="23" column="0" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0" vertical-offset="201" max-vertical-offset="665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="53" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.0" vertical-offset="1079" max-vertical-offset="1824">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="46" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.0" vertical-offset="406" max-vertical-offset="1596">
+          <folding>
+            <marker date="1381891589000" expanded="true" signature="1073:1131" placeholder="CREATE TABLE..user..." />
+            <marker date="1381891589000" expanded="true" signature="1228:1246" placeholder="SELECT * FRO..user..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="38" selection-end="38" vertical-scroll-proportion="0.235732" vertical-offset="0" max-vertical-offset="403">
           <folding />
         </state>
       </provider>
