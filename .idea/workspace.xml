@@ -443,7 +443,11 @@
       <created>1381911897207</created>
       <updated>1381911897207</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="#1 We need a view for adding points (In Progress)">
+      <created>1381911915061</created>
+      <updated>1381911915061</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers>
       <GitHub shared="false" url="github.com">
         <commitMessageFormat>{number} {summary}</commitMessageFormat>
