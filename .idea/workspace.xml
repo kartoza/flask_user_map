@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list id="3376b0ff-b4d3-4930-b279-2a52a826caac" name="Default" comment="" />
     <list default="true" id="9b9a2275-12fa-43e6-a5b6-2f78a52c63c5" name="user_map-1 We need a view for adding points" comment="#1 We need a view for adding points (In Progress)">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/test/logged_unittest.py" afterPath="$PROJECT_DIR$/users/test/logged_unittest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/user_map.iml" afterPath="$PROJECT_DIR$/.idea/user_map.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/views.py" afterPath="$PROJECT_DIR$/users/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="user_map.iws" />
@@ -73,7 +67,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="38" selection-start="1861" selection-end="1861" vertical-scroll-proportion="-0.68325794" vertical-offset="1587" max-vertical-offset="2250">
+            <state line="63" column="38" selection-start="1861" selection-end="1861" vertical-scroll-proportion="-0.71003133" vertical-offset="1587" max-vertical-offset="2250">
               <folding />
             </state>
           </provider>
@@ -445,7 +439,11 @@
       <created>1381911834061</created>
       <updated>1381911834061</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="#1 We need a view for adding points (In Progress)">
+      <created>1381911897207</created>
+      <updated>1381911897207</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers>
       <GitHub shared="false" url="github.com">
         <commitMessageFormat>{number} {summary}</commitMessageFormat>
@@ -642,7 +640,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="38" selection-start="1861" selection-end="1861" vertical-scroll-proportion="-0.68325794" vertical-offset="1587" max-vertical-offset="2250">
+        <state line="63" column="38" selection-start="1861" selection-end="1861" vertical-scroll-proportion="-0.71003133" vertical-offset="1587" max-vertical-offset="2250">
           <folding />
         </state>
       </provider>
