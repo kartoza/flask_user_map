@@ -1,26 +1,26 @@
-function addBasemap(){
-   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
-      maxZoom: 18
-    }).addTo(map);
+function addBasemap() {
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
+    maxZoom: 18
+  }).addTo(map);
 }
 
-function addUsersLayer(){
+function addUsersLayer() {
   $.ajax({
-      type: "GET",
-      url: "/users.json",
-      dataType: 'json',
-      success: function (response) {
-        geojsonLayer = L.geoJson(response).addTo(map);
-      }
-    });
+    type: "GET",
+    url: "/users.json",
+    dataType: 'json',
+    success: function (response) {
+      geojsonLayer = L.geoJson(response).addTo(map);
+    }
+  });
 }
 
 function onMapClick(e) {
   var markerLocation = e.latlng
   marker_new_user = L.marker(markerLocation)
   map.addLayer(marker_new_user);
-  var form = '<h3 class="alert alert-info">Add Me As InaSAFE User!</h3>'+
+  var form = '<h3 class="alert alert-info">Add Me As InaSAFE User!</h3>' +
       '<form id="add_user" enctype="multipart/form-data" class="well">' +
       '<label><strong>Name:</strong></label>' +
       '<input type="text" class="span3" placeholder="Required" id="name" name="name" />' +
@@ -29,11 +29,11 @@ function onMapClick(e) {
       '<input type="text" class="span3" placeholder="Required" id="email" name="email" />' +
 
       '<label><strong>Role:</strong></label>' +
-      '<input type="radio" name="role" value="No"> User  '+
-      '<input type="radio" name="role" value="Yes" checked> Developer</br>'+
+      '<input type="radio" name="role" value="false"> User  ' +
+      '<input type="radio" name="role" value="true" checked> Developer</br>' +
 
       '<label><strong>Notifications:</strong></label>' +
-      '<input type="checkbox" name="notification" value="Yes" /> Receive project news and updates' +
+      '<input type="checkbox" id="notification" name="notification" value="Yes" /> Receive project news and updates' +
 
       '<input style="display: none;" type="text" id="lat" name="lat" value="' + markerLocation.lat.toFixed(6) + '" />' +
       '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" /><br><br>' +
@@ -43,18 +43,37 @@ function onMapClick(e) {
       '<div class="span6" style="text-align:center;"><button type="button" class="btn btn-primary" onclick="addUser()">Done!</button></div>' +
       '</div>' +
       '</form>'
-    marker_new_user.bindPopup(form).openPopup()
+  marker_new_user.bindPopup(form).openPopup()
 }
 
 function addUser() {
+  var name = $("#name").val();
+  var email = $("#email").val();
+  var role = $('input:radio[name=role]:checked').val();
+  var notification;
+  if ($('#notification').is(':checked')) {
+    notification = "true";
+  } else {
+    notification = "false";
+  }
+  var latitude = $("#lat").val()
+  var longitude = $("#lng").val()
+
   $.ajax({
-        type: "GET",
-        url: "/add_user",
-        dataType: 'json',
-        success: function (response) {
-          geojsonLayer = L.geoJson(response).addTo(map);
-        }
-      });
+    type: "POST",
+    url: "/add_user",
+    data: {
+      name: name,
+      email: email,
+      role: role,
+      notification: notification,
+      latitude: latitude,
+      longitude: longitude
+    },
+    success: function (response) {
+      L.geoJson(response).addTo(map);
+    }
+  });
 }
 
 function cancelAddUser() {
