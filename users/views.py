@@ -36,8 +36,62 @@ def users():
     if table_needed:
         # create a table
         cursor.execute(
-            'CREATE TABLE user (name TEXT, email TEXT, date_added TEXT, '
-            'latitude FLOAT, longitude TEXT)')
+            'CREATE TABLE user ('
+            'name TEXT, email TEXT, is_developer BOOL,  '
+            'wants_update BOOL, date_added TEXT, '
+            'latitude FLOAT, longitude FLOAT)')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM user')
+    json = (
+        '{'
+        '  "type": "FeatureCollection",'
+        '  "features": [')
+
+    for user in cursor.fetchall():
+        json += (
+            '    {'
+            '      "type": "Feature",'
+            '      "properties": {'
+            '        "name": "%s" '
+            '      },'
+            '      "geometry": {'
+            '      "type": "Point",'
+            '      "coordinates": ['
+            '        %s,'
+            '        %s'
+            '      ]'
+            '      }'
+            '    }' % (user[0], user[6], user[5]))
+    json += '  ]}'
+    return Response(
+        json, mimetype='application/json')
+
+
+@app.route('/add_user')
+def add_user():
+    """View to add a user.
+
+    handle post request via ajax
+    add the user to the user.db
+    return a new json doc as in users.json
+    js on client must update the map on ajax completion callback
+    """
+    """Return a json document of users who have registered themselves."""
+
+    db_file = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), os.path.pardir, 'users.db'))
+    table_needed = False
+    if not os.path.exists(db_file):
+        table_needed = True
+    conn = sqlite3.connect(db_file)
+    cursor = conn.cursor()
+    if table_needed:
+        # create a table
+        cursor.execute(
+            'CREATE TABLE user ('
+            'name TEXT, email TEXT, is_developer BOOL,  '
+            'wants_update BOOL, date_added TEXT, '
+            'latitude FLOAT, longitude FLOAT)')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM user')
     json = (
@@ -61,18 +115,5 @@ def users():
             '      }'
             '    }' % (user[0], user[4], user[3]))
     json += '  ]}'
-
     return Response(
         json, mimetype='application/json')
-
-
-@app.route('/add_user')
-def add_user():
-    """View to add a user.
-
-    handle post request via ajax
-    add the user to the user.db
-    return a new json doc as in users.json
-    js on client must update the map on ajax completion callback
-    """
-    pass
