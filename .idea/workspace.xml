@@ -72,19 +72,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="static.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="static.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/users/static.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0" vertical-offset="211" max-vertical-offset="912">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pylintrc" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/users/pylintrc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.5588235" vertical-offset="0" max-vertical-offset="612">
+            <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.6656" vertical-offset="211" max-vertical-offset="912">
               <folding />
             </state>
           </provider>
@@ -144,7 +135,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/views.py" />
         <option value="$PROJECT_DIR$/users/user_map.py" />
         <option value="$PROJECT_DIR$/runserver.py" />
@@ -160,6 +150,7 @@
         <option value="$PROJECT_DIR$/users/__init__.py" />
         <option value="$PROJECT_DIR$/users/static.py" />
         <option value="$PROJECT_DIR$/users/pylintrc" />
+        <option value="$PROJECT_DIR$/pylintrc" />
       </list>
     </option>
   </component>
@@ -748,16 +739,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/static.py">
+    <entry file="file://$PROJECT_DIR$/pylintrc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0" vertical-offset="211" max-vertical-offset="912">
+        <state line="18" column="73" selection-start="1065" selection-end="1065" vertical-scroll-proportion="0.5588235" vertical-offset="0" max-vertical-offset="612">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/pylintrc">
+    <entry file="file://$PROJECT_DIR$/users/static.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.5588235" vertical-offset="0" max-vertical-offset="612">
+        <state line="33" column="23" selection-start="865" selection-end="865" vertical-scroll-proportion="0.6656" vertical-offset="211" max-vertical-offset="912">
           <folding />
         </state>
       </provider>
