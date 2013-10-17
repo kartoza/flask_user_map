@@ -14,8 +14,7 @@
         type="text/css" static="screen, projection"/>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/jquery.js"></script>
-  <!-- <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script> -->
-  <script src="http://leafletjs.com/dist/leaflet.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map.js"></script>
 
@@ -28,13 +27,13 @@
     //Create map
     map = L.map('map');
     map.locate({setView: true, maxZoom: 16});
+    map.on('locationfound', onLocationFound)
     //Add Basemap
     addBasemap()
     //Add List of Registered Users
     addUsersLayer()
     //Set Listener on map
     map.on('click', onMapClick)
-    map.on('locationfound', onLocationFound)
   })
 </script>
 </body>

@@ -4,7 +4,6 @@ __author__ = 'Akbar Gumbira (akbargumbira@gmail.com)'
 
 import os
 import sqlite3
-from flask import g
 from users import APP
 
 

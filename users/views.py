@@ -16,7 +16,7 @@ from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
     is_boolean)
-from users.utilities.db_handler import get_conn, query_db
+from users.model.user import User
 
 
 @APP.route('/')
@@ -33,18 +33,17 @@ def map_view():
 @APP.route('/users.json')
 def users_view():
     """Return a json document of users who have registered themselves."""
-    # Get DB Connection and make a query to it
-    conn = get_conn(APP.config['DATABASE'])
-    sql_users = 'SELECT * FROM user'
-    rows = query_db(conn, sql_users)
+    # Create model User
+    user = User()
+    all_users = user.get_all_users()
 
-    # Form JSON from the rows
+    # Form JSON from all_users
     json = (
         '{'
         '  "type": "FeatureCollection",'
         '  "features": [')
     first_rec = True
-    for user in rows:
+    for user in all_users:
         if not first_rec:
             json += ','
         first_rec = False
@@ -99,10 +98,10 @@ def add_user_view():
     message = {}
     if not is_required_valid(name):
         message['name'] = 'Name is required'
-    if not is_required_valid(email):
-        message['email'] = 'Email is required'
     if not is_email_address_valid(email):
         message['email'] = 'Email address is not valid'
+    if not is_required_valid(email):
+        message['email'] = 'Email is required'
     if not is_boolean(role):
         message['role'] = 'Role must be checked'
     elif not is_boolean(notification):
@@ -112,21 +111,15 @@ def add_user_view():
         message['type'] = 'Error'
         return Response(json.dumps(message), mimetype='application/json')
     else:
-        # Get DB Connection and insert data to database using that connection
-        conn = get_conn(APP.config['DATABASE'])
-        add_user_sql = (
-            'INSERT INTO user VALUES("%s", "%s", "%s", "%s", "%s", "%s", '
-            '"%s");') % (
-                name,
-                email,
-                role,
-                notification,
-                date_now,
-                latitude,
-                longitude)
-
-        conn.execute(add_user_sql)
-        conn.commit()
+        # Create model for user and add user
+        user = User()
+        user.add_user(name=name,
+                      email=email,
+                      is_developer=role,
+                      wants_update=notification,
+                      date_added=date_now,
+                      latitude=latitude,
+                      longitude=longitude)
 
     # Prepare json for added user
     data = {

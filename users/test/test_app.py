@@ -8,7 +8,7 @@ import os
 from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
 from users import LOGGER
-from users.utilities.db_handler import get_conn, query_db
+from users.utilities.db_handler import get_conn
 
 
 class AppTestCase(LoggedTestCase):
@@ -17,6 +17,7 @@ class AppTestCase(LoggedTestCase):
         """Constructor."""
         self.db_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__),
+            os.pardir,
             os.pardir,
             os.pardir,
             'test_users.db'))
@@ -66,8 +67,6 @@ class AppTestCase(LoggedTestCase):
                     longitude='31'
                 ), follow_redirects=True)
             self.assertTrue('Akbar' in result.data)
-            #print result.data
-            #self.assertTrue(len(result.data) == 3)
         except Exception, e:
             LOGGER.exception('Page load failed.')
             raise e
@@ -83,8 +82,6 @@ class AppTestCase(LoggedTestCase):
                     longitude='31'
                 ), follow_redirects=True)
             self.assertTrue('Error' in result.data)
-            #print result.data
-            #self.assertTrue(len(result.data) == 3)
         except Exception, e:
             LOGGER.exception('Page load failed.')
             raise e

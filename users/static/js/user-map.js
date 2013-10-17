@@ -5,12 +5,6 @@ function addBasemap() {
   }).addTo(map);
 }
 
-function onEachFeature(feature, layer) {
-    // does this feature have a property named popupContent?
-    if (feature.properties && feature.properties.popupContent) {
-        layer.bindPopup(feature.properties.popupContent);
-    }
-}
 
 function addUsersLayer() {
   $.ajax({
@@ -26,10 +20,25 @@ function addUsersLayer() {
   });
 }
 
+function onEachFeature(feature, layer) {
+  // does this feature have a property named popupContent?
+  if (feature.properties && feature.properties.popupContent) {
+    layer.bindPopup(feature.properties.popupContent);
+  }
+}
+
+function onLocationFound(e) {
+  var radius = e.accuracy / 2;
+  L.marker(e.latlng).addTo(map)
+      .bindPopup("You are within " + radius + " meters from this point")
+      .openPopup();
+  L.circle(e.latlng, radius).addTo(map);
+}
+
 function onMapClick(e) {
-    // Clear the un-saved clicked marker
-  if (marker_new_user != null ) {
-    cancelAddUser()
+  // Clear the un-saved clicked marker
+  if (marker_new_user != null) {
+    cancelMarker();
   }
   //Get new marker
   var markerLocation = e.latlng
@@ -56,10 +65,11 @@ function onMapClick(e) {
       '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" /><br><br>' +
 
       '<div class="row-fluid">' +
-      '<div class="span6" style="text-align:center;"><button type="button" class="btn" onclick="cancelAddUser()">Cancel</button></div>' +
+      '<div class="span6" style="text-align:center;"><button type="button" class="btn" onclick="cancelMarker()">Cancel</button></div>' +
       '<div class="span6" style="text-align:center;"><button type="button" class="btn btn-primary" onclick="addUser()">Done!</button></div>' +
       '</div>' +
       '</form>'
+
   marker_new_user.bindPopup(form).openPopup()
 }
 
@@ -93,34 +103,26 @@ function addUser() {
       latitude: latitude,
       longitude: longitude
     },
-    success: function (response){
+    success: function (response) {
       if (response.type.toString() == 'Error') {
-        if(typeof response.name != 'undefined'){
+        if (typeof response.name != 'undefined') {
           $("span#error-name").addClass("label label-important");
           $('#error-name').text(response.name.toString());
         }
-        if(typeof response.email != 'undefined'){
+        if (typeof response.email != 'undefined') {
           $("span#error-email").addClass("label label-important");
           $('#error-email').text(response.email.toString());
         }
       } else {
+        cancelMarker()
         L.geoJson(response).addTo(map);
-        map.removeLayer(marker_new_user);
       }
     }
   });
 }
 
-function cancelAddUser() {
+function cancelMarker() {
   map.removeLayer(marker_new_user);
-}
-
-function onLocationFound(e) {
-  var radius = e.accuracy / 2;
-  L.marker(e.latlng).addTo(map)
-      .bindPopup("You are within " + radius + " meters from this point")
-      .openPopup();
-  L.circle(e.latlng, radius).addTo(map);
 }
 
 function downloadShape(map) {
