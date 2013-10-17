@@ -81,8 +81,11 @@ def setup_logger():
 
 setup_logger()
 LOGGER = logging.getLogger('user_map')
+DB = db_file = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), os.path.pardir, 'users.db'))
 
 APP = Flask(__name__)
+APP.config['DATABASE'] = DB
 # Don't import actual view methods themselves - see:
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 # Also views must be imported AFTER app is created above.
