@@ -1,11 +1,12 @@
 # coding=utf-8
 """Form Validator Function."""
 
-import re
+from validate_email import validate_email
 
 
 def is_required_valid(req_input):
-    """Validate input that required
+    """Validate input that required.
+
     :param req_input: input that neeeds to be validated
     :type req_input: str
     """
@@ -17,19 +18,23 @@ def is_required_valid(req_input):
 
 
 def is_email_address_valid(email):
-    """Validate the email address using a regex.
+    """Validate the email address.
+
     :param email: email input
-    :type email: str`
+    :type email: str
+    This function uses library from: https://pypi.python
+    .org/pypi/validate_email
+    It checks if the host has SMTP Server, but not checking that the email
+    really exists. See issue here: https://github
+    .com/SyrusAkbary/validate_email/issues/4
     """
-    if not re.match(
-            "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.["
-            "a-zA-Z0-9-]+)*$", email):
-        return False
-    return True
+    is_valid_email = validate_email(email, check_mx=True)
+    return is_valid_email
 
 
 def is_boolean(param_input):
-    """Check if param_input string is boolean 'type's
+    """Check if param_input string is boolean 'type'.
+
     :param param_input: input that need to be checked
     :type param_input: str
     """

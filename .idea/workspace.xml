@@ -2,17 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="3376b0ff-b4d3-4930-b279-2a52a826caac" name="Default" comment="" />
-    <list default="true" id="9b9a2275-12fa-43e6-a5b6-2f78a52c63c5" name="user_map-1 We need a view for adding points" comment="#1 We need a view for adding points (In Progress)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/templates/added_user.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/resources/create_table.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/helpers.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/validator.py" />
+    <list default="true" id="9b9a2275-12fa-43e6-a5b6-2f78a52c63c5" name="user_map-1 We need a view for adding points" comment="#1 We need a view for adding points (In Progress, still messy)">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/utilities/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/utilities/test/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/utilities/db_handler.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/gumbia.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/utilities/test/test_db_handler.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/users/utilities/test/test_validator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/users/helpers.py" afterPath="$PROJECT_DIR$/users/utilities/helpers.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/users/validator.py" afterPath="$PROJECT_DIR$/users/utilities/validator.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/__init__.py" afterPath="$PROJECT_DIR$/users/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/templates/base.html" afterPath="$PROJECT_DIR$/users/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/test/test_app.py" afterPath="$PROJECT_DIR$/users/test/test_app.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/static/js/user-map.js" afterPath="$PROJECT_DIR$/users/static/js/user-map.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/user_map.iml" afterPath="$PROJECT_DIR$/.idea/user_map.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/views.py" afterPath="$PROJECT_DIR$/users/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -26,7 +29,13 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/user_map$user_map.coverage" NAME="user_map Coverage Results" MODIFIED="1381925437142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/user_map$Nosetests_in_TestValidators.coverage" NAME="Nosetests in TestValidators Coverage Results" MODIFIED="1381978845699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/users/utilities/test" />
+    <SUITE FILE_PATH="coverage/user_map$Nosetests_in_AppTestCase.coverage" NAME="Nosetests in AppTestCase Coverage Results" MODIFIED="1381994238718" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/users/test" />
+    <SUITE FILE_PATH="coverage/user_map$user_map.coverage" NAME="user_map Coverage Results" MODIFIED="1382005944182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/user_map$Nosetests_in__home_gumbia_dev_python_user_map_users.coverage" NAME="Nosetests in /home/gumbia/dev/python/user_map/users Coverage Results" MODIFIED="1382001230213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/users" />
+    <SUITE FILE_PATH="coverage/user_map$Nosetests_in_test_db_handler.coverage" NAME="Nosetests in test_db_handler Coverage Results" MODIFIED="1381989145354" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/users/utilities/test" />
+    <SUITE FILE_PATH="coverage/user_map$Nosetest_AppTestCase_test_add_user_view.coverage" NAME="Nosetest AppTestCase.test_add_user_view Coverage Results" MODIFIED="1382001261933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/users/test" />
+    <SUITE FILE_PATH="coverage/user_map$test_db_handler.coverage" NAME="test_db_handler Coverage Results" MODIFIED="1381987849954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/users/utilities/test" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -44,101 +53,124 @@
     <favorites_list name="user_map" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="base.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/users/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="6" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.48676172" vertical-offset="337" max-vertical-offset="828">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user-map.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/static/js/user-map.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="5" selection-start="364" selection-end="535" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2020">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="8" selection-start="1791" selection-end="1791" vertical-scroll-proportion="0.0" vertical-offset="2233" max-vertical-offset="3204">
-              <folding>
-                <marker date="1381926346897" expanded="true" signature="1338:1357" placeholder="CREATE TABLE..user..." />
-                <marker date="1381926346897" expanded="true" signature="1563:1581" placeholder="SELECT * FRO..user..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="0" selection-start="2880" selection-end="2880" vertical-scroll-proportion="0.0" vertical-offset="1118" max-vertical-offset="1710">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="templating.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/local/lib/python2.7/site-packages/flask/templating.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="4" selection-start="3530" selection-end="3530" vertical-scroll-proportion="0.0" vertical-offset="1680" max-vertical-offset="2682">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="added_user.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/templates/added_user.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="1" selection-start="256" selection-end="256" vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="360">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/werkzeug/debug/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="0" selection-start="3195" selection-end="3195" vertical-scroll-proportion="0.0" vertical-offset="1369" max-vertical-offset="3438">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serving.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/werkzeug/serving.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="199" column="0" selection-start="7420" selection-end="7420" vertical-scroll-proportion="0.0" vertical-offset="3385" max-vertical-offset="13590">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SocketServer.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python2.7/SocketServer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="237" column="0" selection-start="8367" selection-end="8367" vertical-scroll-proportion="0.0" vertical-offset="4069" max-vertical-offset="13176">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseHTTPServer.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python2.7/BaseHTTPServer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="339" column="0" selection-start="12510" selection-end="12510" vertical-scroll-proportion="0.0" vertical-offset="5905" max-vertical-offset="10962">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.75658363">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/templates/base.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="33" column="11" selection-start="1372" selection-end="1372" vertical-scroll-proportion="-22.0" vertical-offset="0" max-vertical-offset="828">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="db_handler.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/utilities/db_handler.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="10" column="7" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0" vertical-offset="718" max-vertical-offset="1720">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="user-map.js" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/users/static/js/user-map.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="23" column="10" selection-start="810" selection-end="810" vertical-scroll-proportion="0.74594593" vertical-offset="0" max-vertical-offset="2448">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="requirements.txt" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/requirements.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="17" column="0" selection-start="263" selection-end="277" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test_app.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/test/test_app.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="84" column="0" selection-start="2712" selection-end="2712" vertical-scroll-proportion="0.0" vertical-offset="750" max-vertical-offset="1728">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/__init__.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="87" column="27" selection-start="2795" selection-end="2795" vertical-scroll-proportion="0.0" vertical-offset="780" max-vertical-offset="1782">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test_db_handler.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/utilities/test/test_db_handler.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="34" column="0" selection-start="964" selection-end="1170" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="846">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="test_validator.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/utilities/test/test_validator.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="19" column="46" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" vertical-offset="6" max-vertical-offset="1008">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="67" column="23" selection-start="2001" selection-end="2001" vertical-scroll-proportion="0.0" vertical-offset="804" max-vertical-offset="2646">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="validator.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/users/utilities/validator.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="27" column="19" selection-start="656" selection-end="656" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="882">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/users/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="112" column="31" selection-start="3513" selection-end="3513" vertical-scroll-proportion="0.64248705" vertical-offset="1644" max-vertical-offset="2646">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="case.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file:///usr/lib/python2.7/unittest/case.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="331" column="0" selection-start="10884" selection-end="10884" vertical-scroll-proportion="0.0" vertical-offset="5765" max-vertical-offset="19494">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -161,22 +193,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/users/static/css/user-map.css" />
-        <option value="/SQLite Fragment (views.py:1037).sql" />
-        <option value="$PROJECT_DIR$/users/test/helpers.py" />
-        <option value="$PROJECT_DIR$/users/test/test_data/foo.txt" />
-        <option value="$PROJECT_DIR$/users/test/test_app.py" />
-        <option value="$PROJECT_DIR$/users/test/logged_unittest.py" />
-        <option value="$PROJECT_DIR$/venv/lib/python2.7/site-packages/flask/app.py" />
-        <option value="$PROJECT_DIR$/users/resources/create_table.sql" />
-        <option value="$PROJECT_DIR$/runserver.py" />
-        <option value="$PROJECT_DIR$/users/__init__.py" />
         <option value="$PROJECT_DIR$/users/helpers.py" />
         <option value="$PROJECT_DIR$/users/validator.py" />
         <option value="$PROJECT_DIR$/users/templates/added_user.json" />
-        <option value="$PROJECT_DIR$/users/static/js/user-map.js" />
-        <option value="$PROJECT_DIR$/users/views.py" />
+        <option value="$PROJECT_DIR$/users/utilities/test/validator.py" />
+        <option value="$PROJECT_DIR$/users/utilities/test_validator.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/users/utilities/test/test_validator.py" />
+        <option value="$PROJECT_DIR$/users/resources/create_table_debug.sql" />
+        <option value="$PROJECT_DIR$/users/utilities/db_handler.py" />
+        <option value="$PROJECT_DIR$/users/utilities/test/test_db_handler.py" />
+        <option value="$PROJECT_DIR$/users/__init__.py" />
+        <option value="$PROJECT_DIR$/users/test/test_app.py" />
         <option value="$PROJECT_DIR$/users/templates/base.html" />
+        <option value="$PROJECT_DIR$/users/utilities/validator.py" />
+        <option value="$PROJECT_DIR$/users/views.py" />
+        <option value="$PROJECT_DIR$/users/static/js/user-map.js" />
       </list>
     </option>
   </component>
@@ -257,6 +289,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_map" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_map" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -275,7 +325,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_map" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_map" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -290,7 +362,7 @@
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/venv/bin/python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/users/utilities/test" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
   </component>
@@ -301,10 +373,143 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/users/utilities" />
       <recent name="$PROJECT_DIR$/users" />
     </key>
   </component>
   <component name="RunManager" selected="Python.user_map">
+    <configuration default="false" name="Nosetests in TestValidators" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/users/utilities/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="user_map" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/users/utilities/test/test_validator.py" />
+      <option name="CLASS_NAME" value="TestValidators" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Nosetests in $PROJECT_DIR$/users" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/users" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="user_map" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="$PROJECT_DIR$/users" />
+      <option name="TEST_TYPE" value="TEST_FOLDER" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="Basic" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonCover" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonCover" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Nosetests in test_db_handler" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/users/utilities/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="user_map" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/users/utilities/test/test_db_handler.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Nosetests in AppTestCase" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/users/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="user_map" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/users/test/test_app.py" />
+      <option name="CLASS_NAME" value="AppTestCase" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Nosetest AppTestCase.test_add_user_view" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/users/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="user_map" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/users/test/test_app.py" />
+      <option name="CLASS_NAME" value="AppTestCase" />
+      <option name="METHOD_NAME" value="test_add_user_view" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="Basic" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -476,9 +681,23 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <list size="1">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.user_map" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in TestValidators" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetests in /home/gumbia/dev/python/user_map/users" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetests in test_db_handler" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetests in AppTestCase" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Nosetest AppTestCase.test_add_user_view" />
     </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Nosetest AppTestCase.test_add_user_view" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in /home/gumbia/dev/python/user_map/users" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetests in AppTestCase" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetests in test_db_handler" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetests in TestValidators" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
@@ -530,7 +749,11 @@
       <created>1381911915061</created>
       <updated>1381911915061</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="#1 We need a view for adding points (In Progress, still messy)">
+      <created>1381926452885</created>
+      <updated>1381926452885</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers>
       <GitHub shared="false" url="github.com">
         <commitMessageFormat>{number} {summary}</commitMessageFormat>
@@ -573,24 +796,47 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297769" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328807" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297769" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.60091746" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24012807" sideWeight="0.53055286" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39767218" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32783705" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.53055286" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39767218" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46944714" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46944714" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46944714" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297769" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09018143" sideWeight="0.80892336" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297769" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16862327" sideWeight="0.6023278" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19107662" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874617" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297769" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328807" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32783705" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.53055286" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39767218" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46944714" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297769" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09018143" sideWeight="0.80892336" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297769" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16862327" sideWeight="0.80892336" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19107662" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -601,148 +847,138 @@
     </option>
     <MESSAGE value="Initial implementation of users map." />
     <MESSAGE value="#1 We need a view for adding points (In Progress)" />
-    <option name="LAST_COMMIT_MESSAGE" value="#1 We need a view for adding points (In Progress)" />
+    <MESSAGE value="#1 We need a view for adding points (In Progress, still messy)" />
+    <option name="LAST_COMMIT_MESSAGE" value="#1 We need a view for adding points (In Progress, still messy)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/users/views.py</url>
-          <line>136</line>
-          <option name="timeStamp" value="23" />
+          <url>file://$PROJECT_DIR$/users/test/test_app.py</url>
+          <line>75</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/users/views.py</url>
-          <line>147</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/users/views.py</url>
-          <line>76</line>
-          <option name="timeStamp" value="26" />
+          <url>file://$PROJECT_DIR$/users/test/test_app.py</url>
+          <line>84</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="27" />
+      <option name="time" value="41" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/users/validator.py">
+    <entry file="file://$PROJECT_DIR$/venv/local/lib/python2.7/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="20" selection-start="876" selection-end="876" vertical-scroll-proportion="0.0" vertical-offset="200" max-vertical-offset="792">
-          <folding>
-            <marker date="1381920294537" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1381920294537" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="36" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
+        <state line="1723" column="14" selection-start="72465" selection-end="72468" vertical-scroll-proportion="0.3319838" vertical-offset="30850" max-vertical-offset="33264">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+    <entry file="file://$PROJECT_DIR$/users/test/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="606" column="17" selection-start="9258" selection-end="9258" vertical-scroll-proportion="0.33333334" vertical-offset="10574" max-vertical-offset="16542">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="978">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/ntpath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="0" selection-start="838" selection-end="838" vertical-scroll-proportion="0.6045198" vertical-offset="111" max-vertical-offset="9702">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/resources/create_table.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="19" selection-start="146" selection-end="146" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1835" column="0" selection-start="76604" selection-end="76604" vertical-scroll-proportion="0.0" vertical-offset="32672" max-vertical-offset="33264">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/werkzeug/debug/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="0" selection-start="3195" selection-end="3195" vertical-scroll-proportion="0.0" vertical-offset="1369" max-vertical-offset="3438">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/BaseHTTPServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="339" column="0" selection-start="12510" selection-end="12510" vertical-scroll-proportion="0.0" vertical-offset="5905" max-vertical-offset="10962">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/werkzeug/serving.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="0" selection-start="7420" selection-end="7420" vertical-scroll-proportion="0.0" vertical-offset="3385" max-vertical-offset="13590">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/SocketServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="237" column="0" selection-start="8367" selection-end="8367" vertical-scroll-proportion="0.0" vertical-offset="4069" max-vertical-offset="13176">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/templates/added_user.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="1" selection-start="256" selection-end="256" vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/local/lib/python2.7/site-packages/flask/templating.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="4" selection-start="3530" selection-end="3530" vertical-scroll-proportion="0.0" vertical-offset="1680" max-vertical-offset="2682">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm30/system/python_stubs/232243291/_sqlite3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="252" column="8" selection-start="7795" selection-end="7795" vertical-scroll-proportion="0.33333334" vertical-offset="4315" max-vertical-offset="9144">
+        <state line="7" column="19" selection-start="0" selection-end="147" vertical-scroll-proportion="0.1257485" vertical-offset="0" max-vertical-offset="1002">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="0" selection-start="2880" selection-end="2880" vertical-scroll-proportion="0.0" vertical-offset="1118" max-vertical-offset="1710">
+        <state line="87" column="27" selection-start="2795" selection-end="2795" vertical-scroll-proportion="0.0" vertical-offset="1209" max-vertical-offset="1782">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/static/js/user-map.js">
+    <entry file="file://$PROJECT_DIR$/users/utilities/test/test_validator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="5" selection-start="364" selection-end="535" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2020">
+        <state line="19" column="46" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" vertical-offset="514" max-vertical-offset="1008">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/werkzeug/wrappers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="780" column="0" selection-start="33118" selection-end="33118" vertical-scroll-proportion="0.33333334" vertical-offset="13855" max-vertical-offset="32544">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python2.7/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="331" column="0" selection-start="10884" selection-end="10884" vertical-scroll-proportion="0.0" vertical-offset="5765" max-vertical-offset="19494">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/utilities/db_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="7" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0" vertical-offset="636" max-vertical-offset="1720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/utilities/test/test_db_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="0" selection-start="964" selection-end="1170" vertical-scroll-proportion="0.0" vertical-offset="302" max-vertical-offset="846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="263" selection-end="277" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/utilities/validator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="19" selection-start="656" selection-end="656" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="882">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="11" selection-start="1372" selection-end="1372" vertical-scroll-proportion="-22.0" vertical-offset="0" max-vertical-offset="828">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/test/test_app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="0" selection-start="2712" selection-end="2712" vertical-scroll-proportion="0.0" vertical-offset="750" max-vertical-offset="1728">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="8" selection-start="1791" selection-end="1791" vertical-scroll-proportion="0.0" vertical-offset="2233" max-vertical-offset="3204">
-          <folding>
-            <marker date="1381926346897" expanded="true" signature="1338:1357" placeholder="CREATE TABLE..user..." />
-            <marker date="1381926346897" expanded="true" signature="1563:1581" placeholder="SELECT * FRO..user..." />
-          </folding>
+        <state line="67" column="23" selection-start="2001" selection-end="2001" vertical-scroll-proportion="0.0" vertical-offset="804" max-vertical-offset="2646">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/templates/base.html">
+    <entry file="file://$PROJECT_DIR$/users/static/js/user-map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="6" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.48676172" vertical-offset="337" max-vertical-offset="828">
+        <state line="23" column="10" selection-start="810" selection-end="810" vertical-scroll-proportion="0.74594593" vertical-offset="0" max-vertical-offset="2448">
           <folding />
         </state>
       </provider>

@@ -3,19 +3,21 @@
 :copyright: (c) 2013 by Tim Sutton
 :license: GPLv3, see LICENSE for more details.
 """
-import os
-import sqlite3
-import json
 from datetime import datetime
-
-from flask import render_template, Response, request  #,jsonify # abort
+import json
+from flask import render_template, Response, request
 from werkzeug.exceptions import default_exceptions
+
 # App declared directly in __init__ as per
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 from . import APP
-from . import LOGGER
-from helpers import make_json_error
-from validator import is_email_address_valid, is_required_valid, is_boolean
+from users.utilities.helpers import make_json_error
+from users.utilities.validator import (
+    is_email_address_valid,
+    is_required_valid,
+    is_boolean)
+from users.utilities.db_handler import get_conn, query_db
+
 
 @APP.route('/')
 def map_view():
@@ -31,29 +33,18 @@ def map_view():
 @APP.route('/users.json')
 def users_view():
     """Return a json document of users who have registered themselves."""
+    # Get DB Connection and make a query to it
+    conn = get_conn(APP.config['DATABASE'])
+    sql_users = 'SELECT * FROM user'
+    rows = query_db(conn, sql_users)
 
-    db_file = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), os.path.pardir, 'users.db'))
-    table_needed = False
-    if not os.path.exists(db_file):
-        table_needed = True
-    conn = sqlite3.connect(db_file)
-    cursor = conn.cursor()
-    if table_needed:
-        # create a table
-        cursor.execute(
-            'CREATE TABLE user ('
-            'name TEXT, email TEXT, is_developer BOOL,  '
-            'wants_update BOOL, date_added TEXT, '
-            'latitude FLOAT, longitude FLOAT)')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM user')
+    # Form JSON from the rows
     json = (
         '{'
         '  "type": "FeatureCollection",'
         '  "features": [')
     first_rec = True
-    for user in cursor.fetchall():
+    for user in rows:
         if not first_rec:
             json += ','
         first_rec = False
@@ -61,7 +52,8 @@ def users_view():
             '    {'
             '      "type": "Feature",'
             '      "properties": {'
-            '        "name": "%s" '
+            '        "name": "%s", '
+            '        "popupContent": "%s"'
             '      },'
             '      "geometry": {'
             '      "type": "Point",'
@@ -70,15 +62,19 @@ def users_view():
             '        %s'
             '      ]'
             '      }'
-            '    }' % (user[0], user[6], user[5]))
+            '    }' % (user['name'],
+                       user['name'],
+                       user['longitude'],
+                       user['latitude']))
 
     json += '  ]}'
-    return Response(
-        json, mimetype='application/json')
+
+    # Return Response
+    return Response(json, mimetype='application/json')
 
 
 @APP.route('/add_user', methods=['POST'])
-def add_user():
+def add_user_view():
     """View to add a user.
 
     handle post request via ajax
@@ -86,30 +82,11 @@ def add_user():
     return a new json doc as in users.json
     js on client must update the map on ajax completion callback
     """
-    """Return a json document of users who have registered themselves."""
-
     # return any errors as json - see http://flask.pocoo.org/snippets/83/
     for code in default_exceptions.iterkeys():
         APP.error_handler_spec[None][code] = make_json_error
 
-    # Go on to load / make our db as needed
-    db_file = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), os.path.pardir, 'users.db'))
-    table_needed = False
-    if not os.path.exists(db_file):
-        table_needed = True
-    conn = sqlite3.connect(db_file)
-    cursor = conn.cursor()
-    if table_needed:
-        path = os.path.abspath(
-            os.path.join(
-                os.path.dirname(__file__), 'resources', 'create_table.sql')
-        )
-        sql_file = open(path, 'rt')
-        sql = sql_file.read()
-        # create a table
-        cursor.execute(sql)
-
+    # Get data from form
     name = str(request.form['name']).strip()
     email = str(request.form['email']).strip()
     role = str(request.form['role']).strip()
@@ -118,22 +95,25 @@ def add_user():
     longitude = str(request.form['longitude'])
     date_now = datetime.now().strftime('%Y-%m-%d')
 
-    # Validate the input:
-    message_error = ""
+    # Validate the data:
+    message = {}
     if not is_required_valid(name):
-        message_error = "Name is required"
-    elif not is_required_valid(email):
-        message_error = "Email is required"
-    elif not is_email_address_valid(email):
-        message_error = "Email address is not valid"
-    elif not is_boolean(role):
-        message_error = "Role must be checked"
+        message['name'] = 'Name is required'
+    if not is_required_valid(email):
+        message['email'] = 'Email is required'
+    if not is_email_address_valid(email):
+        message['email'] = 'Email address is not valid'
+    if not is_boolean(role):
+        message['role'] = 'Role must be checked'
     elif not is_boolean(notification):
-        message_error = "Notification must be boolean"
+        message['notification'] = 'Notification must be boolean'
 
-    if message_error != "":
-        x = 2  # FIXME
+    if len(message) != 0:
+        message['type'] = 'Error'
+        return Response(json.dumps(message), mimetype='application/json')
     else:
+        # Get DB Connection and insert data to database using that connection
+        conn = get_conn(APP.config['DATABASE'])
         add_user_sql = (
             'INSERT INTO user VALUES("%s", "%s", "%s", "%s", "%s", "%s", '
             '"%s");') % (
@@ -145,28 +125,17 @@ def add_user():
                 latitude,
                 longitude)
 
-        cursor.execute(add_user_sql)
+        conn.execute(add_user_sql)
         conn.commit()
 
-    #Just Test this function can be called from js
-    #test = {
-    #    'name': name,
-    #    'email': email,
-    #    'role': role,
-    #    'notification': notification,
-    #    'latitude': latitude,
-    #    'longitude': longitude
-    #}
-    #test = json.dumps(test)
-    #return Response(
-    #    test, mimetype='application/json')
-
-    context = {
+    # Prepare json for added user
+    data = {
         'name': name,
         'longitude': longitude,
         'latitude': latitude}
+    added_user = render_template('added_user.json', **data)
 
-    page = render_template('added_user.json', **context)
-    return Response(page, mimetype='application/json')
+    # Return Response
+    return Response(added_user, mimetype='application/json')
 
 
