@@ -49,6 +49,7 @@ class AppTestCase(LoggedTestCase):
         try:
             result = self.app.get(
                 '/users.json', data=dict(), follow_redirects=True)
+            #pylint: ignore-msg=E1103
             self.assertTrue('Akbar' in result.data)
         except Exception, e:
             LOGGER.exception('Basic front page load failed.')
@@ -66,6 +67,7 @@ class AppTestCase(LoggedTestCase):
                     latitude='12',
                     longitude='31'
                 ), follow_redirects=True)
+            #pylint: ignore-msg=E1103
             self.assertTrue('Akbar' in result.data)
         except Exception, e:
             LOGGER.exception('Page load failed.')
@@ -81,6 +83,7 @@ class AppTestCase(LoggedTestCase):
                     latitude='12',
                     longitude='31'
                 ), follow_redirects=True)
+            #pylint: ignore-msg=E1103
             self.assertTrue('Error' in result.data)
         except Exception, e:
             LOGGER.exception('Page load failed.')

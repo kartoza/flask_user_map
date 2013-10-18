@@ -6,7 +6,7 @@ from users.utilities.db_handler import get_conn, query_db
 from users import APP
 
 
-class User():
+class User(object):
     """Implementation for User Model class.
     """
     def __init__(self):

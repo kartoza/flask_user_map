@@ -52,7 +52,12 @@ def users_view():
             '      "type": "Feature",'
             '      "properties": {'
             '        "name": "%s", '
-            '        "popupContent": "%s"'
+            '        "popupContent": "%s", '
+            '        "style": {'
+            '                    "color": "#004070",'
+            '                    "weight": 4,'
+            '                    "opacity": 1'
+            '                 }'
             '      },'
             '      "geometry": {'
             '      "type": "Point",'
@@ -130,5 +135,3 @@ def add_user_view():
 
     # Return Response
     return Response(added_user, mimetype='application/json')
-
-
