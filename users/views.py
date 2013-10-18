@@ -41,77 +41,67 @@ def users_view():
     # Form JSON from all_users
     json_users = (
         '{'
-        '  "type": "FeatureCollection",'
-        '  "features": [')
+        ' "type": "FeatureCollection",'
+        ' "features": [')
     first_rec = True
     for user in all_users:
         if not first_rec:
             json_users += ','
         first_rec = False
         json_users += (
-            '    {'
-            '      "type": "Feature",'
-            '      "properties": {'
-            '        "name": "%s", '
-            '        "popupContent": "%s", '
-            '        "style": {'
-            '                    "color": "#004070",'
-            '                    "weight": 4,'
-            '                    "opacity": 1'
-            '                 }'
-            '      },'
-            '      "geometry": {'
-            '      "type": "Point",'
-            '      "coordinates": ['
-            '        %s,'
-            '        %s'
-            '      ]'
-            '      }'
-            '    }' % (user['name'],
-                       user['name'],
-                       user['longitude'],
-                       user['latitude']))
-    json_users += '  ]}'
+            ' {'
+            ' "type": "Feature",'
+            ' "properties": {'
+            '   "name": "%s", '
+            '   "popupContent": "%s" '
+            ' },'
+            ' "geometry": {'
+            '   "type": "Point",'
+            '   "coordinates": ['
+            '       %s,'
+            '       %s'
+            '    ]'
+            '   }'
+            ' }' % (user['name'],
+                    user['name'],
+                    user['longitude'],
+                    user['latitude']))
+    json_users += ' ]}'
 
     # Form JSON of Developers
     json_developers = (
         '{'
-        '  "type": "FeatureCollection",'
-        '  "features": [')
+        ' "type": "FeatureCollection",'
+        ' "features": [')
     first_rec = True
     for user in all_developers:
         if not first_rec:
             json_developers += ','
         first_rec = False
         json_developers += (
-            '    {'
-            '      "type": "Feature",'
-            '      "properties": {'
-            '        "name": "%s", '
-            '        "popupContent": "%s", '
-            '        "style": {'
-            '                    "color": "#004070",'
-            '                    "weight": 4,'
-            '                    "opacity": 1'
-            '                 }'
-            '      },'
-            '      "geometry": {'
-            '      "type": "Point",'
-            '      "coordinates": ['
-            '        %s,'
-            '        %s'
-            '      ]'
-            '      }'
-            '    }' % (user['name'],
-                       user['name'],
-                       user['longitude'],
-                       user['latitude']))
-    json_developers += '  ]}'
+            ' {'
+            '   "type": "Feature",'
+            '   "properties": {'
+            '   "name": "%s", '
+            '   "popupContent": "%s" '
+            '   },'
+            ' "geometry": {'
+            '   "type": "Point",'
+            '   "coordinates": ['
+            '       %s,'
+            '       %s'
+            '    ]'
+            '   }'
+            ' }' % (user['name'],
+                    user['name'],
+                    user['longitude'],
+                    user['latitude']))
+    json_developers += ' ]}'
 
     users = (
         '{'
-        '   "users": %s,'
-        '   "developers": %s'
+        ' "users": %s,'
+        ' "developers": %s'
         '}' % (json_users, json_developers)
     )
     # Return Response

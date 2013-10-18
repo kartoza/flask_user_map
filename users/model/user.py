@@ -59,24 +59,26 @@ class User(object):
         users who have role developer if is_developer=Trues
         """
         sql_users = ''
+
         if is_developer:
+            print 'dor'
             sql_users += 'SELECT * FROM %s WHERE "%s"="%s" ' % (
                 self.table_name,
                 self.column_name['is_developer'],
                 'true'
             )
         else:
+            print 'teng'
             sql_users += 'SELECT * FROM %s WHERE "%s"="%s" ' % (
                 self.table_name,
                 self.column_name['is_developer'],
                 'false'
             )
-        print sql_users
         conn = get_conn(APP.config['DATABASE'])
         all_users = query_db(conn, sql_users)
         return all_users
 
 
 user = User()
-user.get_all_users(is_developer=True)
-print user
+res = user.get_all_users(is_developer=True)
+

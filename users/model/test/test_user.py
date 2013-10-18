@@ -30,7 +30,7 @@ class TestUser(TestCase):
         user_to_add = dict(
             name='Akbar',
             email='akbargumbira@gmail.com',
-            is_developer='true',
+            is_developer='false',
             wants_update='true',
             date_added='2012-12-10',
             latitude='12',

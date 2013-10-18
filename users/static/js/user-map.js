@@ -48,9 +48,9 @@ function onMapClick(e) {
   }
   //Get new marker
   var markerLocation = e.latlng
-  marker_new_user = L.marker(markerLocation)
+  marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
-  var form = '<h3 class="alert alert-info">Add Me As InaSAFE User!</h3>' +
+  var form = '<h3 class="alert alert-info">Add me as an InaSAFE user!</h3>' +
       '<form id="add_user" enctype="multipart/form-data" class="well">' +
       '<label><strong>Name:</strong></label>' +
       '<input type="text" class="span3" placeholder="Required" id="name" name="name" />' +
@@ -121,7 +121,11 @@ function addUser() {
         }
       } else {
         cancelMarker()
-        L.geoJson(response).addTo(map);
+        if (role == 'true') {
+          L.geoJson(response).addTo(developers_layer);
+        } else {
+          L.geoJson(response).addTo(users_layer);
+        }
       }
     }
   });
