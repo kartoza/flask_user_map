@@ -15,6 +15,7 @@
   <script language="javascript"
           type="text/javascript" src="/users/static/js/jquery.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+  <script src="http://users.leafletjs.com/assets/leaflet/plugins/leaflet.markercluster/leaflet.markercluster.js"></script>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map.js"></script>
 
@@ -25,20 +26,17 @@
   var map, marker_new_user;
   var IconMarker = L.Icon.extend({
     options: {
-      shadowUrl: 'leaf-shadow.png',
-      iconSize: [35, 70],
-      shadowSize: [35, 60],
-      iconAnchor: [22, 94],
-      shadowAnchor: [4, 62],
-      popupAnchor: [-3, -76]
+      shadowUrl: '/static/img/shadow-icon.png',
+      iconSize: [19, 32],
+      shadowSize: [42, 35],
+      iconAnchor: [12, 32],
+      shadowAnchor: [12, 32],
+      popupAnchor: [-2, -32]
     }
   });
 
-  var user_icon = new IconMarker({iconUrl: 'http://leafletjs' +
-          '.com/docs/images/leaf-green' +
-          '.png'}),
-      developer_icon = new IconMarker({iconUrl: 'http://leafletjs' +
-          '.com/docs/images/leaf-orange.png'});
+  var user_icon = new IconMarker({iconUrl: '/static/img/user-icon.png'}),
+      developer_icon = new IconMarker({iconUrl: '/static/img/developer-icon.png'});
 
   $(document).ready(function () {
     //Basemap Layer
@@ -50,6 +48,8 @@
 
     //User Layer
     var users_layer = new L.LayerGroup();
+    //var users_layer = new L.MarkerClusterGroup();
+    //var developers_layer = new L.MarkerClusterGroup();
     var developers_layer = new L.LayerGroup();
     addUsersLayer(users_layer, developers_layer)
 
