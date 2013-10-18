@@ -4,6 +4,7 @@
 :license: GPLv3, see LICENSE for more details.
 """
 import os
+import json
 
 from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
@@ -49,7 +50,6 @@ class AppTestCase(LoggedTestCase):
         try:
             result = self.app.get(
                 '/users.json', data=dict(), follow_redirects=True)
-            #pylint: ignore-msg=E1103
             self.assertTrue('Akbar' in result.data)
         except Exception, e:
             LOGGER.exception('Basic front page load failed.')
@@ -67,7 +67,6 @@ class AppTestCase(LoggedTestCase):
                     latitude='12',
                     longitude='31'
                 ), follow_redirects=True)
-            #pylint: ignore-msg=E1103
             self.assertTrue('Akbar' in result.data)
         except Exception, e:
             LOGGER.exception('Page load failed.')
@@ -83,7 +82,6 @@ class AppTestCase(LoggedTestCase):
                     latitude='12',
                     longitude='31'
                 ), follow_redirects=True)
-            #pylint: ignore-msg=E1103
             self.assertTrue('Error' in result.data)
         except Exception, e:
             LOGGER.exception('Page load failed.')

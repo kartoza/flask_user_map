@@ -1,21 +1,27 @@
-function addBasemap() {
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
-    maxZoom: 18
-  }).addTo(map);
-}
-
-
-function addUsersLayer() {
+function addUsersLayer(users_layer, developers_layer) {
   $.ajax({
     type: "GET",
     url: "/users.json",
     dataType: 'json',
     success: function (response) {
-      geojsonLayer = L.geoJson(
-          response,
-          {onEachFeature: onEachFeature}).
-          addTo(map);
+      L.geoJson(
+          response.users,
+          {
+            onEachFeature: onEachFeature,
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {icon: user_icon });
+            }
+          }).
+          addTo(users_layer);
+      L.geoJson(
+          response.developers,
+          {
+            onEachFeature: onEachFeature,
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {icon: developer_icon });
+            }
+          }).
+          addTo(developers_layer);
     }
   });
 }
@@ -23,7 +29,7 @@ function addUsersLayer() {
 function onEachFeature(feature, layer) {
   // does this feature have a property named popupContent?
   if (feature.properties && feature.properties.popupContent) {
-    layer.bindPopup(feature.properties.popupContent);
+      layer.bindPopup(feature.properties.popupContent);
   }
 }
 

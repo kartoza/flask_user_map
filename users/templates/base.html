@@ -23,17 +23,54 @@
 <div id="map"></div>
 <script type="text/javascript">
   var map, marker_new_user;
+  var IconMarker = L.Icon.extend({
+    options: {
+      shadowUrl: 'leaf-shadow.png',
+      iconSize: [35, 70],
+      shadowSize: [35, 60],
+      iconAnchor: [22, 94],
+      shadowAnchor: [4, 62],
+      popupAnchor: [-3, -76]
+    }
+  });
+
+  var user_icon = new IconMarker({iconUrl: 'http://leafletjs' +
+          '.com/docs/images/leaf-green' +
+          '.png'}),
+      developer_icon = new IconMarker({iconUrl: 'http://leafletjs' +
+          '.com/docs/images/leaf-orange.png'});
+
   $(document).ready(function () {
-    //Create map
-    map = L.map('map');
+    //Basemap Layer
+    var base = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
+        '.png', {
+      attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
+      maxZoom: 18
+    });
+
+    //User Layer
+    var users_layer = new L.LayerGroup();
+    var developers_layer = new L.LayerGroup();
+    addUsersLayer(users_layer, developers_layer)
+
+    //Create Map with prepared layers
+    map = L.map('map', {
+      center: [1.0, 118.99],
+			zoom: 5,
+      layers: [base, users_layer, developers_layer]
+    });
     map.locate({setView: true, maxZoom: 16});
-    map.on('locationfound', onLocationFound)
-    //Add Basemap
-    addBasemap()
-    //Add List of Registered Users
-    addUsersLayer()
+
+    //Overlays layers
+    var overlays = {
+      "Users": users_layer,
+      "Developers": developers_layer
+    }
+    L.control.layers(null, overlays).addTo(map)
+
     //Set Listener on map
     map.on('click', onMapClick)
+    map.on('locationfound', onLocationFound)
   })
 </script>
 </body>

@@ -13,6 +13,15 @@ class User(object):
         """Constructor."""
         # Initialize attribute
         self.table_name = 'user'
+        self.column_name = {
+            'name': 'name',
+            'email': 'email',
+            'is_developer': 'is_developer',
+            'wants_update': 'wants_update',
+            'date_added': 'date_added',
+            'latitude': 'latitude',
+            'longitude': 'longitude'
+        }
 
     def add_user(self, name='', email='', is_developer='', wants_update='',
                  date_added='', latitude='', longitude=''):
@@ -42,10 +51,32 @@ class User(object):
         conn.commit()
         conn.close()
 
-    def get_all_users(self):
-        """Get All of users from database."""
-        conn = get_conn(APP.config['DATABASE'])
-        sql_users = 'SELECT * FROM %s' % self.table_name
-        all_users = query_db(conn, sql_users)
+    def get_all_users(self, is_developer=False):
+        """Get All of users from database.
 
+        :param is_developer: is_developer role.
+        Fetch all users who have role user if is_developer=False. Fetch all
+        users who have role developer if is_developer=Trues
+        """
+        sql_users = ''
+        if is_developer:
+            sql_users += 'SELECT * FROM %s WHERE "%s"="%s" ' % (
+                self.table_name,
+                self.column_name['is_developer'],
+                'true'
+            )
+        else:
+            sql_users += 'SELECT * FROM %s WHERE "%s"="%s" ' % (
+                self.table_name,
+                self.column_name['is_developer'],
+                'false'
+            )
+        print sql_users
+        conn = get_conn(APP.config['DATABASE'])
+        all_users = query_db(conn, sql_users)
         return all_users
+
+
+user = User()
+user.get_all_users(is_developer=True)
+print user

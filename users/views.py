@@ -36,18 +36,19 @@ def users_view():
     # Create model User
     user = User()
     all_users = user.get_all_users()
+    all_developers = user.get_all_users(is_developer=True)
 
     # Form JSON from all_users
-    json = (
+    json_users = (
         '{'
         '  "type": "FeatureCollection",'
         '  "features": [')
     first_rec = True
     for user in all_users:
         if not first_rec:
-            json += ','
+            json_users += ','
         first_rec = False
-        json += (
+        json_users += (
             '    {'
             '      "type": "Feature",'
             '      "properties": {'
@@ -70,11 +71,51 @@ def users_view():
                        user['name'],
                        user['longitude'],
                        user['latitude']))
+    json_users += '  ]}'
 
-    json += '  ]}'
+    # Form JSON of Developers
+    json_developers = (
+        '{'
+        '  "type": "FeatureCollection",'
+        '  "features": [')
+    first_rec = True
+    for user in all_developers:
+        if not first_rec:
+            json_developers += ','
+        first_rec = False
+        json_developers += (
+            '    {'
+            '      "type": "Feature",'
+            '      "properties": {'
+            '        "name": "%s", '
+            '        "popupContent": "%s", '
+            '        "style": {'
+            '                    "color": "#004070",'
+            '                    "weight": 4,'
+            '                    "opacity": 1'
+            '                 }'
+            '      },'
+            '      "geometry": {'
+            '      "type": "Point",'
+            '      "coordinates": ['
+            '        %s,'
+            '        %s'
+            '      ]'
+            '      }'
+            '    }' % (user['name'],
+                       user['name'],
+                       user['longitude'],
+                       user['latitude']))
+    json_developers += '  ]}'
 
+    users = (
+        '{'
+        '   "users": %s,'
+        '   "developers": %s'
+        '}' % (json_users, json_developers)
+    )
     # Return Response
-    return Response(json, mimetype='application/json')
+    return Response(users, mimetype='application/json')
 
 
 @APP.route('/add_user', methods=['POST'])
@@ -132,6 +173,5 @@ def add_user_view():
         'longitude': longitude,
         'latitude': latitude}
     added_user = render_template('added_user.json', **data)
-
     # Return Response
     return Response(added_user, mimetype='application/json')
