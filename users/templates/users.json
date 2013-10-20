@@ -4,7 +4,8 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "{{ user.name }}"
+        "name": "{{ user.name }}",
+        "popupContent": "{{ user.name }}"
       },
       "geometry": {
         "type": "Point",
