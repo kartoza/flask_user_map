@@ -1,3 +1,10 @@
+function onEachFeature(feature, layer) {
+  // does this feature have a property named popupContent?
+  if (feature.properties && feature.properties.popupContent) {
+      layer.bindPopup(feature.properties.popupContent);
+  }
+}
+
 function addUsersLayer(users_layer, developers_layer) {
   $.ajax({
     type: "GET",
@@ -11,8 +18,7 @@ function addUsersLayer(users_layer, developers_layer) {
             pointToLayer: function (feature, latlng) {
               return L.marker(latlng, {icon: user_icon });
             }
-          }).
-          addTo(users_layer);
+          }).addTo(users_layer);
       L.geoJson(
           response.developers,
           {
@@ -20,17 +26,9 @@ function addUsersLayer(users_layer, developers_layer) {
             pointToLayer: function (feature, latlng) {
               return L.marker(latlng, {icon: developer_icon });
             }
-          }).
-          addTo(developers_layer);
+          }).addTo(developers_layer);
     }
   });
-}
-
-function onEachFeature(feature, layer) {
-  // does this feature have a property named popupContent?
-  if (feature.properties && feature.properties.popupContent) {
-      layer.bindPopup(feature.properties.popupContent);
-  }
 }
 
 function onLocationFound(e) {
@@ -43,11 +41,11 @@ function onLocationFound(e) {
 
 function onMapClick(e) {
   // Clear the un-saved clicked marker
-  if (marker_new_user != null) {
+  if (marker_new_user !== null) {
     cancelMarker();
   }
   //Get new marker
-  var markerLocation = e.latlng
+  var markerLocation = e.latlng;
   marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
   var form = '<h3 class="alert alert-info">Add me as an InaSAFE user!</h3>' +
