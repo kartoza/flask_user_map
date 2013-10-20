@@ -16,7 +16,7 @@ from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
     is_boolean)
-from users.model.user import add_user, get_user, get_all_users
+from users.user import add_user, get_user, get_all_users
 
 
 @APP.route('/')
@@ -101,6 +101,6 @@ def add_user_view():
 
     # Prepare json for added user
     user = get_user(guid)
-    added_user = render_template('users.json', users=user)
+    added_user = render_template('users.json', users=[user])
     # Return Response
     return Response(added_user, mimetype='application/json')

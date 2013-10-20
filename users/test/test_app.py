@@ -4,7 +4,6 @@
 :license: GPLv3, see LICENSE for more details.
 """
 import os
-import json
 
 from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
@@ -14,6 +13,7 @@ from users.utilities.db import get_conn
 
 class AppTestCase(LoggedTestCase):
     """Test the application."""
+    #noinspection PyPep8Naming
     def setUp(self):
         """Constructor."""
         self.db_path = os.path.abspath(os.path.join(
@@ -30,6 +30,7 @@ class AppTestCase(LoggedTestCase):
         APP.config['TESTING'] = True
         self.app = APP.test_client()
 
+    #noinspection PyPep8Naming
     def tearDown(self):
         """Destructor."""
         pass

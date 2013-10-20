@@ -3,8 +3,10 @@
 
 import uuid
 
-from flask import render_template
-
+# Use jinja directly as we dont have guarantee of app context
+# see http://stackoverflow.com/questions/17206728/
+# attributeerror-nonetype-object-has-no-attribute-app
+from jinja2 import Template, Environment, PackageLoader
 from users.utilities.db import get_conn, query_db
 from users import APP
 
@@ -52,8 +54,10 @@ def add_user(
     else:
         email_updates = 0
 
-    sql = render_template(
-        'add_user.sql',
+    env = Environment(
+        loader=PackageLoader('users', 'templates'))
+    template = env.get_template('add_user.sql')
+    sql = template.render(
         guid=guid,
         name=name,
         email=email,
@@ -80,11 +84,12 @@ def get_user(guid):
     """
     conn = get_conn(APP.config['DATABASE'])
     sql = 'SELECT * FROM user WHERE guid="%s"' % guid
-    try:
-        user = query_db(conn, sql)
-    except:
-        user = None
-    return user
+    users = query_db(conn, sql)
+    if len(users) == 0:
+        return None
+    else:
+        return users[0]
+
 
 def get_all_users(is_developer=False):
     """Get all users from database.
