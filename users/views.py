@@ -3,8 +3,8 @@
 :copyright: (c) 2013 by Tim Sutton
 :license: GPLv3, see LICENSE for more details.
 """
-from datetime import datetime
 import json
+
 from flask import render_template, Response, request
 from werkzeug.exceptions import default_exceptions
 
@@ -16,7 +16,7 @@ from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
     is_boolean)
-from users.model.user import User
+from users.model.user import add_user, get_user, get_all_users
 
 
 @APP.route('/')
@@ -34,88 +34,32 @@ def map_view():
 def users_view():
     """Return a json document of users who have registered themselves."""
     # Create model User
-    user = User()
-    all_users = user.get_all_users()
-    all_developers = user.get_all_users(is_developer=True)
+    all_users = get_all_users()
+    all_developers = get_all_users(is_developer=True)
+    json_users = render_template('users.json', users=all_users)
+    json_developers = render_template('users.json', users=all_developers)
 
-    # Form JSON from all_users
-    json_users = (
-        '{'
-        ' "type": "FeatureCollection",'
-        ' "features": [')
-    first_rec = True
-    for user in all_users:
-        if not first_rec:
-            json_users += ','
-        first_rec = False
-        json_users += (
-            ' {'
-            ' "type": "Feature",'
-            ' "properties": {'
-            '   "name": "%s", '
-            '   "popupContent": "%s" '
-            ' },'
-            ' "geometry": {'
-            '   "type": "Point",'
-            '   "coordinates": ['
-            '       %s,'
-            '       %s'
-            '    ]'
-            '   }'
-            ' }' % (user['name'],
-                    user['name'],
-                    user['longitude'],
-                    user['latitude']))
-    json_users += ' ]}'
-
-    # Form JSON of Developers
-    json_developers = (
-        '{'
-        ' "type": "FeatureCollection",'
-        ' "features": [')
-    first_rec = True
-    for user in all_developers:
-        if not first_rec:
-            json_developers += ','
-        first_rec = False
-        json_developers += (
-            ' {'
-            '   "type": "Feature",'
-            '   "properties": {'
-            '   "name": "%s", '
-            '   "popupContent": "%s" '
-            '   },'
-            ' "geometry": {'
-            '   "type": "Point",'
-            '   "coordinates": ['
-            '       %s,'
-            '       %s'
-            '    ]'
-            '   }'
-            ' }' % (user['name'],
-                    user['name'],
-                    user['longitude'],
-                    user['latitude']))
-    json_developers += ' ]}'
-
-    users = (
+    users_json = (
         '{'
         ' "users": %s,'
         ' "developers": %s'
         '}' % (json_users, json_developers)
     )
     # Return Response
-    return Response(users, mimetype='application/json')
+    return Response(users_json, mimetype='application/json')
 
 
 @APP.route('/add_user', methods=['POST'])
 def add_user_view():
     """View to add a user.
 
-    handle post request via ajax
-    add the user to the user.db
-    return a new json doc as in users.json
-    js on client must update the map on ajax completion callback
+    Handle post request via ajax and add the user to the user.db
+
+    :returns: A new json response as in users.json.
+    :rtype: HttpResponse
+
+    .. note:: JavaScript on client must update the map on ajax completion
+        callback.
     """
     # return any errors as json - see http://flask.pocoo.org/snippets/83/
     for code in default_exceptions.iterkeys():
@@ -128,7 +72,6 @@ def add_user_view():
     notification = str(request.form['notification'])
     latitude = str(request.form['latitude'])
     longitude = str(request.form['longitude'])
-    date_now = datetime.now().strftime('%Y-%m-%d')
 
     # Validate the data:
     message = {}
@@ -148,20 +91,16 @@ def add_user_view():
         return Response(json.dumps(message), mimetype='application/json')
     else:
         # Create model for user and add user
-        user = User()
-        user.add_user(name=name,
-                      email=email,
-                      is_developer=role,
-                      wants_update=notification,
-                      date_added=date_now,
-                      latitude=latitude,
-                      longitude=longitude)
+        guid = add_user(
+            name=name,
+            email=email,
+            is_developer=bool(role),
+            email_updates=bool(notification),
+            latitude=float(latitude),
+            longitude=float(longitude))
 
     # Prepare json for added user
-    data = {
-        'name': name,
-        'longitude': longitude,
-        'latitude': latitude}
-    added_user = render_template('added_user.json', **data)
+    user = get_user(guid)
+    added_user = render_template('users.json', users=user)
     # Return Response
     return Response(added_user, mimetype='application/json')

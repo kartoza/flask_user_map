@@ -2,7 +2,7 @@
 """Test for DB Handler module."""
 import os
 from unittest import TestCase
-from users.utilities.db_handler import get_conn, query_db
+from users.utilities.db import get_conn, query_db
 
 
 class TestDbHandler(TestCase):

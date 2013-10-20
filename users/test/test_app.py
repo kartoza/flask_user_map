@@ -9,7 +9,7 @@ import json
 from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
 from users import LOGGER
-from users.utilities.db_handler import get_conn
+from users.utilities.db import get_conn
 
 
 class AppTestCase(LoggedTestCase):
@@ -22,6 +22,10 @@ class AppTestCase(LoggedTestCase):
             os.pardir,
             os.pardir,
             'test_users.db'))
+
+        if os.path.exists(self.db_path):
+            os.remove(self.db_path)
+
         APP.config['DATABASE'] = self.db_path
         APP.config['TESTING'] = True
         self.app = APP.test_client()
@@ -41,8 +45,10 @@ class AppTestCase(LoggedTestCase):
     def test_users_view(self):
         """Test the users json response works."""
         conn = get_conn(self.db_path)
-        sql = ('INSERT INTO user VALUES("Akbar", "akbargum@gmail.com", '
-               '"true", "true", "2013-10-16", "75.672197", "-42.187500");')
+        sql = (
+            'INSERT INTO user VALUES('
+            '    1, "12212", "Akbar", "akbargum@gmail.com", '
+            '    1, 1, "2013-10-16", 75.672197, -42.187500);')
         conn.execute(sql)
         conn.commit()
         conn.close()

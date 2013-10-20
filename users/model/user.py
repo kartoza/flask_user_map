@@ -1,84 +1,107 @@
 # coding=utf-8
-"""Blueprint for user."""
-__author__ = 'akbar'
+"""User CRUD routines."""
 
-from users.utilities.db_handler import get_conn, query_db
+import uuid
+
+from flask import render_template
+
+from users.utilities.db import get_conn, query_db
 from users import APP
 
 
-class User(object):
-    """Implementation for User Model class.
+def add_user(
+        name,
+        email,
+        latitude,
+        longitude,
+        is_developer=False,
+        email_updates=False):
+    """Add a user to the database.
+
+    :param name: Name of user.
+    :type name: str
+
+    :param email: Email of user.
+    :type email: str
+
+    :param latitude: latitude of this user
+    :type latitude: float
+
+    :param longitude: longitude of this uer
+    :type longitude: float
+
+    :param is_developer: True if developer, False if user.
+    :type is_developer: bool
+
+    :param email_updates: True if user wants email updates about project
+        related activities. False if not.
+    :type email_updates: bool
+
+    :returns: Globally unique identifier for the added user.
+    :rtype: str
     """
-    def __init__(self):
-        """Constructor."""
-        # Initialize attribute
-        self.table_name = 'user'
-        self.column_name = {
-            'name': 'name',
-            'email': 'email',
-            'is_developer': 'is_developer',
-            'wants_update': 'wants_update',
-            'date_added': 'date_added',
-            'latitude': 'latitude',
-            'longitude': 'longitude'
-        }
+    conn = get_conn(APP.config['DATABASE'])
+    guid = uuid.uuid4()
+    if is_developer:
+        is_developer = 1
+    else:
+        is_developer = 0
 
-    def add_user(self, name='', email='', is_developer='', wants_update='',
-                 date_added='', latitude='', longitude=''):
-        """Add a to database.
-        :param name: name of user
-        :param email: email of user
-        :param is_developer: true if developer, false if user
-        :param wants_update: true if user wants update, false if not
-        :param date_added: the date this user is added
-        :param latitude: latitude of this user
-        :param longitude: longitude of this uer
-        """
-        conn = get_conn(APP.config['DATABASE'])
-        add_user_sql = ('INSERT '
-                        'INTO %s '
-                        'VALUES("%s", "%s", "%s", "%s","%s", "%s", "%s");') % \
-                       (self.table_name,
-                        name,
-                        email,
-                        is_developer,
-                        wants_update,
-                        date_added,
-                        latitude,
-                        longitude)
+    if email_updates:
+        email_updates = 1
+    else:
+        email_updates = 0
 
-        conn.execute(add_user_sql)
-        conn.commit()
-        conn.close()
-
-    def get_all_users(self, is_developer=False):
-        """Get All of users from database.
-
-        :param is_developer: is_developer role.
-        Fetch all users who have role user if is_developer=False. Fetch all
-        users who have role developer if is_developer=Trues
-        """
-        sql_users = ''
-
-        if is_developer:
-            print 'dor'
-            sql_users += 'SELECT * FROM %s WHERE "%s"="%s" ' % (
-                self.table_name,
-                self.column_name['is_developer'],
-                'true'
-            )
-        else:
-            print 'teng'
-            sql_users += 'SELECT * FROM %s WHERE "%s"="%s" ' % (
-                self.table_name,
-                self.column_name['is_developer'],
-                'false'
-            )
-        conn = get_conn(APP.config['DATABASE'])
-        all_users = query_db(conn, sql_users)
-        return all_users
+    sql = render_template(
+        'add_user.sql',
+        guid=guid,
+        name=name,
+        email=email,
+        is_developer=is_developer,
+        email_updates=email_updates,
+        longitude=longitude,
+        latitude=latitude
+    )
+    conn.execute(sql)
+    conn.commit()
+    conn.close()
+    return guid
 
 
-user = User()
-res = user.get_all_users(is_developer=True)
+def get_user(guid):
+    """Get a user given their GUID.
 
+    :param guid: Globally unique identifier for the requested user.
+    :type guid: str
+
+    :returns: A user expressed as a dictionary of key value pairs or None if
+        the given GUID does not exist.
+    :rtype: dict
+    """
+    conn = get_conn(APP.config['DATABASE'])
+    sql = 'SELECT * FROM user WHERE guid="%s"' % guid
+    try:
+        user = query_db(conn, sql)
+    except:
+        user = None
+    return user
+
+def get_all_users(is_developer=False):
+    """Get all users from database.
+
+    :param is_developer: Whether to fetch developers or users. Default of
+        False will fetch users only.
+    :type is_developer: bool
+
+    :returns: A list of user objects.
+    :rtype: list
+    """
+    conn = get_conn(APP.config['DATABASE'])
+
+    if is_developer:
+        sql = 'SELECT * FROM user WHERE is_developer=1'
+    else:
+        sql = 'SELECT * FROM user WHERE is_developer=0'
+
+    all_users = query_db(conn, sql)
+    return all_users

@@ -1,8 +1,10 @@
  CREATE TABLE user (
-  name TEXT,
-  email TEXT,
-  is_developer BOOL,
-  wants_update BOOL,
-  date_added TEXT,
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  guid VARCHAR(37) NOT NULL,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  is_developer BOOL DEFAULT 0,
+  email_updates BOOL DEFAULT 0,
+  date_added DATETIME DEFAULT CURRENT_TIMESTAMP,
   latitude FLOAT,
   longitude FLOAT);
