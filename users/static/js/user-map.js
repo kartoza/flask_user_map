@@ -41,7 +41,7 @@ function onLocationFound(e) {
 
 function onMapClick(e) {
   // Clear the un-saved clicked marker
-  if (marker_new_user !== null) {
+  if (marker_new_user != null) {
     cancelMarker();
   }
   //Get new marker
