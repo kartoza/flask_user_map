@@ -5,7 +5,7 @@ function onEachFeature(feature, layer) {
   }
 }
 
-function addUsersLayer(users_layer, developers_layer) {
+function addUsersLayer(users_layer, developers_layer, trainers_layer) {
   $.ajax({
     type: "GET",
     url: "/users.json",
@@ -27,16 +27,22 @@ function addUsersLayer(users_layer, developers_layer) {
               return L.marker(latlng, {icon: developer_icon });
             }
           }).addTo(developers_layer);
+      L.geoJson(
+          response.trainers,
+          {
+            onEachFeature: onEachFeature,
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {icon: trainer_icon });
+            }
+          }).addTo(trainers_layer);
     }
   });
 }
 
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
-  L.marker(e.latlng).addTo(map)
-      .bindPopup("You are within " + radius + " meters from this point")
-      .openPopup();
-  L.circle(e.latlng, radius).addTo(map);
+  var label = "You are within " + radius + " meters from this point";
+  L.circleMarker(e.latlng, { color: "#f00", radius: radius }).bindLabel(label, { direction: 'left' }).addTo(map);
 }
 
 function onMapClick(e) {
@@ -59,8 +65,9 @@ function onMapClick(e) {
       '<span name="error-email" id="error-email"></span>' +
 
       '<label><strong>Role:</strong></label>' +
-      '<input type="radio" name="role" value="false" checked> User  ' +
-      '<input type="radio" name="role" value="true"> Developer</br>' +
+      '<input type="radio" name="role" value="0" checked> User  ' +
+      '<input type="radio" name="role" value="1"> Trainer  ' +
+      '<input type="radio" name="role" value="2"> Developer</br>' +
 
       '<label><strong>Notifications:</strong></label>' +
       '<input type="checkbox" id="notification" name="notification" value="Yes" /> Receive project news and updates' +
@@ -119,10 +126,12 @@ function addUser() {
         }
       } else {
         cancelMarker()
-        if (role == 'true') {
-          L.geoJson(response).addTo(developers_layer);
-        } else {
+        if (role == '0') {
           L.geoJson(response).addTo(users_layer);
+        } else if (role == '1') {
+          L.geoJson(response).addTo(trainers_layer);
+        } else if (role == '2') {
+          L.geoJson(response).addTo(developers_layer);
         }
       }
     }

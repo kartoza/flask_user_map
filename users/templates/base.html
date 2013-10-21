@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/users/static/css/bootstrap.css"
         type="text/css" static="screen, projection"/>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css"/>
+  <link rel="stylesheet" href="/users/static/css/leaflet.label.css"/>
   <!--[if lte IE 8]>
          <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
      <![endif]-->
@@ -17,6 +18,7 @@
   <script language="javascript"
           type="text/javascript" src="/users/static/js/bootstrap.min.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+  <script src="/users/static/js/leaflet.label.js"></script>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map.js"></script>
 
@@ -61,6 +63,7 @@
   });
 
   var user_icon = new IconMarker({iconUrl: '/static/img/user-icon.png'}),
+      trainer_icon = new IconMarker({iconUrl: '/static/img/trainer-icon.png'}),
       developer_icon = new IconMarker({iconUrl: '/static/img/developer-icon.png'});
 
   var data_privacy_attribution = L.Control.extend({
@@ -79,6 +82,26 @@
     }
   });
 
+  var add_me_button = L.Control.extend({
+    options: {
+      position: 'topleft'
+    },
+    onAdd: function (map) {
+      var add_me_container = L.DomUtil.create('div',
+          'add-me');
+      onClick = function () {
+        map.on('locationfound', onLocationFound)
+        map.locate({setView: true, maxZoom: 16});
+      }
+      add_me_container.innerHTML +=
+          "<a class='btn btn-primary' onclick='onClick()'>" +
+              "<i class='icon-user icon-white'></i> " +
+              "<i class='icon-plus icon-white'></i>" +
+          "</a>"
+      return add_me_container
+    }
+  });
+
   $(document).ready(function () {
     //Basemap Layer
     var base = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
@@ -90,27 +113,28 @@
     //User Layer
     users_layer = new L.LayerGroup();
     developers_layer = new L.LayerGroup();
-    addUsersLayer(users_layer, developers_layer)
+    trainers_layer = new L.LayerGroup();
+    addUsersLayer(users_layer, developers_layer, trainers_layer)
 
     //Create Map with prepared layers
     map = L.map('map', {
       center: [1.0, 118.99],
       zoom: 5,
-      layers: [base, users_layer, developers_layer]
+      layers: [base, users_layer, developers_layer, trainers_layer]
     });
     map.addControl(new data_privacy_attribution());
-    map.locate({setView: true, maxZoom: 16});
+    map.addControl(new add_me_button);
 
     //Overlays layers
     var overlays = {
       "Users": users_layer,
-      "Developers": developers_layer
+      "Developers": developers_layer,
+      "Trainers": trainers_layer
     }
     L.control.layers(null, overlays).addTo(map)
 
     //Set Listener on map
     map.on('click', onMapClick)
-    map.on('locationfound', onLocationFound)
   })
 </script>
 </body>

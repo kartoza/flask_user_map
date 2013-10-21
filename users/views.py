@@ -35,15 +35,18 @@ def users_view():
     """Return a json document of users who have registered themselves."""
     # Create model User
     all_users = get_all_users()
-    all_developers = get_all_users(is_developer=True)
+    all_trainers = get_all_users(role=1)
+    all_developers = get_all_users(role=2)
     json_users = render_template('users.json', users=all_users)
+    json_trainers = render_template('users.json', users=all_trainers)
     json_developers = render_template('users.json', users=all_developers)
 
     users_json = (
         '{'
         ' "users": %s,'
+        ' "trainers": %s,'
         ' "developers": %s'
-        '}' % (json_users, json_developers)
+        '}' % (json_users, json_trainers, json_developers)
     )
     # Return Response
     return Response(users_json, mimetype='application/json')
@@ -72,7 +75,7 @@ def add_user_view():
     notification = str(request.form['notification'])
     latitude = str(request.form['latitude'])
     longitude = str(request.form['longitude'])
-
+    print "Role: %s" % role
     # Validate the data:
     message = {}
     if not is_required_valid(name):
@@ -81,8 +84,8 @@ def add_user_view():
         message['email'] = 'Email address is not valid'
     if not is_required_valid(email):
         message['email'] = 'Email is required'
-    if not is_boolean(role):
-        message['role'] = 'Role must be checked'
+    #if not is_boolean(role):
+    #    message['role'] = 'Role must be checked'
     elif not is_boolean(notification):
         message['notification'] = 'Notification must be boolean'
 
@@ -94,7 +97,7 @@ def add_user_view():
         guid = add_user(
             name=name,
             email=email,
-            is_developer=bool(role),
+            role=int(role),
             email_updates=bool(notification),
             latitude=float(latitude),
             longitude=float(longitude))

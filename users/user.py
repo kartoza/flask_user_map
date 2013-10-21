@@ -16,7 +16,7 @@ def add_user(
         email,
         latitude,
         longitude,
-        is_developer=False,
+        role=0,
         email_updates=False):
     """Add a user to the database.
 
@@ -32,8 +32,8 @@ def add_user(
     :param longitude: longitude of this uer
     :type longitude: float
 
-    :param is_developer: True if developer, False if user.
-    :type is_developer: bool
+    :param role: 0 if user , 1 if trainer, 2 if developer
+    :type role: int
 
     :param email_updates: True if user wants email updates about project
         related activities. False if not.
@@ -44,10 +44,6 @@ def add_user(
     """
     conn = get_conn(APP.config['DATABASE'])
     guid = uuid.uuid4()
-    if is_developer:
-        is_developer = 1
-    else:
-        is_developer = 0
 
     if email_updates:
         email_updates = 1
@@ -61,7 +57,7 @@ def add_user(
         guid=guid,
         name=name,
         email=email,
-        is_developer=is_developer,
+        role=role,
         email_updates=email_updates,
         longitude=longitude,
         latitude=latitude
@@ -91,22 +87,19 @@ def get_user(guid):
         return users[0]
 
 
-def get_all_users(is_developer=False):
+def get_all_users(role=0):
     """Get all users from database.
 
-    :param is_developer: Whether to fetch developers or users. Default of
+    :param role: Whether to fetch developers or users. Default of
         False will fetch users only.
-    :type is_developer: bool
+    :type role: bool
 
     :returns: A list of user objects.
     :rtype: list
     """
     conn = get_conn(APP.config['DATABASE'])
 
-    if is_developer:
-        sql = 'SELECT * FROM user WHERE is_developer=1'
-    else:
-        sql = 'SELECT * FROM user WHERE is_developer=0'
+    sql = 'SELECT * FROM user WHERE role= %i' % role
 
     all_users = query_db(conn, sql)
     return all_users

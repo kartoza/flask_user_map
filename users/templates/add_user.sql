@@ -1,10 +1,10 @@
 INSERT INTO
-  user (guid, name, email, is_developer, email_updates, longitude, latitude)
+  user (guid, name, email, role, email_updates, longitude, latitude)
 VALUES (
   "{{ guid }}",
   "{{ name }}",
   "{{ email }}" ,
-  {{ is_developer }},
+  {{ role }},
   {{ email_updates }},
   {{ longitude }},
   {{ latitude }});
