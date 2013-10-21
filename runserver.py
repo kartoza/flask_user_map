@@ -26,4 +26,4 @@ if __name__ == '__main__':
         LOGGER.info('Running in production mode')
 
     print 'Starting.....'
-    APP.run()
+    APP.run(host='0.0.0.0')
