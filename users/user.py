@@ -6,7 +6,7 @@ import uuid
 # Use jinja directly as we dont have guarantee of app context
 # see http://stackoverflow.com/questions/17206728/
 # attributeerror-nonetype-object-has-no-attribute-app
-from jinja2 import Template, Environment, PackageLoader
+from jinja2 import Environment, PackageLoader
 from users.utilities.db import get_conn, query_db
 from users import APP
 
@@ -92,7 +92,7 @@ def get_all_users(role=0):
 
     :param role: Whether to fetch users, trainers, or developers. Default of
         0 will fetch users only.
-    :type role: bool
+    :type role: int
 
     :returns: A list of user objects.
     :rtype: list
