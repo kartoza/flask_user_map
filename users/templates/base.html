@@ -77,7 +77,15 @@
         $('#data-privacy-modal').modal('show');
         return false;
       }
-      data_privacy_container.innerHTML += "<a href='#' onclick='onDataPrivacyClick()'>Data Privacy</a>"
+      data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>"
+
+      //Prevent firing drag and onClickMap event when clicking this control
+      var stop = L.DomEvent.stopPropagation;
+      L.DomEvent
+       .on(data_privacy_container, 'click', stop)
+       .on(data_privacy_container, 'mousedown', stop)
+       .on(data_privacy_container, 'dblclick', stop)
+       .on(data_privacy_container, 'click', L.DomEvent.preventDefault);
       return data_privacy_container;
     }
   });
@@ -98,6 +106,14 @@
               "<i class='icon-user icon-white'></i> " +
               "<i class='icon-plus icon-white'></i>" +
           "</a>"
+
+      //Prevent firing drag and onClickMap event when clicking this control
+      var stop = L.DomEvent.stopPropagation;
+      L.DomEvent
+       .on(add_me_container, 'click', stop)
+       .on(add_me_container, 'mousedown', stop)
+       .on(add_me_container, 'dblclick', stop)
+       .on(add_me_container, 'click', L.DomEvent.preventDefault);
       return add_me_container
     }
   });
