@@ -50,7 +50,7 @@
 <div id="map"></div>
 
 <script type="text/javascript">
-  var map, marker_new_user, users_layer, developers_layer;
+  var map, marker_new_user, users_layer, trainers_layer, developers_layer;
   var IconMarker = L.Icon.extend({
     options: {
       shadowUrl: '/static/img/shadow-icon.png',
@@ -73,11 +73,11 @@
     onAdd: function (map) {
       var data_privacy_container = L.DomUtil.create('div',
           'leaflet-control-attribution');
-      onClick = function () {
+      onDataPrivacyClick = function () {
         $('#data-privacy-modal').modal('show');
         return false;
       }
-      data_privacy_container.innerHTML += "<a href='#' onclick='onClick()'>Data Privacy</a>"
+      data_privacy_container.innerHTML += "<a href='#' onclick='onDataPrivacyClick()'>Data Privacy</a>"
       return data_privacy_container;
     }
   });
@@ -89,12 +89,12 @@
     onAdd: function (map) {
       var add_me_container = L.DomUtil.create('div',
           'add-me');
-      onClick = function () {
+      onAddMeButtonClick = function () {
         map.on('locationfound', onLocationFound)
         map.locate({setView: true, maxZoom: 16});
       }
       add_me_container.innerHTML +=
-          "<a class='btn btn-primary' onclick='onClick()'>" +
+          "<a class='btn btn-primary' onclick='onAddMeButtonClick()'>" +
               "<i class='icon-user icon-white'></i> " +
               "<i class='icon-plus icon-white'></i>" +
           "</a>"
