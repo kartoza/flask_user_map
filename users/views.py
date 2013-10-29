@@ -71,11 +71,11 @@ def add_user_view():
     # Get data from form
     name = str(request.form['name']).strip()
     email = str(request.form['email']).strip()
-    role = str(request.form['role']).strip()
-    notification = str(request.form['notification'])
+    role = int(request.form['role'])
+    email_updates = str(request.form['email_updates'])
     latitude = str(request.form['latitude'])
     longitude = str(request.form['longitude'])
-    print "Role: %s" % role
+
     # Validate the data:
     message = {}
     if not is_required_valid(name):
@@ -84,11 +84,18 @@ def add_user_view():
         message['email'] = 'Email address is not valid'
     if not is_required_valid(email):
         message['email'] = 'Email is required'
-    #if not is_boolean(role):
-    #    message['role'] = 'Role must be checked'
-    elif not is_boolean(notification):
-        message['notification'] = 'Notification must be boolean'
+    if role not in [0, 1, 2]:
+        message['role'] = 'Role must be checked'
+    elif not is_boolean(email_updates):
+        message['email_updates'] = 'Notification must be checked'
 
+    # Modify the data:
+    if email_updates == 'true':
+        email_updates = True
+    else:
+        email_updates = False
+
+    # Process data
     if len(message) != 0:
         message['type'] = 'Error'
         return Response(json.dumps(message), mimetype='application/json')
@@ -98,7 +105,7 @@ def add_user_view():
             name=name,
             email=email,
             role=int(role),
-            email_updates=bool(notification),
+            email_updates=bool(email_updates),
             latitude=float(latitude),
             longitude=float(longitude))
 

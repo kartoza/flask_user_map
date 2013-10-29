@@ -70,7 +70,7 @@ function onMapClick(e) {
       '<input type="radio" name="role" value="2"> Developer</br>' +
 
       '<label><strong>Notifications:</strong></label>' +
-      '<input type="checkbox" id="notification" name="notification" value="Yes" /> Receive project news and updates' +
+      '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" /> Receive project news and updates' +
 
       '<input style="display: none;" type="text" id="lat" name="lat" value="' + markerLocation.lat.toFixed(6) + '" />' +
       '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" /><br><br>' +
@@ -88,11 +88,11 @@ function addUser() {
   var name = $("#name").val();
   var email = $("#email").val();
   var role = $('input:radio[name=role]:checked').val();
-  var notification;
-  if ($('#notification').is(':checked')) {
-    notification = "true";
+  var email_updates;
+  if ($('#email_updates').is(':checked')) {
+    email_updates = "true";
   } else {
-    notification = "false";
+    email_updates = "false";
   }
   var latitude = $("#lat").val()
   var longitude = $("#lng").val()
@@ -110,7 +110,7 @@ function addUser() {
       name: name,
       email: email,
       role: role,
-      notification: notification,
+      email_updates: email_updates,
       latitude: latitude,
       longitude: longitude
     },

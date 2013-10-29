@@ -25,18 +25,18 @@ class TestUser(TestCase):
         self.app = APP.test_client()
         self.user_to_add = dict(
             name='Akbar',
-            email='akbargumbira@gmail.com',
-            is_developer='false',
+            email='test@gmail.com',
+            role=0,
             email_updates='true',
             latitude=12.32,
             longitude=-13.03)
 
     def test_add_user(self):
         """Test for adding user function."""
-        number_of_users_before = len(get_all_users(True))
+        number_of_users_before = len(get_all_users())
         guid = add_user(**self.user_to_add)
         self.assertIsNotNone(guid)
-        number_of_users_after = len(get_all_users(True))
+        number_of_users_after = len(get_all_users())
         self.assertEqual(number_of_users_before+1, number_of_users_after)
 
     def test_get_user(self):
@@ -51,5 +51,6 @@ class TestUser(TestCase):
     def test_get_all_users(self):
         """Test for retrieving all user function."""
         users = get_all_users()
+        # Test if all the attribute exist
         for user in users:
-            self.assertEqual(len(user), 7)
+            self.assertEqual(len(user), 9)

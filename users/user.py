@@ -90,8 +90,8 @@ def get_user(guid):
 def get_all_users(role=0):
     """Get all users from database.
 
-    :param role: Whether to fetch developers or users. Default of
-        False will fetch users only.
+    :param role: Whether to fetch users, trainers, or developers. Default of
+        0 will fetch users only.
     :type role: bool
 
     :returns: A list of user objects.

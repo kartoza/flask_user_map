@@ -29,6 +29,13 @@ class AppTestCase(LoggedTestCase):
         APP.config['DATABASE'] = self.db_path
         APP.config['TESTING'] = True
         self.app = APP.test_client()
+        self.user_to_add = dict(
+            name='Akbar',
+            email='test@gmail.com',
+            role=0,
+            email_updates='true',
+            latitude=12.32,
+            longitude=-13.03)
 
     #noinspection PyPep8Naming
     def tearDown(self):
@@ -66,14 +73,7 @@ class AppTestCase(LoggedTestCase):
         """Test the user added json response works."""
         try:
             result = self.app.post(
-                '/add_user', data=dict(
-                    name='Akbar',
-                    email='akbargumbira@gmail.com',
-                    role='true',
-                    notification='true',
-                    latitude='12',
-                    longitude='31'
-                ), follow_redirects=True)
+                '/add_user', data=self.user_to_add, follow_redirects=True)
             self.assertTrue('Akbar' in result.data)
         except Exception, e:
             LOGGER.exception('Page load failed.')
@@ -83,9 +83,9 @@ class AppTestCase(LoggedTestCase):
             result = self.app.post(
                 '/add_user', data=dict(
                     name='Akbar',
-                    email='akbargumbiragmail.com',
-                    role='true',
-                    notification='true',
+                    email='testgmail.com',
+                    role=1,
+                    email_updates='true',
                     latitude='12',
                     longitude='31'
                 ), follow_redirects=True)
