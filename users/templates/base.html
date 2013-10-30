@@ -24,7 +24,52 @@
 
 </head>
 <body>
-<div class="modal hide fade" id="data-privacy-modal">
+<!-- Modal for feedback to user added succesfully -->
+<div class="modal hide fade" id="add-success-modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Information</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+      Thank you for adding yourself to our database!
+     </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+<!-- Modal for Data Privacy Section -->
+<div class="modal fade" id="data-privacy-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Data Privacy</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+        The data you enter on this site may be visible to others. We suggest that
+        you approximate your physical location to the nearest town or major
+        center. Parts of your data will be made available for others to download
+        and use. We will <strong>not</strong> share:</br>
+        <ul>
+          <li>your email address</li>
+          <li>your unique identifier used to edit your record</li>
+        </ul>
+        If you would like your data removed from this site, please refer to the
+        confirmation email we sent you when you added yourself for instructions.
+      </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"  aria-hidden="true">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- <div class="modal hide fade" id="data-privacy-modal">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
     <h3>Data Privacy</h3>
@@ -46,7 +91,8 @@
   <div class="modal-footer">
     <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
-</div>
+</div> -->
+
 <div id="map"></div>
 
 <script type="text/javascript">
@@ -93,6 +139,7 @@
     }
   });
 
+  // User Control: Add User, Delete User
   var add_me_button = L.Control.extend({
     options: {
       position: 'topleft'
@@ -100,6 +147,17 @@
     onAdd: function (map) {
       var add_me_container = L.DomUtil.create('div',
           'add-me');
+      add_me_container.title = 'Add me to map!'
+      add_me_container.innerHTML +=
+          "<div class='btn-group-vertical'>" +
+              "<button type='button' class='btn btn-default btn-lg' onclick='onDeleteMeButtonClick()'>" +
+              "<span class='glyphicon glyphicon-calendar'></span> Star" +
+              "</button>"+
+              "<button class='btn' onclick='onAddMeButtonClick()'>" +
+                "<i class='icon-plus-sign icon-black'></i> " +
+              "</button>" +
+          "</div>"
+
       onAddMeButtonClick = function () {
         if (mode != 1) {
           // Set mode to add user mode
@@ -114,11 +172,10 @@
           map.on('click', onMapClick)
         }
       }
-      add_me_container.innerHTML +=
-          "<a class='btn btn-primary' onclick='onAddMeButtonClick()'>" +
-              "<i class='icon-user icon-white'></i> " +
-              "<i class='icon-plus icon-white'></i>" +
-          "</a>"
+
+      onDeleteMeButtonClick = function () {
+        alert("It's not implemented yet!")
+      }
 
       //Prevent firing drag and onClickMap event when clicking this control
       var stop = L.DomEvent.stopPropagation;

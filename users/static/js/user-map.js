@@ -128,6 +128,8 @@ function addUser() {
         }
       } else {
         cancelMarker()
+        mode = 0
+        $('#add-success-modal').modal('show');
         if (role == '0') {
           L.geoJson(response).addTo(users_layer);
         } else if (role == '1') {

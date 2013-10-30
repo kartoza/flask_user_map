@@ -15,7 +15,11 @@ FILE_SUFFIX_MIMETYPES = {
     '.html': 'text/html',
     '.ico': 'image/x-icon',
     '.png': 'image/png',
-    '.js': 'application/javascript'
+    '.js': 'application/javascript',
+    '.eot': 'application/vnd.ms-fontobject',
+    '.svg': 'image/svg+xml',
+    '.ttf': 'font/ttf',
+    '.woff': 'font/x-woff'
 }
 
 
