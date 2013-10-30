@@ -40,9 +40,11 @@ function addUsersLayer(users_layer, developers_layer, trainers_layer) {
 }
 
 function onLocationFound(e) {
-  var radius = e.accuracy / 2;
+  var radius = e.accuracy/2;
   var label = "You are within " + radius + " meters from this point";
-  L.circleMarker(e.latlng, { color: "#f00", radius: radius }).bindLabel(label, { direction: 'left' }).addTo(map);
+  L.circle(e.latlng, radius, {clickable:false, fillOpacity:0.1}).bindLabel(label, {noHide: true, direction:'auto'}).addTo(map).showLabel();
+
+
 }
 
 function onMapClick(e) {
