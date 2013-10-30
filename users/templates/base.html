@@ -1,223 +1,201 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>User Map</title>
-  <link rel="shortcut icon" href="/users/static/img/favicon.ico"/>
-  <link rel="stylesheet" href="/users/static/css/bootstrap.css"
-        type="text/css" static="screen, projection"/>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css"/>
-  <link rel="stylesheet" href="/users/static/css/leaflet.label.css"/>
-  <!--[if lte IE 8]>
-         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-     <![endif]-->
-  <link rel="stylesheet" href="/users/static/css/user-map.css"
-        type="text/css" static="screen, projection"/>
-  <script language="javascript"
-          type="text/javascript" src="/users/static/js/jquery.js"></script>
-  <script language="javascript"
-          type="text/javascript" src="/users/static/js/bootstrap.min.js"></script>
-  <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-  <script src="/users/static/js/leaflet.label.js"></script>
-  <script language="javascript"
-          type="text/javascript" src="/users/static/js/user-map.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>User Map</title>
+    <link rel="shortcut icon" href="/users/static/img/favicon.ico"/>
+    <link rel="stylesheet" href="/users/static/css/bootstrap.css"
+          type="text/css" static="screen, projection"/>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css"/>
+    <link rel="stylesheet" href="/users/static/css/leaflet.label.css"/>
+    <!--[if lte IE 8]>
+           <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+       <![endif]-->
+    <link rel="stylesheet" href="/users/static/css/user-map.css"
+          type="text/css" static="screen, projection"/>
+    <script language="javascript"
+            type="text/javascript" src="/users/static/js/jquery.js"></script>
+    <script language="javascript"
+            type="text/javascript" src="/users/static/js/bootstrap.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script src="/users/static/js/leaflet.label.js"></script>
+    <script language="javascript"
+            type="text/javascript" src="/users/static/js/user-map.js"></script>
 
-</head>
-<body>
-<!-- Modal for feedback to user added succesfully -->
-<div class="modal hide fade" id="add-success-modal">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">×</a>
-    <h3>Information</h3>
+  </head>
+  <body>
+  <!-- Modal for feedback to user added succesfully -->
+  <div class="modal hide fade" id="add-success-modal">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h3>Information</h3>
+    </div>
+    <div class="modal-body">
+      <p>
+        Thank you for adding yourself to our database!
+       </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
   </div>
-  <div class="modal-body">
-    <p>
-      Thank you for adding yourself to our database!
-     </p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
-</div>
 
-<!-- Modal for Data Privacy Section -->
-<div class="modal fade" id="data-privacy-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3 class="modal-title">Data Privacy</h3>
-      </div>
-      <div class="modal-body">
-        <p>
-        The data you enter on this site may be visible to others. We suggest that
-        you approximate your physical location to the nearest town or major
-        center. Parts of your data will be made available for others to download
-        and use. We will <strong>not</strong> share:</br>
-        <ul>
-          <li>your email address</li>
-          <li>your unique identifier used to edit your record</li>
-        </ul>
-        If you would like your data removed from this site, please refer to the
-        confirmation email we sent you when you added yourself for instructions.
-      </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal"  aria-hidden="true">Close</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+  <!-- Modal for Data Privacy Section -->
+  <div class="modal fade" id="data-privacy-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="modal-title">Data Privacy</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+          The data you enter on this site may be visible to others. We suggest that
+          you approximate your physical location to the nearest town or major
+          center. Parts of your data will be made available for others to download
+          and use. We will <strong>not</strong> share:</br>
+          <ul>
+            <li>your email address</li>
+            <li>your unique identifier used to edit your record</li>
+          </ul>
+          If you would like your data removed from this site, please refer to the
+          confirmation email we sent you when you added yourself for instructions.
+        </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal"  aria-hidden="true">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
-<!-- <div class="modal hide fade" id="data-privacy-modal">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">×</a>
-    <h3>Data Privacy</h3>
-  </div>
-  <div class="modal-body">
-    <p>
-      The data you enter on this site may be visible to others. We suggest that
-      you approximate your physical location to the nearest town or major
-      center. Parts of your data will be made available for others to download
-      and use. We will <strong>not</strong> share:</br>
-    <ul>
-      <li>your email address</li>
-      <li>your unique identifier used to edit your record</li>
-    </ul>
-    If you would like your data removed from this site, please refer to the
-    confirmation email we sent you when you added yourself for instructions.
-    </p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
-</div> -->
+  <div id="map"></div>
 
-<div id="map"></div>
-
-<script type="text/javascript">
-  var map, marker_new_user, users_layer, trainers_layer, developers_layer,
-      mode;
-  // Set Default mode
-  mode = 0
-  var IconMarker = L.Icon.extend({
-    options: {
-      shadowUrl: '/static/img/shadow-icon.png',
-      iconSize: [19, 32],
-      shadowSize: [42, 35],
-      iconAnchor: [12, 32],
-      shadowAnchor: [12, 32],
-      popupAnchor: [-2, -32]
-    }
-  });
-
-  var user_icon = new IconMarker({iconUrl: '/static/img/user-icon.png'}),
-      trainer_icon = new IconMarker({iconUrl: '/static/img/trainer-icon.png'}),
-      developer_icon = new IconMarker({iconUrl: '/static/img/developer-icon.png'});
-
-  var data_privacy_attribution = L.Control.extend({
-    options: {
-      position: 'bottomleft'
-    },
-    onAdd: function (map) {
-      var data_privacy_container = L.DomUtil.create('div',
-          'leaflet-control-attribution');
-      onDataPrivacyClick = function () {
-        $('#data-privacy-modal').modal('show');
-        return false;
+  <script type="text/javascript">
+    var map, marker_new_user, users_layer, trainers_layer, developers_layer,
+        mode;
+    // Set Default mode
+    mode = 0
+    var IconMarker = L.Icon.extend({
+      options: {
+        shadowUrl: '/static/img/shadow-icon.png',
+        iconSize: [19, 32],
+        shadowSize: [42, 35],
+        iconAnchor: [12, 32],
+        shadowAnchor: [12, 32],
+        popupAnchor: [-2, -32]
       }
-      data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>"
+    });
 
-      //Prevent firing drag and onClickMap event when clicking this control
-      var stop = L.DomEvent.stopPropagation;
-      L.DomEvent
-       .on(data_privacy_container, 'click', stop)
-       .on(data_privacy_container, 'mousedown', stop)
-       .on(data_privacy_container, 'dblclick', stop)
-       .on(data_privacy_container, 'click', L.DomEvent.preventDefault);
-      return data_privacy_container;
-    }
-  });
+    var user_icon = new IconMarker({iconUrl: '/static/img/user-icon.png'}),
+        trainer_icon = new IconMarker({iconUrl: '/static/img/trainer-icon.png'}),
+        developer_icon = new IconMarker({iconUrl: '/static/img/developer-icon.png'});
 
-  // User Control: Add User, Delete User
-  var add_me_button = L.Control.extend({
-    options: {
-      position: 'topleft'
-    },
-    onAdd: function (map) {
-      var add_me_container = L.DomUtil.create('div',
-          'add-me');
-      add_me_container.title = 'Add me to map!'
-      add_me_container.innerHTML +=
-          "<div class='btn-group-vertical'>" +
-              "<button type='button' class='btn btn-default btn-lg' onclick='onDeleteMeButtonClick()'>" +
-              "<span class='glyphicon glyphicon-calendar'></span> Star" +
-              "</button>"+
-              "<button class='btn' onclick='onAddMeButtonClick()'>" +
-                "<i class='icon-plus-sign icon-black'></i> " +
-              "</button>" +
-          "</div>"
-
-      onAddMeButtonClick = function () {
-        if (mode != 1) {
-          // Set mode to add user mode
-          mode = 1
-          // Change cursor to crosshair
-          $('#map').css('cursor', 'crosshair');
-          // When location is found, do onLocationFoud
-          map.on('locationfound', onLocationFound)
-          // Locate map to location found
-          map.locate({setView: true, maxZoom: 16});
-          //Set Listener map onClick
-          map.on('click', onMapClick)
+    var data_privacy_attribution = L.Control.extend({
+      options: {
+        position: 'bottomleft'
+      },
+      onAdd: function (map) {
+        var data_privacy_container = L.DomUtil.create('div',
+            'leaflet-control-attribution');
+        onDataPrivacyClick = function () {
+          $('#data-privacy-modal').modal('show');
+          return false;
         }
+        data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>"
+
+        //Prevent firing drag and onClickMap event when clicking this control
+        var stop = L.DomEvent.stopPropagation;
+        L.DomEvent
+         .on(data_privacy_container, 'click', stop)
+         .on(data_privacy_container, 'mousedown', stop)
+         .on(data_privacy_container, 'dblclick', stop)
+         .on(data_privacy_container, 'click', L.DomEvent.preventDefault);
+        return data_privacy_container;
       }
-
-      onDeleteMeButtonClick = function () {
-        alert("It's not implemented yet!")
-      }
-
-      //Prevent firing drag and onClickMap event when clicking this control
-      var stop = L.DomEvent.stopPropagation;
-      L.DomEvent
-       .on(add_me_container, 'click', stop)
-       .on(add_me_container, 'mousedown', stop)
-       .on(add_me_container, 'dblclick', stop)
-       .on(add_me_container, 'click', L.DomEvent.preventDefault);
-      return add_me_container
-    }
-  });
-
-  $(document).ready(function () {
-    //Basemap Layer
-    var base = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
-        '.png', {
-      attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
-      maxZoom: 18
     });
 
-    //User Layer
-    users_layer = new L.LayerGroup();
-    developers_layer = new L.LayerGroup();
-    trainers_layer = new L.LayerGroup();
-    addUsersLayer(users_layer, developers_layer, trainers_layer)
+    // User Control: Add User, Delete User
+    var add_me_button = L.Control.extend({
+      options: {
+        position: 'topleft'
+      },
+      onAdd: function (map) {
+        var add_me_container = L.DomUtil.create('div',
+            'add-me');
+        add_me_container.title = 'Add me to map!'
+        add_me_container.innerHTML +=
+            "<div class='btn-group-vertical'>" +
+                "<button type='button' class='btn btn-default btn-lg' onclick='onDeleteMeButtonClick()'>" +
+                "<span class='glyphicon glyphicon-calendar'></span> Star" +
+                "</button>"+
+                "<button class='btn' onclick='onAddMeButtonClick()'>" +
+                  "<i class='icon-plus-sign icon-black'></i> " +
+                "</button>" +
+            "</div>"
 
-    //Create Map with prepared layers
-    map = L.map('map', {
-      center: [30.0, 128.99],
-      zoom: 3,
-      layers: [base, users_layer, developers_layer, trainers_layer]
+        onAddMeButtonClick = function () {
+          if (mode != 1) {
+            // Set mode to add user mode
+            mode = 1
+            // Change cursor to crosshair
+            $('#map').css('cursor', 'crosshair');
+            // When location is found, do onLocationFoud
+            map.on('locationfound', onLocationFound)
+            // Locate map to location found
+            map.locate({setView: true, maxZoom: 16});
+            //Set Listener map onClick
+            map.on('click', onMapClick)
+          }
+        }
+
+        onDeleteMeButtonClick = function () {
+          alert("It's not implemented yet!")
+        }
+
+        //Prevent firing drag and onClickMap event when clicking this control
+        var stop = L.DomEvent.stopPropagation;
+        L.DomEvent
+         .on(add_me_container, 'click', stop)
+         .on(add_me_container, 'mousedown', stop)
+         .on(add_me_container, 'dblclick', stop)
+         .on(add_me_container, 'click', L.DomEvent.preventDefault);
+        return add_me_container
+      }
     });
-    map.addControl(new data_privacy_attribution());
-    map.addControl(new add_me_button);
 
-    //Overlays layers
-    var overlays = {
-      "Users": users_layer,
-      "Developers": developers_layer,
-      "Trainers": trainers_layer
-    }
-    L.control.layers(null, overlays).addTo(map)
-  })
-</script>
-</body>
+    $(document).ready(function () {
+      //Basemap Layer
+      var base = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
+          '.png', {
+        attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
+        maxZoom: 18
+      });
+
+      //User Layer
+      users_layer = new L.LayerGroup();
+      developers_layer = new L.LayerGroup();
+      trainers_layer = new L.LayerGroup();
+      addUsersLayer(users_layer, developers_layer, trainers_layer)
+
+      //Create Map with prepared layers
+      map = L.map('map', {
+        center: [30.0, 128.99],
+        zoom: 3,
+        layers: [base, users_layer, developers_layer, trainers_layer]
+      });
+      map.addControl(new data_privacy_attribution());
+      map.addControl(new add_me_button);
+
+      //Overlays layers
+      var overlays = {
+        "Users": users_layer,
+        "Developers": developers_layer,
+        "Trainers": trainers_layer
+      }
+      L.control.layers(null, overlays).addTo(map)
+    })
+  </script>
+  </body>
+</html>

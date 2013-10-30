@@ -57,25 +57,36 @@ function onMapClick(e) {
   marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
   var form = '<h3 class="alert alert-info">Add me as an InaSAFE user!</h3>' +
-      '<form id="add_user" enctype="multipart/form-data" class="well">' +
-      '<label><strong>Name:</strong></label>' +
+      '<form role = "form-horizontal" id="add_user" enctype="multipart/form-data" class="well">' +
+      '<div class="form-group">' +
+      '<label class="col-lg-2 control-label">Name</label>' +
       '<input type="text" class="span3" placeholder="Required" id="name" name="name" />' +
       '<span name="error-name" id="error-name"></span>' +
+      '</div>'+
 
-      '<label><strong>Email:</strong></label>' +
+      '<div class="form-group">' +
+      '<label><strong>Email: </strong></label>' +
       '<input type="text" class="span3" placeholder="Required" id="email" name="email" />' +
       '<span name="error-email" id="error-email"></span>' +
+      '</div>'+
 
+      '<div class="form-group">' +
       '<label><strong>Role:</strong></label>' +
       '<input type="radio" name="role" value="0" checked> User  ' +
       '<input type="radio" name="role" value="1"> Trainer  ' +
       '<input type="radio" name="role" value="2"> Developer</br>' +
+      '</div>'+
 
+      '<div class="form-group">' +
       '<label><strong>Notifications:</strong></label>' +
       '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" /> Receive project news and updates' +
+      '</div>'+
 
+      '<div class="form-group">' +
       '<input style="display: none;" type="text" id="lat" name="lat" value="' + markerLocation.lat.toFixed(6) + '" />' +
       '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" /><br><br>' +
+      '</div>' +
+
 
       '<div class="row-fluid">' +
       '<div class="span6" style="text-align:center;"><button type="button" class="btn" onclick="cancelMarker()">Cancel</button></div>' +
