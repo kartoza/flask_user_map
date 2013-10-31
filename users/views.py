@@ -30,23 +30,26 @@ def map_view():
     return render_template('base.html', **context)
 
 
-@APP.route('/users.json')
+@APP.route('/users.json', methods=['POST'])
 def users_view():
     """Return a json document of users who have registered themselves."""
+    # Get data:
+    user_type = int(request.form['user_type'])
+
     # Create model User
-    all_users = get_all_users()
-    all_trainers = get_all_users(role=1)
-    all_developers = get_all_users(role=2)
+    if user_type == 0:
+        all_users = get_all_users()
+    elif user_type == 1:
+        all_users = get_all_users(role=1)
+    elif user_type == 2:
+        all_users = get_all_users(role=2)
+
     json_users = render_template('users.json', users=all_users)
-    json_trainers = render_template('users.json', users=all_trainers)
-    json_developers = render_template('users.json', users=all_developers)
 
     users_json = (
         '{'
-        ' "users": %s,'
-        ' "trainers": %s,'
-        ' "developers": %s'
-        '}' % (json_users, json_trainers, json_developers)
+        ' "users": %s'
+        '}' % json_users
     )
     # Return Response
     return Response(users_json, mimetype='application/json')

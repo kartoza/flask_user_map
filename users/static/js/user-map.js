@@ -1,10 +1,9 @@
-
 function initializeBaseMap() {
-   base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
-        '.png', {
-      attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
-      maxZoom: 18
-    });
+  base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
+      '.png', {
+    attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
+    maxZoom: 18
+  });
 }
 
 function initializeDataPrivacyControl() {
@@ -115,11 +114,14 @@ function onEachFeature(feature, layer) {
   }
 }
 
-function addUsersLayer(users_layer, developers_layer, trainers_layer) {
+function addUsers(layer) {
   $.ajax({
-    type: "GET",
+    type: "POST",
     url: "/users.json",
     dataType: 'json',
+    data: {
+      user_type: 0
+    },
     success: function (response) {
       L.geoJson(
           response.users,
@@ -128,32 +130,66 @@ function addUsersLayer(users_layer, developers_layer, trainers_layer) {
             pointToLayer: function (feature, latlng) {
               return L.marker(latlng, {icon: user_icon });
             }
-          }).addTo(users_layer);
+          }).addTo(layer);
+    }
+  });
+}
+
+function addTrainers(layer) {
+  $.ajax({
+    type: "POST",
+    url: "/users.json",
+    dataType: 'json',
+    data: {
+      user_type: 1
+    },
+    success: function (response) {
       L.geoJson(
-          response.developers,
-          {
-            onEachFeature: onEachFeature,
-            pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: developer_icon });
-            }
-          }).addTo(developers_layer);
-      L.geoJson(
-          response.trainers,
+          response.users,
           {
             onEachFeature: onEachFeature,
             pointToLayer: function (feature, latlng) {
               return L.marker(latlng, {icon: trainer_icon });
             }
-          }).addTo(trainers_layer);
+          }).addTo(layer);
     }
   });
 }
 
-function refreshUsersLayer() {
+function addDevelopers(layer) {
+  $.ajax({
+    type: "POST",
+    url: "/users.json",
+    dataType: 'json',
+    data: {
+      user_type: 2
+    },
+    success: function (response) {
+      L.geoJson(
+          response.users,
+          {
+            onEachFeature: onEachFeature,
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {icon: developer_icon });
+            }
+          }).addTo(layer);
+    }
+  });
+}
+
+function refreshUserLayer() {
   users_layer.clearLayers();
-  developers_layer.clearLayers();
+  addUsers(users_layer);
+}
+
+function refreshTrainerLayer() {
   trainers_layer.clearLayers();
-  addUsersLayer(users_layer, developers_layer, trainers_layer);
+  addTrainers(trainers_layer);
+}
+
+function refreshDeveloperLayer() {
+  developers_layer.clearLayers();
+  addDevelopers(developers_layer)
 }
 
 function onLocationFound(e) {
@@ -279,18 +315,18 @@ function addUser() {
         }
       } else {
         mode = 0;
-        refreshUsersLayer();
+        // Refresh Layer according to role
+        if (role == '0') {
+          refreshUserLayer();
+        } else if (role == '1') {
+          refreshTrainerLayer();
+        } else if (role == '2') {
+          refreshDeveloperLayer();
+        }
         $('#map').css('cursor', 'auto');
         $('#add-success-modal').modal({
           backdrop: false
         });
-//        if (role == '0') {
-//          L.geoJson(response).addTo(users_layer);
-//        } else if (role == '1') {
-//          L.geoJson(response).addTo(trainers_layer);
-//        } else if (role == '2') {
-//          L.geoJson(response).addTo(developers_layer);
-//        }
       }
     }
   });
