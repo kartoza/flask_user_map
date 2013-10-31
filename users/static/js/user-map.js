@@ -56,43 +56,69 @@ function onMapClick(e) {
   var markerLocation = e.latlng;
   marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
-  var form = '<h3 class="alert alert-info">Add me as an InaSAFE user!</h3>' +
-      '<form role = "form-horizontal" id="add_user" enctype="multipart/form-data" class="well">' +
-      '<div class="form-group">' +
-      '<label class="col-lg-2 control-label">Name</label>' +
-      '<input type="text" class="span3" placeholder="Required" id="name" name="name" />' +
-      '<span name="error-name" id="error-name"></span>' +
-      '</div>'+
+  var form =
+      '<div class="panel panel-default">' +
+          '<div class="panel-heading">' +
+            '<h3 class="panel-title">InaSAFE User Form</h3>' +
+          '</div>'+
+          '<div class="panel-body">'+
+            '<form role = "form-horizontal" id="add_user" enctype="multipart/form-data">' +
+              '<div class="form-group" >' +
+                  '<div class="input-group input-group-sm">' +
+                    '<span class="input-group-addon">Name</span>' +
+                    '<input type="text" class="form-control" placeholder="Required" id="name" name="name" />' +
+                  '</div>' +
+              '</div>'+
 
-      '<div class="form-group">' +
-      '<label><strong>Email: </strong></label>' +
-      '<input type="text" class="span3" placeholder="Required" id="email" name="email" />' +
-      '<span name="error-email" id="error-email"></span>' +
-      '</div>'+
+              '<div class="form-group">' +
+                  '<div class="input-group input-group-sm">' +
+                    '<span class="input-group-addon">Email</span>' +
+                    '<input type="text" class="form-control" placeholder="Required" id="email" name="email" />' +
+                  '</div>' +
+              '</div>'+
 
-      '<div class="form-group">' +
-      '<label><strong>Role:</strong></label>' +
-      '<input type="radio" name="role" value="0" checked> User  ' +
-      '<input type="radio" name="role" value="1"> Trainer  ' +
-      '<input type="radio" name="role" value="2"> Developer</br>' +
-      '</div>'+
+              '<div class="form-group">' +
+                    '<label for="label-role">Role</label>' +
+                    '<div class="input-group input-group-sm">' +
+                      '<span class="input-group-addon">' +
+                        '<input type="radio" name="role" value="0" checked>' +
+                      '</span>' +
+                      '<span class="form-control"><small>User</small></span>' +
+                      '<span class="input-group-addon">' +
+                        '<input type="radio" name="role" value="1">' +
+                      '</span>' +
+                      '<span class="form-control"><small>Trainer</small></span>' +
+                      '<span class="input-group-addon">' +
+                        '<input type="radio" name="role" value="2">' +
+                      '</span>' +
+                      '<span class="form-control" ><small>Developer</small></span>' +
+                    '</div>' +
+              '</div>'+
 
-      '<div class="form-group">' +
-      '<label><strong>Notifications:</strong></label>' +
-      '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" /> Receive project news and updates' +
-      '</div>'+
+              '<div class="form-group">' +
+                  '<label for="label-email-updates">Email Updates</label>' +
+                  '<div class="input-group input-group-sm">' +
+                    '<span class="input-group-addon">' +
+                      '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" />' +
+                    '</span>' +
+                    '<span class="form-control">Receive project news and updates</span>' +
+                  '</div>' +
+              '</div>'+
 
-      '<div class="form-group">' +
-      '<input style="display: none;" type="text" id="lat" name="lat" value="' + markerLocation.lat.toFixed(6) + '" />' +
-      '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" /><br><br>' +
-      '</div>' +
+              '<div class="form-group">' +
+                '<input style="display: none;" type="text" id="lat" name="lat" value="' + markerLocation.lat.toFixed(6) + '" />' +
+                '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" />' +
+              '</div>' +
 
-
-      '<div class="row-fluid">' +
-      '<div class="span6" style="text-align:center;"><button type="button" class="btn" onclick="cancelMarker()">Cancel</button></div>' +
-      '<div class="span6" style="text-align:center;"><button type="button" class="btn btn-primary" onclick="addUser()">Done!</button></div>' +
-      '</div>' +
-      '</form>'
+              '<div class="form-group">' +
+                  '<div>'+
+                   '<button type="button" class="btn btn-primary" onclick="addUser()">Done!</button>  ' +
+                   '<button type="button" class="btn btn-default" onclick="cancelMarker()">Cancel</button>'+
+                  '</div>'+
+              '</div>' +
+            '</form>' +
+          '</div>'+
+      '</div>'
 
   marker_new_user.bindPopup(form).openPopup()
 }
@@ -111,10 +137,8 @@ function addUser() {
   var longitude = $("#lng").val()
 
   //Clear Form Message:
-  $("span#error-name").removeClass("label label-important");
-  $("span#error-email").removeClass("label label-important");
-  $('#error-name').text('');
-  $('#error-email').text('');
+  $("#name").parent().removeClass("has-error");
+  $("#email").parent().removeClass("has-error");
 
   $.ajax({
     type: "POST",
@@ -130,17 +154,19 @@ function addUser() {
     success: function (response) {
       if (response.type.toString() == 'Error') {
         if (typeof response.name != 'undefined') {
-          $("span#error-name").addClass("label label-important");
-          $('#error-name').text(response.name.toString());
+          $("#name").parent().addClass("has-error");
+          $('#name').attr("placeholder",response.name.toString());
         }
         if (typeof response.email != 'undefined') {
-          $("span#error-email").addClass("label label-important");
-          $('#error-email').text(response.email.toString());
+          $("#email").parent().addClass("has-error");
+          $('#email').attr("placeholder",response.email.toString());
         }
       } else {
         cancelMarker()
         mode = 0
-        $('#add-success-modal').modal('show');
+        $('#add-success-modal').modal({
+          backdrop: false
+        });
         if (role == '0') {
           L.geoJson(response).addTo(users_layer);
         } else if (role == '1') {

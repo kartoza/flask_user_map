@@ -26,26 +26,29 @@
 </head>
 <body>
 <!-- Modal for feedback to user added succesfully -->
-<div class="modal hide fade" id="add-success-modal">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">×</a>
-
-    <h3>Information</h3>
-  </div>
-  <div class="modal-body">
-    <p>
-      Thank you for adding yourself to our database!
-    </p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
-      Close
-    </button>
+<div class="modal fade" id="add-success-modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+       <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title">Information</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          Thank you for adding yourself to our database!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+          Close
+        </button>
+      </div>
+     </div>
   </div>
 </div>
 
 <!-- Modal for Data Privacy Section -->
-<div class="modal fade" id="data-privacy-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="data-privacy-modal" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -102,7 +105,7 @@
       trainer_icon = new IconMarker({iconUrl: '/static/img/trainer-icon.png'}),
       developer_icon = new IconMarker({iconUrl: '/static/img/developer-icon.png'});
 
-  var data_privacy_attribution = L.Control.extend({
+  var data_privacy_control = L.Control.extend({
     options: {
       position: 'bottomleft'
     },
@@ -110,8 +113,9 @@
       var data_privacy_container = L.DomUtil.create('div',
           'leaflet-control-attribution');
       onDataPrivacyClick = function () {
-        $('#data-privacy-modal').modal('show');
-        return false;
+        $('#data-privacy-modal').modal({
+          backdrop: false
+        });
       }
       data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>"
 
@@ -127,7 +131,7 @@
   });
 
   // User Control: Add User, Delete User
-  var add_me_button = L.Control.extend({
+  var user_menu_control = L.Control.extend({
     options: {
       position: 'topleft'
     },
@@ -195,8 +199,8 @@
       zoom: 3,
       layers: [base, users_layer, developers_layer, trainers_layer]
     });
-    map.addControl(new data_privacy_attribution());
-    map.addControl(new add_me_button);
+    map.addControl(new data_privacy_control());
+    map.addControl(new user_menu_control);
 
     //Overlays layers
     var overlays = {
