@@ -1,3 +1,4 @@
+
 function initializeBaseMap() {
    base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
         '.png', {
@@ -148,12 +149,17 @@ function addUsersLayer(users_layer, developers_layer, trainers_layer) {
   });
 }
 
+function refreshUsersLayer() {
+  users_layer.clearLayers();
+  developers_layer.clearLayers();
+  trainers_layer.clearLayers();
+  addUsersLayer(users_layer, developers_layer, trainers_layer);
+}
+
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
   var label = "You are within " + radius + " meters from this point";
   L.circle(e.latlng, radius, {clickable: false, fillOpacity: 0.1}).bindLabel(label, {noHide: true, direction: 'auto'}).addTo(map).showLabel();
-
-
 }
 
 function onMapClick(e) {
@@ -248,7 +254,7 @@ function addUser() {
   //Clear Form Message:
   $("#name").parent().removeClass("has-error");
   $("#email").parent().removeClass("has-error");
-
+  cancelMarker();
   $.ajax({
     type: "POST",
     url: "/add_user",
@@ -272,19 +278,19 @@ function addUser() {
           $('#email').attr("placeholder", response.email.toString());
         }
       } else {
-        cancelMarker()
-        mode = 0
+        mode = 0;
+        refreshUsersLayer();
         $('#map').css('cursor', 'auto');
         $('#add-success-modal').modal({
           backdrop: false
         });
-        if (role == '0') {
-          L.geoJson(response).addTo(users_layer);
-        } else if (role == '1') {
-          L.geoJson(response).addTo(trainers_layer);
-        } else if (role == '2') {
-          L.geoJson(response).addTo(developers_layer);
-        }
+//        if (role == '0') {
+//          L.geoJson(response).addTo(users_layer);
+//        } else if (role == '1') {
+//          L.geoJson(response).addTo(trainers_layer);
+//        } else if (role == '2') {
+//          L.geoJson(response).addTo(developers_layer);
+//        }
       }
     }
   });
