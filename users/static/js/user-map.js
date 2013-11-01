@@ -41,16 +41,18 @@ function initializeUserMenuControl() {
       position: 'topleft'
     },
     onAdd: function (map) {
-      var add_me_container = L.DomUtil.create('div',
-          'add-me');
-      add_me_container.title = 'Add me to map!'
-      add_me_container.innerHTML +=
+      var user_menu_container = L.DomUtil.create('div',
+          'user_menu_control');
+      user_menu_container.innerHTML +=
           "<div class='btn-group-vertical'>" +
-              "<button type='button' class='btn btn-default btn-sm' id='add-user-button' onclick='onAddMeButtonClick()'>" +
+              "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddMeButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
               "<span class='glyphicon glyphicon-user'></span>" +
               "</button>" +
-              "<button type='button' class='btn btn-default btn-sm' id='delete-user-button' onclick='onDeleteMeButtonClick()'>" +
+              "<button type='button' class='btn btn-default btn-sm user-menu-control' id='delete-user-button' onclick='onDeleteMeButtonClick()' data-toggle='tooltip' data-original-title='Delete me from map!'>" +
               "<span class='glyphicon glyphicon-trash'></span>" +
+              "</button>" +
+              "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users!'>" +
+              "<span class='glyphicon glyphicon-download-alt'></span>" +
               "</button>" +
               "</div>"
 
@@ -61,17 +63,25 @@ function initializeUserMenuControl() {
       }
 
       onDeleteMeButtonClick = function () {
-        activateDeleteUserState();
+        if (mode != 2) {
+          activateDeleteUserState();
+        }
+      }
+
+      onDownloadButtonClick = function () {
+        if (mode != 3) {
+          activateDownloadState();
+        }
       }
 
       //Prevent firing drag and onClickMap event when clicking this control
       var stop = L.DomEvent.stopPropagation;
       L.DomEvent
-          .on(add_me_container, 'click', stop)
-          .on(add_me_container, 'mousedown', stop)
-          .on(add_me_container, 'dblclick', stop)
-          .on(add_me_container, 'click', L.DomEvent.preventDefault);
-      return add_me_container
+          .on(user_menu_container, 'click', stop)
+          .on(user_menu_container, 'mousedown', stop)
+          .on(user_menu_container, 'dblclick', stop)
+          .on(user_menu_container, 'click', L.DomEvent.preventDefault);
+      return user_menu_container
     }
   });
 }
@@ -136,6 +146,18 @@ function activateDeleteUserState() {
   alert("It's not implemented yet!");
   activateDefaultState();
 }
+
+function activateDownloadState() {
+  // Reset to Default State first
+  activateDefaultState();
+  // Set mode to delete user mode
+  mode = 3
+  // Set css button to active
+  $('#download-button').addClass('active');
+  alert("It's not implemented yet!");
+  activateDefaultState();
+}
+
 /***-------------------- END OF STATE CONTROL -------------------------**/
 
 function onEachFeature(feature, layer) {
@@ -335,10 +357,4 @@ function addUser() {
 
 function cancelMarker() {
   map.removeLayer(marker_new_user);
-}
-
-function downloadShape(map) {
-  var url = '/buildings-shp?bbox=' + map.getBounds().toBBoxString();
-  console.log('New url: ' + url + ' <--');
-  window.location.replace(url);
 }

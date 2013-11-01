@@ -116,6 +116,7 @@
     initializeControls();
     map.addControl(new data_privacy_control());
     map.addControl(new user_menu_control);
+    $(".user-menu-control").tooltip({placement: 'right', container:'body'});
 
     //Spesify all layers on overlays_layers
     overlays_layer = {
