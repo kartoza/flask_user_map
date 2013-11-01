@@ -62,8 +62,8 @@ class AppTestCase(LoggedTestCase):
         conn.close()
 
         try:
-            result = self.app.get(
-                '/users.json', data=dict(), follow_redirects=True)
+            result = self.app.post(
+                '/users.json', data=dict(user_type=1), follow_redirects=True)
             self.assertTrue('Akbar' in result.data)
         except Exception, e:
             LOGGER.exception('Basic front page load failed.')
