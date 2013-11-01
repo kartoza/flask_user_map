@@ -33,6 +33,14 @@ function initializeDataPrivacyControl() {
   });
 }
 
+function fireDefaultState() {
+  mode = 0; // Change mode to default
+  map.off('click', onMapClick); // Stop onMapclick listener
+  $('#map').removeAttr('style'); // Remove all dynamic style to default one
+  $('#delete-user-button').removeClass('active');
+  $('#add-user-button').removeClass('active');
+}
+
 function initializeUserMenuControl() {
   // User Menu Control: Add User, Delete User
   user_menu_control = L.Control.extend({
@@ -55,11 +63,12 @@ function initializeUserMenuControl() {
 
       onAddMeButtonClick = function () {
         if (mode != 1) {
+          // Reset to Default State first
+          fireDefaultState();
           // Set mode to add user mode
           mode = 1
           // Set css button to active
           $('#add-user-button').addClass('active');
-          $('#delete-user-button').removeClass('active');
           // Change cursor to crosshair
           $('#map').css('cursor', 'crosshair');
           // When location is found, do onLocationFoud
@@ -72,11 +81,14 @@ function initializeUserMenuControl() {
       }
 
       onDeleteMeButtonClick = function () {
+        // Reset to Default State first
+        fireDefaultState();
+        // Set mode to delete user mode
         mode = 2
         // Set css button to active
         $('#delete-user-button').addClass('active');
-        $('#add-user-button').removeClass('active');
-        alert("It's not implemented yet!")
+        alert("It's not implemented yet!");
+        fireDefaultState();
       }
 
       //Prevent firing drag and onClickMap event when clicking this control
@@ -94,7 +106,6 @@ function initializeUserMenuControl() {
 function initializeControls() {
   initializeDataPrivacyControl();
   initializeUserMenuControl();
-
 }
 
 function initializeIcons() {
@@ -334,10 +345,7 @@ function addUser() {
         } else if (role == '2') {
           refreshDeveloperLayer();
         }
-        mode = 0; // Change mode to default
-        map.off('click', onMapClick); // Stop onMapclick listener
-        $('#map').removeAttr('style'); // Remove all dynamic style to default one
-
+        fireDefaultState(); // Back to default state
         $('#add-success-modal').modal({
           backdrop: false
         });
