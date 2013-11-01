@@ -45,10 +45,10 @@ function initializeUserMenuControl() {
       add_me_container.title = 'Add me to map!'
       add_me_container.innerHTML +=
           "<div class='btn-group-vertical'>" +
-              "<button type='button' class='btn btn-default btn-sm' onclick='onAddMeButtonClick()'>" +
+              "<button type='button' class='btn btn-default btn-sm' id='add-user-button' onclick='onAddMeButtonClick()'>" +
               "<span class='glyphicon glyphicon-user'></span>" +
               "</button>" +
-              "<button type='button' class='btn btn-default btn-sm' onclick='onDeleteMeButtonClick()'>" +
+              "<button type='button' class='btn btn-default btn-sm' id='delete-user-button' onclick='onDeleteMeButtonClick()'>" +
               "<span class='glyphicon glyphicon-trash'></span>" +
               "</button>" +
               "</div>"
@@ -57,6 +57,9 @@ function initializeUserMenuControl() {
         if (mode != 1) {
           // Set mode to add user mode
           mode = 1
+          // Set css button to active
+          $('#add-user-button').addClass('active');
+          $('#delete-user-button').removeClass('active');
           // Change cursor to crosshair
           $('#map').css('cursor', 'crosshair');
           // When location is found, do onLocationFoud
@@ -69,6 +72,10 @@ function initializeUserMenuControl() {
       }
 
       onDeleteMeButtonClick = function () {
+        mode = 2
+        // Set css button to active
+        $('#delete-user-button').addClass('active');
+        $('#add-user-button').removeClass('active');
         alert("It's not implemented yet!")
       }
 
@@ -195,7 +202,12 @@ function refreshDeveloperLayer() {
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
   var label = "You are within " + radius + " meters from this point";
-  L.circle(e.latlng, radius, {clickable: false, fillOpacity: 0.1}).bindLabel(label, {noHide: true, direction: 'auto'}).addTo(map).showLabel();
+  // If estimated_location_circle exists, remove that circle first from map
+  if (typeof estimated_location_circle != 'undefined') {
+    map.removeLayer(estimated_location_circle);
+  }
+  estimated_location_circle = L.circle(e.latlng, radius, {clickable: false, fillOpacity: 0.1});
+  estimated_location_circle.bindLabel(label, {noHide: true, direction: 'auto'}).addTo(map).showLabel();
 }
 
 function onMapClick(e) {
@@ -314,7 +326,6 @@ function addUser() {
           $('#email').attr("placeholder", response.email.toString());
         }
       } else {
-        mode = 0;
         // Refresh Layer according to role
         if (role == '0') {
           refreshUserLayer();
@@ -323,7 +334,10 @@ function addUser() {
         } else if (role == '2') {
           refreshDeveloperLayer();
         }
-        $('#map').css('cursor', 'auto');
+        mode = 0; // Change mode to default
+        map.off('click', onMapClick); // Stop onMapclick listener
+        $('#map').removeAttr('style'); // Remove all dynamic style to default one
+
         $('#add-success-modal').modal({
           backdrop: false
         });
