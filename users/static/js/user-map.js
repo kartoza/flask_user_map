@@ -1,3 +1,4 @@
+/***--------------- START OF MAP COMPONENTS-------------***/
 function initializeBaseMap() {
   base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
       '.png', {
@@ -33,14 +34,6 @@ function initializeDataPrivacyControl() {
   });
 }
 
-function fireDefaultState() {
-  mode = 0; // Change mode to default
-  map.off('click', onMapClick); // Stop onMapclick listener
-  $('#map').removeAttr('style'); // Remove all dynamic style to default one
-  $('#delete-user-button').removeClass('active');
-  $('#add-user-button').removeClass('active');
-}
-
 function initializeUserMenuControl() {
   // User Menu Control: Add User, Delete User
   user_menu_control = L.Control.extend({
@@ -63,32 +56,12 @@ function initializeUserMenuControl() {
 
       onAddMeButtonClick = function () {
         if (mode != 1) {
-          // Reset to Default State first
-          fireDefaultState();
-          // Set mode to add user mode
-          mode = 1
-          // Set css button to active
-          $('#add-user-button').addClass('active');
-          // Change cursor to crosshair
-          $('#map').css('cursor', 'crosshair');
-          // When location is found, do onLocationFoud
-          map.on('locationfound', onLocationFound)
-          // Locate map to location found
-          map.locate({setView: true, maxZoom: 16});
-          //Set Listener map onClick
-          map.on('click', onMapClick)
+          activateAddUserState();
         }
       }
 
       onDeleteMeButtonClick = function () {
-        // Reset to Default State first
-        fireDefaultState();
-        // Set mode to delete user mode
-        mode = 2
-        // Set css button to active
-        $('#delete-user-button').addClass('active');
-        alert("It's not implemented yet!");
-        fireDefaultState();
+        activateDeleteUserState();
       }
 
       //Prevent firing drag and onClickMap event when clicking this control
@@ -124,6 +97,46 @@ function initializeIcons() {
   trainer_icon = new IconMarker({iconUrl: '/static/img/trainer-icon.png'});
   developer_icon = new IconMarker({iconUrl: '/static/img/developer-icon.png'});
 }
+/***---------- END OF MAP COMPONENTS------------------- ***/
+
+
+/***-------------------- START OF STATE CONTROL----------------------- **/
+function activateDefaultState() {
+  mode = 0; // Change mode to default
+  map.off('click', onMapClick); // Stop onMapclick listener
+  $('#map').removeAttr('style'); // Remove all dynamic style to default one
+  $('#delete-user-button').removeClass('active');
+  $('#add-user-button').removeClass('active');
+}
+
+function activateAddUserState() {
+  // Reset to Default State first
+  activateDefaultState();
+  // Set mode to add user mode
+  mode = 1
+  // Set css button to active
+  $('#add-user-button').addClass('active');
+  // Change cursor to crosshair
+  $('#map').css('cursor', 'crosshair');
+  // When location is found, do onLocationFoud
+  map.on('locationfound', onLocationFound)
+  // Locate map to location found
+  map.locate({setView: true, maxZoom: 16});
+  //Set Listener map onClick
+  map.on('click', onMapClick)
+}
+
+function activateDeleteUserState() {
+  // Reset to Default State first
+  activateDefaultState();
+  // Set mode to delete user mode
+  mode = 2
+  // Set css button to active
+  $('#delete-user-button').addClass('active');
+  alert("It's not implemented yet!");
+  activateDefaultState();
+}
+/***-------------------- END OF STATE CONTROL -------------------------**/
 
 function onEachFeature(feature, layer) {
   // does this feature have a property named popupContent?
@@ -132,63 +145,29 @@ function onEachFeature(feature, layer) {
   }
 }
 
-function addUsers(layer) {
+function addUsers(layer, user_type) {
   $.ajax({
     type: "POST",
     url: "/users.json",
     dataType: 'json',
     data: {
-      user_type: 0
+      user_type: user_type
     },
     success: function (response) {
+      var role_icon;
+      if (user_type == 0) {
+        role_icon = user_icon;
+      } else if (user_type == 1) {
+        role_icon = trainer_icon;
+      } else if (user_type == 2) {
+        role_icon = developer_icon;
+      }
       L.geoJson(
           response.users,
           {
             onEachFeature: onEachFeature,
             pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: user_icon });
-            }
-          }).addTo(layer);
-    }
-  });
-}
-
-function addTrainers(layer) {
-  $.ajax({
-    type: "POST",
-    url: "/users.json",
-    dataType: 'json',
-    data: {
-      user_type: 1
-    },
-    success: function (response) {
-      L.geoJson(
-          response.users,
-          {
-            onEachFeature: onEachFeature,
-            pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: trainer_icon });
-            }
-          }).addTo(layer);
-    }
-  });
-}
-
-function addDevelopers(layer) {
-  $.ajax({
-    type: "POST",
-    url: "/users.json",
-    dataType: 'json',
-    data: {
-      user_type: 2
-    },
-    success: function (response) {
-      L.geoJson(
-          response.users,
-          {
-            onEachFeature: onEachFeature,
-            pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: developer_icon });
+              return L.marker(latlng, {icon: role_icon });
             }
           }).addTo(layer);
     }
@@ -197,17 +176,17 @@ function addDevelopers(layer) {
 
 function refreshUserLayer() {
   users_layer.clearLayers();
-  addUsers(users_layer);
+  addUsers(users_layer, 0);
 }
 
 function refreshTrainerLayer() {
   trainers_layer.clearLayers();
-  addTrainers(trainers_layer);
+  addUsers(trainers_layer, 1);
 }
 
 function refreshDeveloperLayer() {
   developers_layer.clearLayers();
-  addDevelopers(developers_layer)
+  addUsers(developers_layer, 2)
 }
 
 function onLocationFound(e) {
@@ -345,7 +324,7 @@ function addUser() {
         } else if (role == '2') {
           refreshDeveloperLayer();
         }
-        fireDefaultState(); // Back to default state
+        activateDefaultState(); // Back to default state
         $('#add-success-modal').modal({
           backdrop: false
         });
