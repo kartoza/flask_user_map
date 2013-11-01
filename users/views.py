@@ -117,3 +117,24 @@ def add_user_view():
     added_user = render_template('users.json', users=[user])
     # Return Response
     return Response(added_user, mimetype='application/json')
+
+
+@APP.route('/download', methods=['POST'])
+def download_view():
+    """View to download users.
+
+    Handle post request via ajax and return file to browser
+
+    :returns: A csv file containing all users
+    :rtype: HttpResponse
+    """
+    csv_users = """
+    "NAME"|"ROLE"|"LONGITUDE"|"LATITUDE"
+    "Akbar"|"0"|"10.034"|"20.034"
+    "Tim"|"1"|"12.034"|"24.034"
+    "Kristy"|"15.034"|"30.034" """
+    return Response(
+        csv_users,
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment;filename='users.csv'"})
+

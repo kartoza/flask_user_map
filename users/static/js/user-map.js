@@ -126,6 +126,7 @@ function activateAddUserState() {
   mode = 1
   // Set css button to active
   $('#add-user-button').addClass('active');
+  //Process here:
   // Change cursor to crosshair
   $('#map').css('cursor', 'crosshair');
   // When location is found, do onLocationFoud
@@ -143,6 +144,7 @@ function activateDeleteUserState() {
   mode = 2
   // Set css button to active
   $('#delete-user-button').addClass('active');
+  //Process here:
   alert("It's not implemented yet!");
   activateDefaultState();
 }
@@ -154,7 +156,10 @@ function activateDownloadState() {
   mode = 3
   // Set css button to active
   $('#download-button').addClass('active');
-  alert("It's not implemented yet!");
+  //Process here:
+  $.post('/download', function(data) {
+    alert(data);
+});
   activateDefaultState();
 }
 
