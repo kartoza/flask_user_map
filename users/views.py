@@ -119,7 +119,7 @@ def add_user_view():
     return Response(added_user, mimetype='application/json')
 
 
-@APP.route('/download', methods=['POST'])
+@APP.route('/download')
 def download_view():
     """View to download users.
 
@@ -128,11 +128,20 @@ def download_view():
     :returns: A csv file containing all users
     :rtype: HttpResponse
     """
-    csv_users = """
-    "NAME"|"ROLE"|"LONGITUDE"|"LATITUDE"
-    "Akbar"|"0"|"10.034"|"20.034"
-    "Tim"|"1"|"12.034"|"24.034"
-    "Kristy"|"15.034"|"30.034" """
+    csv_users = "ID|NAME|ROLE|LONGITUDE|LATITUDE"
+    all_user_role = (0, 1, 2)
+    i = 0
+    for user_role in all_user_role:
+        users = get_all_users(user_role)
+        for user in users:
+            i += 1
+            csv_users += ('\n%i|%s|%i|%s|%s') % (
+                i,
+                user['name'],
+                user['role'],
+                user['longitude'],
+                user['latitude'])
+
     return Response(
         csv_users,
         mimetype="text/csv",

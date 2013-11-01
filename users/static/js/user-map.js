@@ -117,13 +117,14 @@ function activateDefaultState() {
   $('#map').removeAttr('style'); // Remove all dynamic style to default one
   $('#delete-user-button').removeClass('active');
   $('#add-user-button').removeClass('active');
+  $('#download-button').removeClass('active');
 }
 
 function activateAddUserState() {
   // Reset to Default State first
   activateDefaultState();
   // Set mode to add user mode
-  mode = 1
+  mode = 1;
   // Set css button to active
   $('#add-user-button').addClass('active');
   //Process here:
@@ -141,7 +142,7 @@ function activateDeleteUserState() {
   // Reset to Default State first
   activateDefaultState();
   // Set mode to delete user mode
-  mode = 2
+  mode = 2;
   // Set css button to active
   $('#delete-user-button').addClass('active');
   //Process here:
@@ -153,13 +154,11 @@ function activateDownloadState() {
   // Reset to Default State first
   activateDefaultState();
   // Set mode to delete user mode
-  mode = 3
+  mode = 3;
   // Set css button to active
   $('#download-button').addClass('active');
   //Process here:
-  $.post('/download', function(data) {
-    alert(data);
-});
+  window.open('/download', '_self');
   activateDefaultState();
 }
 
