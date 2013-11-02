@@ -259,7 +259,7 @@ function onMapClick(e) {
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Website</span>' +
-          '<input type="text" class="form-control" placeholder="Personal/Organisation Website" id="website" name="website" />' +
+          '<input type="text" class="form-control" placeholder="Personal/Organisation Website" id="website" name="website" value="http://"/>' +
           '</div>' +
           '</div>' +
 

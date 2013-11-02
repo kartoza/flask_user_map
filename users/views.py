@@ -74,7 +74,7 @@ def add_user_view():
     # Get data from form
     name = str(request.form['name']).strip()
     email = str(request.form['email']).strip()
-    website = str(request.form['website']).strip()
+    website = str(request.form['website'])
     role = int(request.form['role'])
     email_updates = str(request.form['email_updates'])
     latitude = str(request.form['latitude'])
@@ -98,6 +98,9 @@ def add_user_view():
         email_updates = True
     else:
         email_updates = False
+
+    if 'http' not in website:
+        website = 'http://'+website
 
     # Process data
     if len(message) != 0:
