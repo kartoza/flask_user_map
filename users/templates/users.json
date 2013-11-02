@@ -5,7 +5,11 @@
       "type": "Feature",
       "properties": {
         "name": "{{ user.name }}",
-        "popupContent": "{{ user.name }}"
+        {% if user.website != "" %}
+          "popupContent": "<span class='glyphicon glyphicon-user'></span> {{ user.name }} </br><span class='glyphicon glyphicon-home'></span> <a href='http://{{ user.website }}' target='_blank'>Website</a>"
+        {% else %}
+          "popupContent": "<span class='glyphicon glyphicon-user'></span> {{ user.name }}"
+        {% endif %}
       },
       "geometry": {
         "type": "Point",
