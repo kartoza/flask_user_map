@@ -11,3 +11,5 @@ flag.
 
 If running under pycharm, remember to edit the run configuration and add the
 ``-d`` to the parameters.
+
+Tim Sutton and Akbar Gumbira
