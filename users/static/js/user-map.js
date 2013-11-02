@@ -257,6 +257,13 @@ function onMapClick(e) {
           '</div>' +
 
           '<div class="form-group">' +
+          '<div class="input-group input-group-sm">' +
+          '<span class="input-group-addon">Website</span>' +
+          '<input type="text" class="form-control" placeholder="Personal/Organisation Website" id="website" name="website" />' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="form-group">' +
           '<label for="label-role">Role</label>' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">' +
@@ -305,6 +312,7 @@ function onMapClick(e) {
 function addUser() {
   var name = $("#name").val();
   var email = $("#email").val();
+  var website = $("#website").val();
   var role = $('input:radio[name=role]:checked').val();
   var email_updates;
   if ($('#email_updates').is(':checked')) {
@@ -325,6 +333,7 @@ function addUser() {
     data: {
       name: name,
       email: email,
+      website: website,
       role: role,
       email_updates: email_updates,
       latitude: latitude,

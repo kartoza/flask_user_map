@@ -74,6 +74,7 @@ def add_user_view():
     # Get data from form
     name = str(request.form['name']).strip()
     email = str(request.form['email']).strip()
+    website = str(request.form['website']).strip()
     role = int(request.form['role'])
     email_updates = str(request.form['email_updates'])
     latitude = str(request.form['latitude'])
@@ -107,6 +108,7 @@ def add_user_view():
         guid = add_user(
             name=name,
             email=email,
+            website=website,
             role=int(role),
             email_updates=bool(email_updates),
             latitude=float(latitude),

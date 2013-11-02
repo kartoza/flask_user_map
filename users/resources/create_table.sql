@@ -3,6 +3,7 @@
   guid VARCHAR(37) NOT NULL,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
+  website TEXT,
   role INTEGER DEFAULT 0,
   email_updates BOOL DEFAULT 0,
   date_added DATETIME DEFAULT CURRENT_TIMESTAMP,

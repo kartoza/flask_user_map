@@ -14,6 +14,7 @@ from users import APP
 def add_user(
         name,
         email,
+        website,
         latitude,
         longitude,
         role=0,
@@ -25,6 +26,9 @@ def add_user(
 
     :param email: Email of user.
     :type email: str
+
+    :param website: Website of user.
+    :type website: str
 
     :param latitude: latitude of this user
     :type latitude: float
@@ -57,6 +61,7 @@ def add_user(
         guid=guid,
         name=name,
         email=email,
+        website=website,
         role=role,
         email_updates=email_updates,
         longitude=longitude,
