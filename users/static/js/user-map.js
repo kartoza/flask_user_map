@@ -326,7 +326,6 @@ function addUser() {
   //Clear Form Message:
   $("#name").parent().removeClass("has-error");
   $("#email").parent().removeClass("has-error");
-  cancelMarker();
   $.ajax({
     type: "POST",
     url: "/add_user",
@@ -351,6 +350,8 @@ function addUser() {
           $('#email').attr("placeholder", response.email.toString());
         }
       } else {
+        //Clear marker
+        cancelMarker();
         // Refresh Layer according to role
         if (role == '0') {
           refreshUserLayer();
