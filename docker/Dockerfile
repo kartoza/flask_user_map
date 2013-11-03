@@ -30,7 +30,7 @@ RUN apt-get -y install supervisor
 # We should actually be able to run git clone here but it didnt work using RUN
 # so we delegate the work to a script rather.
 # The script below also
-RUN wget -O post-setup.sh https://raw.github.com/timlinux/user_map/master/docker/; chmod +x post-setup.sh; ./post-setup.sh
+RUN wget -O post-setup.sh https://raw.github.com/timlinux/user_map/master/docker/post-setup.sh; chmod +x post-setup.sh; ./post-setup.sh
 
 #-------------- Clean up any junk ----------------------
 RUN apt-get -y purge build-essential
