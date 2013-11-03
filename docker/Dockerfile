@@ -38,5 +38,5 @@ RUN apt-get -y purge build-essential
 RUN apt-get -y autoremove
 
 # Define which ports get made public
-EXPOSE 8082:80
+EXPOSE 80
 CMD ["/usr/bin/supervisord", "-n"] -D
