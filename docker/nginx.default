@@ -1,0 +1,12 @@
+server {
+    listen 80;
+    server_name  _;
+    location /users/static/ {
+        alias /home/web/user_map/users/static/;
+    }
+    location / { try_files $uri @app; }
+    location @app {
+      include uwsgi_params;
+      uwsgi_pass unix:/tmp/uwsgi.sock;
+    }
+}
