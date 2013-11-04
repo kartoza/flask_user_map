@@ -107,10 +107,9 @@
 
     //Create Map with prepared layers
     map = L.map('map', {
-      center: [30.0, 128.99],
-      zoom: 3,
       layers: [base_map, users_layer, developers_layer, trainers_layer]
     });
+    map.fitWorld().zoomIn();
 
     //Add Controls:
     initializeControls();
