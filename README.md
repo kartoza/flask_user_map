@@ -21,6 +21,9 @@ follows:
 ```
 wget -O Dockerfile https://raw.github.com/timlinux/user_map/master/docker/Dockerfile
 wget -O sources.list https://raw.github.com/timlinux/user_map/master/docker/sources.list
+wget -O post-setup.sh https://raw.github.com/timlinux/user_map/master/docker/post-setup.sh
+chmod +x post-setup.sh
+
 docker build -t linfiniti/user_map:base .
 docker run -d -p 8099:80 -t linfiniti/user_map:base -n user_map -D
 ```

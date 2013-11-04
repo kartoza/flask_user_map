@@ -10,5 +10,9 @@ cp docker/supervisord-nginx.conf /etc/supervisor/conf.d/
 cp docker/supervisord-uwsgi.conf /etc/supervisor/conf.d/
 
 echo "daemon off;" >> /etc/nginx/nginx.conf
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+CONF=/etc/nginx/sites-enabled/default
+if [ ! -f $CONF ]
+then
+    ln -s /etc/nginx/sites-available/default
+fi
 
