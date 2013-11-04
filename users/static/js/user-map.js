@@ -241,25 +241,25 @@ function onMapClick(e) {
           '<h3 class="panel-title">InaSAFE User Form</h3>' +
           '</div>' +
           '<div class="panel-body">' +
-          '<form role = "form-horizontal" id="add_user" enctype="multipart/form-data">' +
+          '<form action ="" role = "form-horizontal" id="add_user" enctype="multipart/form-data">' +
           '<div class="form-group" >' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Name</span>' +
-          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" />' +
+          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required/>' +
           '</div>' +
           '</div>' +
 
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Email</span>' +
-          '<input type="text" class="form-control" placeholder="Required" id="email" name="email" />' +
+          '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required/>' +
           '</div>' +
           '</div>' +
 
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Website</span>' +
-          '<input type="text" class="form-control" placeholder="Personal/Organisation Website" id="website" name="website" value="http://"/>' +
+          '<input type="url" class="form-control" placeholder="If filled, use http:// or other protocol before." id="website" name="website" value=""/>' +
           '</div>' +
           '</div>' +
 
@@ -285,7 +285,7 @@ function onMapClick(e) {
           '<label for="label-email-updates">Email Updates</label>' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">' +
-          '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" />' +
+          '<input type="checkbox" id="email_updates" name="email_updates" value="Yes"/>' +
           '</span>' +
           '<span class="form-control">Receive project news and updates</span>' +
           '</div>' +
@@ -304,12 +304,51 @@ function onMapClick(e) {
           '</div>' +
           '</form>' +
           '</div>' +
-          '</div>'
-
+          '</div>';
   marker_new_user.bindPopup(form).openPopup()
 }
 
+function validate_add_user_form(str_name, str_email, str_website) {
+  var is_name_valid, is_email_valid, is_website_valid, is_all_valid;
+  if (!typeof document.createElement("input").checkValidity == "function") {
+    // This browser support HTML5 Validation
+    // Validate All by HTML5:
+    is_name_valid = document.getElementById('name').checkValidity();
+    is_email_valid = document.getElementById('email').checkValidity();
+    is_website_valid = document.getElementById('website').checkValidity();
+  }
+  else {
+    // This browser doesn't support HTML5 Validation. Use JS Validation instead
+    is_name_valid = isRequiredSatistied(str_name);
+    is_email_valid = isRequiredSatistied(str_email) && isEmailSatisfied(str_email);
+    if ((str_website.trim()).length != 0) {
+      is_website_valid = isURLSatisfied(str_website);
+    } else {
+      is_website_valid = true;
+    }
+  }
+
+  is_all_valid = is_name_valid && is_email_valid && is_website_valid;
+  if (!is_name_valid) {
+    $("#name").parent().addClass("has-error");
+    $('#name').attr("placeholder", 'Name is required');
+  }
+  if (!is_email_valid) {
+    $("#email").parent().addClass("has-error");
+    $('#email').attr("placeholder", 'Email is required and needs to be valid email');
+  }
+  if (!is_website_valid) {
+    $("#website").parent().addClass("has-error");
+    $('#website').attr("placeholder", 'Website needs to be valid URL ');
+  }
+  return is_all_valid;
+}
+
 function addUser() {
+  //Clear Form Message:
+  $("#name").parent().removeClass("has-error");
+  $("#email").parent().removeClass("has-error");
+
   var name = $("#name").val();
   var email = $("#email").val();
   var website = $("#website").val();
@@ -320,53 +359,53 @@ function addUser() {
   } else {
     email_updates = "false";
   }
-  var latitude = $("#lat").val()
-  var longitude = $("#lng").val()
+  var latitude = $("#lat").val();
+  var longitude = $("#lng").val();
 
-  //Clear Form Message:
-  $("#name").parent().removeClass("has-error");
-  $("#email").parent().removeClass("has-error");
-  $.ajax({
-    type: "POST",
-    url: "/add_user",
-    data: {
-      name: name,
-      email: email,
-      website: website,
-      role: role,
-      email_updates: email_updates,
-      latitude: latitude,
-      longitude: longitude
-    },
-    success: function (response) {
-      if (response.type.toString() == 'Error') {
-        if (typeof response.name != 'undefined') {
-          $("#name").parent().addClass("has-error");
-          $('#name').attr("placeholder", response.name.toString());
+  var is_client_side_valid = validate_add_user_form(name, email, website);
+  if (is_client_side_valid) {
+    $.ajax({
+      type: "POST",
+      url: "/add_user",
+      data: {
+        name: name,
+        email: email,
+        website: website,
+        role: role,
+        email_updates: email_updates,
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (response) {
+        if (response.type.toString() == 'Error') {
+          if (typeof response.name != 'undefined') {
+            $("#name").parent().addClass("has-error");
+            $('#name').attr("placeholder", response.name.toString());
 
+          }
+          if (typeof response.email != 'undefined') {
+            $("#email").parent().addClass("has-error");
+            $('#email').attr("placeholder", response.email.toString());
+          }
+        } else {
+          //Clear marker
+          cancelMarker();
+          // Refresh Layer according to role
+          if (role == '0') {
+            refreshUserLayer();
+          } else if (role == '1') {
+            refreshTrainerLayer();
+          } else if (role == '2') {
+            refreshDeveloperLayer();
+          }
+          activateDefaultState(); // Back to default state
+          $('#add-success-modal').modal({
+            backdrop: false
+          });
         }
-        if (typeof response.email != 'undefined') {
-          $("#email").parent().addClass("has-error");
-          $('#email').attr("placeholder", response.email.toString());
-        }
-      } else {
-        //Clear marker
-        cancelMarker();
-        // Refresh Layer according to role
-        if (role == '0') {
-          refreshUserLayer();
-        } else if (role == '1') {
-          refreshTrainerLayer();
-        } else if (role == '2') {
-          refreshDeveloperLayer();
-        }
-        activateDefaultState(); // Back to default state
-        $('#add-success-modal').modal({
-          backdrop: false
-        });
       }
-    }
-  });
+    });
+  }
 }
 
 function cancelMarker() {
