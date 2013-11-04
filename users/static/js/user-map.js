@@ -259,7 +259,7 @@ function onMapClick(e) {
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Website</span>' +
-          '<input type="url" class="form-control" placeholder="If filled, use http:// or other protocol before." id="website" name="website" value=""/>' +
+          '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" value="" pattern="https?://.+"/>' +
           '</div>' +
           '</div>' +
 
@@ -310,18 +310,17 @@ function onMapClick(e) {
 
 function validate_add_user_form(str_name, str_email, str_website) {
   var is_name_valid, is_email_valid, is_website_valid, is_all_valid;
-  if (!typeof document.createElement("input").checkValidity == "function") {
+  if (typeof document.createElement("input").checkValidity == "function") {
     // This browser support HTML5 Validation
     // Validate All by HTML5:
     is_name_valid = document.getElementById('name').checkValidity();
     is_email_valid = document.getElementById('email').checkValidity();
     is_website_valid = document.getElementById('website').checkValidity();
-  }
-  else {
+  } else {
     // This browser doesn't support HTML5 Validation. Use JS Validation instead
     is_name_valid = isRequiredSatistied(str_name);
     is_email_valid = isRequiredSatistied(str_email) && isEmailSatisfied(str_email);
-    if ((str_website.trim()).length != 0) {
+    if (isRequiredSatistied(str_website)) {
       is_website_valid = isURLSatisfied(str_website);
     } else {
       is_website_valid = true;
