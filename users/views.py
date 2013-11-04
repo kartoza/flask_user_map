@@ -99,7 +99,7 @@ def add_user_view():
     else:
         email_updates = False
 
-    if 'http' not in website:
+    if len(website.strip()) != 0 and 'http' not in website:
         website = 'http://'+website
 
     # Process data
