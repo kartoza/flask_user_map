@@ -152,21 +152,21 @@ function onEachFeature(feature, layer) {
   }
 }
 
-function addUsers(layer, user_type) {
+function addUsers(layer, user_role) {
   $.ajax({
     type: "POST",
     url: "/users.json",
     dataType: 'json',
     data: {
-      user_type: user_type
+      user_type: user_role
     },
     success: function (response) {
       var role_icon;
-      if (user_type == 0) {
+      if (user_role == USER_ROLE) {
         role_icon = user_icon;
-      } else if (user_type == 1) {
+      } else if (user_role == TRAINER_ROLE) {
         role_icon = trainer_icon;
-      } else if (user_type == 2) {
+      } else if (user_role == DEVELOPER_ROLE) {
         role_icon = developer_icon;
       }
       L.geoJson(
@@ -183,17 +183,17 @@ function addUsers(layer, user_type) {
 
 function refreshUserLayer() {
   users_layer.clearLayers();
-  addUsers(users_layer, 0);
+  addUsers(users_layer, USER_ROLE);
 }
 
 function refreshTrainerLayer() {
   trainers_layer.clearLayers();
-  addUsers(trainers_layer, 1);
+  addUsers(trainers_layer, TRAINER_ROLE);
 }
 
 function refreshDeveloperLayer() {
   developers_layer.clearLayers();
-  addUsers(developers_layer, 2)
+  addUsers(developers_layer, DEVELOPER_ROLE);
 }
 
 function onLocationFound(e) {
@@ -371,11 +371,11 @@ function addUser() {
           //Clear marker
           cancelMarker();
           // Refresh Layer according to role
-          if (role == '0') {
+          if (role == USER_ROLE.toString()) {
             refreshUserLayer();
-          } else if (role == '1') {
+          } else if (role == TRAINER_ROLE.toString()) {
             refreshTrainerLayer();
-          } else if (role == '2') {
+          } else if (role == DEVELOPER_ROLE.toString()) {
             refreshDeveloperLayer();
           }
           activateDefaultState(); // Back to default state
