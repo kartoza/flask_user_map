@@ -92,11 +92,15 @@ javascript"></script>
 </div>
 
 <script type="text/javascript">
+  var DEFAULT_MODE = 0;
+  var ADD_USER_MODE = 1;
+  var DOWNLOAD_MODE = 2;
   var map, base_map, marker_new_user, overlays_layer, users_layer,
-      trainers_layer, developers_layer, mode, data_privacy_control,
+      trainers_layer, developers_layer, data_privacy_control,
       user_menu_control, IconMarker, user_icon, trainer_icon, developer_icon,
       estimated_location_circle;
-  mode = 0 // Set Default mode
+  var current_mode = DEFAULT_MODE;
+
   initializeIcons();
 
   $(document).ready(function () {

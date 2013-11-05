@@ -48,28 +48,20 @@ function initializeUserMenuControl() {
               "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddMeButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
               "<span class='glyphicon glyphicon-user'></span>" +
               "</button>" +
-              "<button type='button' class='btn btn-default btn-sm user-menu-control' id='delete-user-button' onclick='onDeleteMeButtonClick()' data-toggle='tooltip' data-original-title='Delete me from map!'>" +
-              "<span class='glyphicon glyphicon-trash'></span>" +
-              "</button>" +
               "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users!'>" +
               "<span class='glyphicon glyphicon-download-alt'></span>" +
               "</button>" +
               "</div>"
 
       onAddMeButtonClick = function () {
-        if (mode != 1) {
+        if (current_mode != ADD_USER_MODE) {
           activateAddUserState();
         }
       }
 
-      onDeleteMeButtonClick = function () {
-        if (mode != 2) {
-          activateDeleteUserState();
-        }
-      }
 
       onDownloadButtonClick = function () {
-        if (mode != 3) {
+        if (current_mode != DOWNLOAD_MODE) {
           activateDownloadState();
         }
       }
@@ -112,7 +104,7 @@ function initializeIcons() {
 
 /***-------------------- START OF STATE CONTROL----------------------- **/
 function activateDefaultState() {
-  mode = 0; // Change mode to default
+  current_mode = DEFAULT_MODE; // Change mode to default
   map.off('click', onMapClick); // Stop onMapclick listener
   $('#map').removeAttr('style'); // Remove all dynamic style to default one
   $('#delete-user-button').removeClass('active');
@@ -123,8 +115,8 @@ function activateDefaultState() {
 function activateAddUserState() {
   // Reset to Default State first
   activateDefaultState();
-  // Set mode to add user mode
-  mode = 1;
+  // Set current mode to add user mode
+  current_mode = ADD_USER_MODE;
   // Set css button to active
   $('#add-user-button').addClass('active');
   //Process here:
@@ -138,23 +130,12 @@ function activateAddUserState() {
   map.on('click', onMapClick)
 }
 
-function activateDeleteUserState() {
-  // Reset to Default State first
-  activateDefaultState();
-  // Set mode to delete user mode
-  mode = 2;
-  // Set css button to active
-  $('#delete-user-button').addClass('active');
-  //Process here:
-  alert("It's not implemented yet!");
-  activateDefaultState();
-}
 
 function activateDownloadState() {
   // Reset to Default State first
   activateDefaultState();
   // Set mode to delete user mode
-  mode = 3;
+  current_mode = DOWNLOAD_MODE;
   // Set css button to active
   $('#download-button').addClass('active');
   //Process here:
