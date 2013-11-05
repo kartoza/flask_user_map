@@ -32,6 +32,7 @@ class AppTestCase(LoggedTestCase):
         self.user_to_add = dict(
             name='Akbar',
             email='test@gmail.com',
+            website='http://www.ac.com',
             role=0,
             email_updates='true',
             latitude=12.32,
@@ -55,8 +56,8 @@ class AppTestCase(LoggedTestCase):
         conn = get_conn(self.db_path)
         sql = (
             'INSERT INTO user VALUES('
-            '    1, "12212", "Akbar", "akbargum@gmail.com", '
-            '    1, 1, "2013-10-16", 75.672197, -42.187500);')
+            '1, "12212", "Akbar", "akbargum@gmail.com", "http://www.ac.com",'
+            '1, 1, "2013-10-16", 75.672197, -42.187500);')
         conn.execute(sql)
         conn.commit()
         conn.close()
@@ -84,6 +85,7 @@ class AppTestCase(LoggedTestCase):
                 '/add_user', data=dict(
                     name='Akbar',
                     email='testgmail.com',
+                    website='http://www.ac.com',
                     role=1,
                     email_updates='true',
                     latitude='12',

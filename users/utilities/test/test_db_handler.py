@@ -34,7 +34,7 @@ class TestDbHandler(TestCase):
         """Test query_db works correctly."""
         sql = (
             'INSERT INTO user VALUES('
-            '1, "feefifofum", "Akbar", "akbargum@gmail.com", '
+            '1, "feefifofum", "Akbar", "akbarm@gmail.com", "http:www.ac.com",'
             '"true", "true", "2013-10-16", "75.672197", "-42.187500");')
         self.conn.execute(sql)
         self.conn.commit()

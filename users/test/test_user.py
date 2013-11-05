@@ -26,6 +26,7 @@ class TestUser(TestCase):
         self.user_to_add = dict(
             name='Akbar',
             email='test@gmail.com',
+            website='http://www.ac.com',
             role=0,
             email_updates='true',
             latitude=12.32,
@@ -53,4 +54,4 @@ class TestUser(TestCase):
         users = get_all_users()
         # Test if all the attribute exist
         for user in users:
-            self.assertEqual(len(user), 9)
+            self.assertEqual(len(user), 10)
