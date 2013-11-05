@@ -19,7 +19,7 @@ FILE_SUFFIX_MIMETYPES = {
     '.eot': 'application/vnd.ms-fontobject',
     '.svg': 'image/svg+xml',
     '.ttf': 'font/ttf',
-    '.woff': 'font/x-woff'
+    '.woff': 'application/font-woff'
 }
 
 
