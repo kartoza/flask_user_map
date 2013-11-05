@@ -104,19 +104,18 @@ javascript"></script>
       estimated_location_circle;
   var current_mode = DEFAULT_MODE;
 
-  initializeIcons();
-
   $(document).ready(function () {
     //Initialize Basemap Layer
     initializeBaseMap();
-
+    // Initialize Icon for marker
+    initializeIcons();
     //User Layer
     users_layer = new L.LayerGroup();
     trainers_layer = new L.LayerGroup();
     developers_layer = new L.LayerGroup();
-    addUsers(users_layer, 0);
-    addUsers(trainers_layer, 1);
-    addUsers(developers_layer, 2);
+    addUsers(users_layer, USER_ROLE);
+    addUsers(trainers_layer, TRAINER_ROLE);
+    addUsers(developers_layer, DEVELOPER_ROLE);
 
     //Create Map with prepared layers
     map = L.map('map', {
@@ -130,7 +129,7 @@ javascript"></script>
     map.addControl(new user_menu_control);
     $(".user-menu-control").tooltip({placement: 'right', container:'body'});
 
-    //Spesify all layers on overlays_layers
+    //Specify all layers on overlays_layers control
     overlays_layer = {
       "Users": users_layer,
       "Developers": developers_layer,
