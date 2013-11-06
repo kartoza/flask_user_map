@@ -24,11 +24,12 @@ def is_email_address_valid(email):
     :type email: str
     This function uses library from: https://pypi.python
     .org/pypi/validate_email
-    It checks if the host has SMTP Server, but not checking that the email
-    really exists. See issue here: https://github
-    .com/SyrusAkbary/validate_email/issues/4
+    It can check if the host has SMTP Server and the email
+    does exist. Due to issue here: https://github
+    .com/SyrusAkbary/validate_email/issues/4 and sometimes it takes long time
+    to  check SMTP Server, this feature is not used.
     """
-    is_valid_email = validate_email(email, check_mx=True)
+    is_valid_email = validate_email(email)
     return is_valid_email
 
 

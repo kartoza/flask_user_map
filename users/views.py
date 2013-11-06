@@ -4,8 +4,10 @@
 :license: GPLv3, see LICENSE for more details.
 """
 import json
+from smtplib import SMTPException
+import hashlib
 
-from flask import render_template, Response, request
+from flask import render_template, Response, request, url_for
 from werkzeug.exceptions import default_exceptions
 
 # App declared directly in __init__ as per
@@ -116,14 +118,24 @@ def add_user_view():
             email_updates=bool(email_updates),
             latitude=float(latitude),
             longitude=float(longitude))
-        # Send Email Confirmation:
-        subject = 'InaSAFE User Map Registration'
-        message = render_template('confirmation_email.txt',
-                                  recipient_name=name)
-        send_mail('akbargumbira@gmail.com', email, subject, message)
 
     # Prepare json for added user
     user = get_user(guid)
+
+    # Send Email Confirmation:
+    try:
+        user_guid_hash = hashlib.sha256(user['guid'].encode()).hexdigest()
+        sender = APP.config['mail_server']['USERNAME']
+        subject = 'InaSAFE User Map Registration'
+        print url_for('map_view', _external=True)
+        message = render_template('confirmation_email.txt',
+                                  url=url_for('map_view', _external=True),
+                                  name=user['name'],
+                                  hash=user_guid_hash)
+        send_mail(sender, email, subject, message)
+    except SMTPException:
+        raise Exception('Error: unable to send mail')
+
     added_user = render_template('users.json', users=[user])
     # Return Response
     return Response(added_user, mimetype='application/json')
