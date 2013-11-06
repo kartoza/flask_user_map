@@ -11,7 +11,7 @@ from werkzeug.exceptions import default_exceptions
 # App declared directly in __init__ as per
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 from . import APP
-from users.utilities.helpers import make_json_error
+from users.utilities.helpers import make_json_error, send_mail
 from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
@@ -116,6 +116,11 @@ def add_user_view():
             email_updates=bool(email_updates),
             latitude=float(latitude),
             longitude=float(longitude))
+        # Send Email Confirmation:
+        subject = 'InaSAFE User Map Registration'
+        message = render_template('confirmation_email.txt',
+                                  recipient_name=name)
+        send_mail('akbargumbira@gmail.com', email, subject, message)
 
     # Prepare json for added user
     user = get_user(guid)
@@ -151,4 +156,3 @@ def download_view():
         csv_users,
         mimetype="text/csv",
         headers={"Content-Disposition": "attachment;filename='users.csv'"})
-

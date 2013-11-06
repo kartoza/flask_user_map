@@ -79,6 +79,22 @@ def setup_logger():
     add_handler_once(logger, file_handler)
     add_handler_once(logger, console_handler)
 
+
+def setup_email_server():
+    """Setup email server configuration.
+    :return: Configuration of mail server used.
+    :rtype: dict
+    """
+    mail_server = {
+        'SERVER': 'smtp.gmail.com',
+        'PORT': 587,
+        'USE_TLS': False,
+        'USE_SSL': True,
+        'USERNAME': '',
+        'PASSWORD': ''
+    }
+    return mail_server
+
 setup_logger()
 LOGGER = logging.getLogger('user_map')
 DB = db_file = os.path.abspath(
@@ -86,6 +102,7 @@ DB = db_file = os.path.abspath(
 
 APP = Flask(__name__)
 APP.config['DATABASE'] = DB
+APP.config['mail_server'] = setup_email_server()
 # Don't import actual view methods themselves - see:
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 # Also views must be imported AFTER app is created above.

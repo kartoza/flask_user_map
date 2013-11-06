@@ -1,0 +1,5 @@
+Dear {{ recipient_name }},
+Thank you for registering yourself to InaSAFE User Map. We really appreciate it.
+If you need to edit or delete your data in the future, please use this link.
+
+Regards
