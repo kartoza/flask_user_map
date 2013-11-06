@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>User Map</title>
+  <title>{% block title %}InaSAFE User Map{% endblock %}</title>
   <link rel="shortcut icon" href="/users/static/img/favicon.ico"/>
   <link rel="stylesheet" href="/users/static/css/bootstrap.css"
         type="text/css" static="screen, projection"/>
@@ -16,9 +16,6 @@
         type="text/css" static="screen, projection"/>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/jquery.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/
-javascript"></script>
-
   <script language="javascript"
           type="text/javascript" src="/users/static/js/bootstrap.min.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
@@ -91,52 +88,7 @@ javascript"></script>
 <div id="map">
 </div>
 
-<script type="text/javascript">
-  var DEFAULT_MODE = 0;
-  var ADD_USER_MODE = 1;
-  var DOWNLOAD_MODE = 2;
-  var USER_ROLE = 0;
-  var TRAINER_ROLE = 1;
-  var DEVELOPER_ROLE = 2;
-  var map, base_map, marker_new_user, overlays_layer, users_layer,
-      trainers_layer, developers_layer, data_privacy_control,
-      user_menu_control, IconMarker, user_icon, trainer_icon, developer_icon,
-      estimated_location_circle;
-  var current_mode = DEFAULT_MODE;
-
-  $(document).ready(function () {
-    //Initialize Basemap Layer
-    initializeBaseMap();
-    // Initialize Icon for marker
-    initializeIcons();
-    //User Layer
-    users_layer = new L.LayerGroup();
-    trainers_layer = new L.LayerGroup();
-    developers_layer = new L.LayerGroup();
-    addUsers(users_layer, USER_ROLE);
-    addUsers(trainers_layer, TRAINER_ROLE);
-    addUsers(developers_layer, DEVELOPER_ROLE);
-
-    //Create Map with prepared layers
-    map = L.map('map', {
-      layers: [base_map, users_layer, developers_layer, trainers_layer]
-    });
-    map.fitWorld().zoomIn();
-
-    //Add Controls:
-    initializeControls();
-    map.addControl(new data_privacy_control());
-    map.addControl(new user_menu_control);
-    $(".user-menu-control").tooltip({placement: 'right', container:'body'});
-
-    //Specify all layers on overlays_layers control
-    overlays_layer = {
-      "Users": users_layer,
-      "Developers": developers_layer,
-      "Trainers": trainers_layer
-    }
-    L.control.layers(null, overlays_layer).addTo(map)
-  })
-</script>
+{% block js_container %}
+{% endblock %} <!--endblock of js_container -->
 </body>
 </html>

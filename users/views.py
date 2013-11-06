@@ -26,10 +26,10 @@ def map_view():
     """Default view - shows a map with users."""
     context = dict(
         current_tag_name='None',
-        error='None',
+        error='None'
     )
     #pylint: disable=W0142
-    return render_template('base.html', **context)
+    return render_template('index.html', **context)
 
 
 @APP.route('/users.json', methods=['POST'])
@@ -124,14 +124,12 @@ def add_user_view():
 
     # Send Email Confirmation:
     try:
-        user_guid_hash = hashlib.sha256(user['guid'].encode()).hexdigest()
         sender = APP.config['mail_server']['USERNAME']
         subject = 'InaSAFE User Map Registration'
         print url_for('map_view', _external=True)
         message = render_template('confirmation_email.txt',
                                   url=url_for('map_view', _external=True),
-                                  name=user['name'],
-                                  hash=user_guid_hash)
+                                  user=user)
         send_mail(sender, email, subject, message)
     except SMTPException:
         raise Exception('Error: unable to send mail')
@@ -168,3 +166,26 @@ def download_view():
         csv_users,
         mimetype="text/csv",
         headers={"Content-Disposition": "attachment;filename='users.csv'"})
+
+
+@APP.route('/edit/<guid>')
+def edit_user_view(guid):
+    """View to edit a user with given guid.
+
+    :param guid: The unique identifier of a user.
+    :type guid: str
+    :returns: Page where user can edit his/her data
+    :rtype: HttpResponse
+    """
+    user = get_user(guid)
+
+    context = dict(
+        current_tag_name='None',
+        error='None',
+        user=user
+    )
+    #pylint: disable=W0142
+    return render_template('edit.html', **context)
+
+
+

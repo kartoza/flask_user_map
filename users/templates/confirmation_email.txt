@@ -1,4 +1,4 @@
-Dear {{ name }},
+Dear {{ user.name }},
 
 Thank you for adding yourself to the user map at {{ url }}. If this record was not added by
 yourself, read on below for more information on how to remove it again.
@@ -17,7 +17,7 @@ to the centre of your nearest town / state or province or country).
 
 Deleting or editing your user record does not require a user name or password, only that
 you click on this unique (for your user record) link below:
-    - Link: {{ url }}/edit/{{ hash }}
+    - Link: {{ url }}edit/{{ user.guid }}
 
 If you have ever forget your special link above, you can request this message to be
 resent to you by using the 'I forgot my edit link' option on {{ url }}.

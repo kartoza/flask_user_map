@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %} Edit User {% endblock %}
+
+{% block js_container %}
+  <script type="text/javascript">
+    alert('{{ user.name }}');
+    var DEFAULT_MODE = 0;
+    var DOWNLOAD_MODE = 2;
+    var EDIT_USER_MODE = 3;
+
+    var map, base_map, user_layer, data_privacy_control, user_menu_control,
+        IconMarker, user_icon, trainer_icon, developer_icon,
+        estimated_location_circle;
+    var current_mode = EDIT_USER_MODE;
+
+    $(document).ready(function () {
+      //Initialize Basemap Layer
+      initializeBaseMap();
+      // Initialize Icon for marker
+      initializeIcons();
+      //User Layer
+      user_layer = new L.LayerGroup();
+      //addUser(user_layer);
+
+      //Create Map with prepared layers
+      map = L.map('map', {
+        layers: [base_map, user_layer]
+      });
+      map.fitWorld().zoomIn();
+
+      //Add Controls:
+      initializeControls();
+      map.addControl(new data_privacy_control());
+      map.addControl(new user_menu_control);
+      $(".user-menu-control").tooltip({placement: 'right', container:'body'});
+    })
+  </script>
+
+{% endblock %} <!--endblock of js_container -->

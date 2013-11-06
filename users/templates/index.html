@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block js_container %}
+   <script type="text/javascript">
+    var DEFAULT_MODE = 0;
+    var ADD_USER_MODE = 1;
+    var DOWNLOAD_MODE = 2;
+    var USER_ROLE = 0;
+    var TRAINER_ROLE = 1;
+    var DEVELOPER_ROLE = 2;
+    var map, base_map, marker_new_user, overlays_layer, users_layer,
+        trainers_layer, developers_layer, data_privacy_control,
+        user_menu_control, IconMarker, user_icon, trainer_icon, developer_icon,
+        estimated_location_circle;
+    var current_mode = DEFAULT_MODE;
+
+    $(document).ready(function () {
+      //Initialize Basemap Layer
+      initializeBaseMap();
+      // Initialize Icon for marker
+      initializeIcons();
+      //User Layer
+      users_layer = new L.LayerGroup();
+      trainers_layer = new L.LayerGroup();
+      developers_layer = new L.LayerGroup();
+      addUsers(users_layer, USER_ROLE);
+      addUsers(trainers_layer, TRAINER_ROLE);
+      addUsers(developers_layer, DEVELOPER_ROLE);
+
+      //Create Map with prepared layers
+      map = L.map('map', {
+        layers: [base_map, users_layer, developers_layer, trainers_layer]
+      });
+      map.fitWorld().zoomIn();
+
+      //Add Controls:
+      initializeControls();
+      map.addControl(new data_privacy_control());
+      map.addControl(new user_menu_control);
+      $(".user-menu-control").tooltip({placement: 'right', container:'body'});
+
+      //Specify all layers on overlays_layers control
+      overlays_layer = {
+        "Users": users_layer,
+        "Developers": developers_layer,
+        "Trainers": trainers_layer
+      }
+      L.control.layers(null, overlays_layer).addTo(map)
+    })
+  </script>
+{% endblock %} <!--endblock of js_container -->
