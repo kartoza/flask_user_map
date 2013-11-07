@@ -66,13 +66,19 @@ function initializeUserMenuControl(options) {
       if (options['edit-user-menu']) {
         user_menu_container.innerHTML +=
             "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onEditMeButtonClick()' data-toggle='tooltip' data-original-title='Edit my data!'>" +
-            "<span class='glyphicon glyphicon-edit'></span>" +
+            "<span class='glyphicon glyphicon-pencil'></span>" +
             "</button>"
       }
       if (options['download-menu']) {
         user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users!'>" +
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users as CSV file!'>" +
             "<span class='glyphicon glyphicon-download-alt'></span>" +
+            "</button>"
+      }
+      if (options['reminder-menu']) {
+        user_menu_container.innerHTML +=
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='reminder-button' onclick='onReminderButtonClick()' data-toggle='tooltip' data-original-title='Forget your edit link? Resend me an email!'>" +
+            "<span class='glyphicon glyphicon-question-sign'></span>" +
             "</button>"
       }
 
@@ -89,6 +95,9 @@ function initializeUserMenuControl(options) {
         if (current_mode != DOWNLOAD_MODE) {
           activateDownloadState();
         }
+      };
+      onReminderButtonClick = function () {
+        alert("It's not yet implemented!");
       };
 
       //Prevent firing drag and onClickMap event when clicking this control
