@@ -4,13 +4,9 @@
   <script type="text/javascript">
      var  marker_new_user, overlays_layer, users_layer,
           trainers_layer, developers_layer;
-      var current_mode = DEFAULT_MODE;
+     current_mode = DEFAULT_MODE;
 
-      $(document).ready(function () {
-        //Initialize Basemap Layer
-        initializeBaseMap();
-        // Initialize Icon for marker
-        initializeIcons();
+     $(document).ready(function () {
         //User Layer
         users_layer = new L.LayerGroup();
         trainers_layer = new L.LayerGroup();
@@ -26,8 +22,8 @@
         map.fitWorld().zoomIn();
 
         //Add All Controls:
-        initializeDataPrivacyControl();
-        initializeUserMenuControl({"add-user-menu": true, "download-menu": true, "reminder-menu": true });
+        data_privacy_control = initializeDataPrivacyControl();
+        user_menu_control = initializeUserMenuControl({"add-user-menu": true, "download-menu": true, "reminder-menu": true });
         map.addControl(new data_privacy_control);
         map.addControl(new user_menu_control);
         $(".user-menu-control").tooltip({placement: 'right', container:'body'});
@@ -39,6 +35,6 @@
           "Trainers": trainers_layer
         }
         L.control.layers(null, overlays_layer).addTo(map)
-      })
+     })
   </script>
 {% endblock %} <!--endblock of js_container -->

@@ -4,13 +4,9 @@
 {% block js_container %}
   <script type="text/javascript">
     var edited_user_layer;
-    var current_mode = EDIT_USER_MODE;
+    current_mode = EDIT_USER_MODE;
 
     $(document).ready(function () {
-      //Initialize Basemap Layer
-      initializeBaseMap();
-      // Initialize Icon for marker
-      initializeIcons();
       //Add Edited User Layer
       edited_user_layer = new L.LayerGroup();
       var user = {'name': '{{ user.name }}', 'email': '{{ user.email }}', 'website': '{{ user.website }}', 'role': {{ user.role }}, 'latitude':{{ user.latitude }}, 'longitude': {{ user.longitude }}}
@@ -23,8 +19,8 @@
       map.fitWorld().zoomIn();
 
       //Add Controls:
-      initializeDataPrivacyControl();
-      initializeUserMenuControl({"edit-user-menu": true, "delete-user-menu":true, "download-menu":true});
+      data_privacy_control = initializeDataPrivacyControl();
+      user_menu_control = initializeUserMenuControl({"edit-user-menu": true, "delete-user-menu":true, "download-menu":true});
       map.addControl(new data_privacy_control());
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container:'body'});

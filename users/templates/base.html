@@ -22,6 +22,8 @@
   <script src="/users/static/js/leaflet.label.js"></script>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map.js"></script>
+<script language="javascript"
+          type="text/javascript" src="/users/static/js/user-map-control.js"></script>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/validate.js"></script>
 
@@ -98,7 +100,13 @@
     var TRAINER_ROLE = 1;
     var DEVELOPER_ROLE = 2;
     var map, base_map, data_privacy_control, user_menu_control, IconMarker,
-        user_icon, trainer_icon, developer_icon, estimated_location_circle;;
+        user_icon, trainer_icon, developer_icon, estimated_location_circle,
+        current_mode;
+
+  //Initialize Basemap Layer
+  initializeBaseMap();
+  // Initialize Icon for marker
+  initializeIcons();
 </script>
 
 {% block js_container %}
