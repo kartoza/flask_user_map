@@ -3,16 +3,7 @@
 
 {% block js_container %}
   <script type="text/javascript">
-    var DEFAULT_MODE = 0;
-    var DOWNLOAD_MODE = 2;
-    var EDIT_USER_MODE = 3;
-    var USER_ROLE = 0;
-    var TRAINER_ROLE = 1;
-    var DEVELOPER_ROLE = 2;
-
-    var map, base_map, users_layer, data_privacy_control, user_menu_control,
-        IconMarker, user_icon, trainer_icon, developer_icon,
-        estimated_location_circle;
+    var edited_user_layer;
     var current_mode = EDIT_USER_MODE;
 
     $(document).ready(function () {
