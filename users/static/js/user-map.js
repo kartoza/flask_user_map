@@ -43,7 +43,9 @@ function initializeDataPrivacyControl() {
  * There are 3 menus on this control:
  * 1. add-user-menu
  * 2. edit-user-menu
- * 3. download-menu
+ * 3. delete-user-menu
+ * 4. download-menu
+ * 5. reminder-menu
  *
  * Usage: initializeUserMenuControl({"add-user-menu": true, "download-menu": true}) to show add-user-menu and download-menu
  */
@@ -59,14 +61,20 @@ function initializeUserMenuControl(options) {
           'user_menu_control btn-group-vertical');
       if (options['add-user-menu']) {
         user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddMeButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddUserButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
             "<span class='glyphicon glyphicon-user'></span>" +
             "</button>"
       }
       if (options['edit-user-menu']) {
         user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onEditMeButtonClick()' data-toggle='tooltip' data-original-title='Edit my data!'>" +
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onEditUserButtonClick()' data-toggle='tooltip' data-original-title='Edit my data!'>" +
             "<span class='glyphicon glyphicon-pencil'></span>" +
+            "</button>"
+      }
+      if (options['delete-user-menu']) {
+        user_menu_container.innerHTML +=
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onDeleteUserButtonClick()' data-toggle='tooltip' data-original-title='Delete me from the map!'>" +
+            "<span class='glyphicon glyphicon-trash'></span>" +
             "</button>"
       }
       if (options['download-menu']) {
@@ -83,12 +91,15 @@ function initializeUserMenuControl(options) {
       }
 
       // Set All Listener Function
-      onAddMeButtonClick = function () {
+      onAddUserButtonClick = function () {
         if (current_mode != ADD_USER_MODE) {
           activateAddUserState();
         }
       };
-      onEditMeButtonClick = function () {
+      onEditUserButtonClick = function () {
+        alert("It's not yet implemented!");
+      };
+      onDeleteUserButtonClick = function () {
         alert("It's not yet implemented!");
       };
       onDownloadButtonClick = function () {
