@@ -33,9 +33,10 @@
       });
       map.fitWorld().zoomIn();
 
-      //Add Controls:
-      initializeControls();
-      map.addControl(new data_privacy_control());
+      //Add All Controls:
+      initializeDataPrivacyControl();
+      initializeUserMenuControl({"add-user-menu": true,"download-menu": true});
+      map.addControl(new data_privacy_control);
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container:'body'});
 

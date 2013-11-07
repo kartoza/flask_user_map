@@ -8,7 +8,7 @@
     var DOWNLOAD_MODE = 2;
     var EDIT_USER_MODE = 3;
 
-    var map, base_map, user_layer, data_privacy_control, user_menu_control,
+    var map, base_map, users_layer, data_privacy_control, user_menu_control,
         IconMarker, user_icon, trainer_icon, developer_icon,
         estimated_location_circle;
     var current_mode = EDIT_USER_MODE;
@@ -19,17 +19,18 @@
       // Initialize Icon for marker
       initializeIcons();
       //User Layer
-      user_layer = new L.LayerGroup();
+      users_layer = new L.LayerGroup();
       //addUser(user_layer);
 
       //Create Map with prepared layers
       map = L.map('map', {
-        layers: [base_map, user_layer]
+        layers: [base_map, users_layer]
       });
       map.fitWorld().zoomIn();
 
       //Add Controls:
-      initializeControls();
+      initializeDataPrivacyControl();
+      initializeUserMenuControl({"edit-user-menu": true, "download-menu":true});
       map.addControl(new data_privacy_control());
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container:'body'});

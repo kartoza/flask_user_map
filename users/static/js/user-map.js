@@ -7,6 +7,9 @@ function initializeBaseMap() {
   });
 }
 
+/**
+ * Initialize Data Privacy Control on the bottom left of the map
+ */
 function initializeDataPrivacyControl() {
   data_privacy_control = L.Control.extend({
     options: {
@@ -34,37 +37,59 @@ function initializeDataPrivacyControl() {
   });
 }
 
-function initializeUserMenuControl() {
+/**
+ * Initialize User Menu Control on the top left of the map.
+ * Input: Visibility of each component. False if hidden, True if visible. If None, then it will be hidden
+ * There are 3 menus on this control:
+ * 1. add-user-menu
+ * 2. edit-user-menu
+ * 3. download-menu
+ *
+ * Usage: initializeUserMenuControl({"add-user-menu": true, "download-menu": true}) to show add-user-menu and download-menu
+ */
+function initializeUserMenuControl(options) {
   // User Menu Control: Add User, Delete User
   user_menu_control = L.Control.extend({
     options: {
       position: 'topleft'
     },
     onAdd: function (map) {
+      // Set HTML and CSS for it
       var user_menu_container = L.DomUtil.create('div',
-          'user_menu_control');
-      user_menu_container.innerHTML +=
-          "<div class='btn-group-vertical'>" +
-              "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddMeButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
-              "<span class='glyphicon glyphicon-user'></span>" +
-              "</button>" +
-              "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users!'>" +
-              "<span class='glyphicon glyphicon-download-alt'></span>" +
-              "</button>" +
-              "</div>"
+          'user_menu_control btn-group-vertical');
+      if (options['add-user-menu']) {
+        user_menu_container.innerHTML +=
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddMeButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
+            "<span class='glyphicon glyphicon-user'></span>" +
+            "</button>"
+      }
+      if (options['edit-user-menu']) {
+        user_menu_container.innerHTML +=
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onEditMeButtonClick()' data-toggle='tooltip' data-original-title='Edit my data!'>" +
+            "<span class='glyphicon glyphicon-edit'></span>" +
+            "</button>"
+      }
+      if (options['download-menu']) {
+        user_menu_container.innerHTML +=
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users!'>" +
+            "<span class='glyphicon glyphicon-download-alt'></span>" +
+            "</button>"
+      }
 
+      // Set All Listener Function
       onAddMeButtonClick = function () {
         if (current_mode != ADD_USER_MODE) {
           activateAddUserState();
         }
-      }
-
-
+      };
+      onEditMeButtonClick = function () {
+        alert("It's not yet implemented!");
+      };
       onDownloadButtonClick = function () {
         if (current_mode != DOWNLOAD_MODE) {
           activateDownloadState();
         }
-      }
+      };
 
       //Prevent firing drag and onClickMap event when clicking this control
       var stop = L.DomEvent.stopPropagation;
@@ -76,11 +101,6 @@ function initializeUserMenuControl() {
       return user_menu_container
     }
   });
-}
-
-function initializeControls() {
-  initializeDataPrivacyControl();
-  initializeUserMenuControl();
 }
 
 function initializeIcons() {
