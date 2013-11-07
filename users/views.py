@@ -5,7 +5,6 @@
 """
 import json
 from smtplib import SMTPException
-import hashlib
 
 from flask import render_template, Response, request, url_for
 from werkzeug.exceptions import default_exceptions
@@ -36,16 +35,10 @@ def map_view():
 def users_view():
     """Return a json document of users who have registered themselves."""
     # Get data:
-    user_type = int(request.form['user_type'])
+    user_role = int(request.form['user_role'])
 
-    # Create model User
-    if user_type == 0:
-        all_users = get_all_users()
-    elif user_type == 1:
-        all_users = get_all_users(role=1)
-    elif user_type == 2:
-        all_users = get_all_users(role=2)
-
+    # Create model user
+    all_users = get_all_users(role=user_role)
     json_users = render_template('users.json', users=all_users)
 
     users_json = (
@@ -139,6 +132,25 @@ def add_user_view():
     return Response(added_user, mimetype='application/json')
 
 
+@APP.route('/edit/<guid>')
+def edit_user_view(guid):
+    """View to edit a user with given guid.
+
+    :param guid: The unique identifier of a user.
+    :type guid: str
+    :returns: Page where user can edit his/her data
+    :rtype: HttpResponse
+    """
+    user = get_user(guid)
+
+    context = dict(
+        current_tag_name='None',
+        error='None',
+        user=user
+    )
+    #pylint: disable=W0142
+    return render_template('edit.html', **context)
+
 @APP.route('/download')
 def download_view():
     """View to download users.
@@ -166,26 +178,4 @@ def download_view():
         csv_users,
         mimetype="text/csv",
         headers={"Content-Disposition": "attachment;filename='users.csv'"})
-
-
-@APP.route('/edit/<guid>')
-def edit_user_view(guid):
-    """View to edit a user with given guid.
-
-    :param guid: The unique identifier of a user.
-    :type guid: str
-    :returns: Page where user can edit his/her data
-    :rtype: HttpResponse
-    """
-    user = get_user(guid)
-
-    context = dict(
-        current_tag_name='None',
-        error='None',
-        user=user
-    )
-    #pylint: disable=W0142
-    return render_template('edit.html', **context)
-
-
 

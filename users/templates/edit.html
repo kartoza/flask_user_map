@@ -3,10 +3,12 @@
 
 {% block js_container %}
   <script type="text/javascript">
-    alert('{{ user.name }}');
     var DEFAULT_MODE = 0;
     var DOWNLOAD_MODE = 2;
     var EDIT_USER_MODE = 3;
+    var USER_ROLE = 0;
+    var TRAINER_ROLE = 1;
+    var DEVELOPER_ROLE = 2;
 
     var map, base_map, users_layer, data_privacy_control, user_menu_control,
         IconMarker, user_icon, trainer_icon, developer_icon,
@@ -18,13 +20,14 @@
       initializeBaseMap();
       // Initialize Icon for marker
       initializeIcons();
-      //User Layer
-      users_layer = new L.LayerGroup();
-      //addUser(user_layer);
+      //Add Edited User Layer
+      edited_user_layer = new L.LayerGroup();
+      var user = {'name': '{{ user.name }}', 'email': '{{ user.email }}', 'website': '{{ user.website }}', 'role': {{ user.role }}, 'latitude':{{ user.latitude }}, 'longitude': {{ user.longitude }}}
+      addEditedUser(user , edited_user_layer);
 
       //Create Map with prepared layers
       map = L.map('map', {
-        layers: [base_map, users_layer]
+        layers: [base_map, edited_user_layer]
       });
       map.fitWorld().zoomIn();
 

@@ -20,7 +20,7 @@ you click on this unique (for your user record) link below:
     - Link: {{ url }}edit/{{ user.guid }}
 
 If you have ever forget your special link above, you can request this message to be
-resent to you by using the 'I forgot my edit link' option on {{ url }}.
+resent to you by using the 'I forgot my edit link' menu on {{ url }}.
 
 Thank you for taking the time to register yourself on our site!
 

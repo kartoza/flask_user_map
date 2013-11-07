@@ -39,7 +39,8 @@ function initializeDataPrivacyControl() {
 
 /**
  * Initialize User Menu Control on the top left of the map.
- * Input: Visibility of each component. False if hidden, True if visible. If None, then it will be hidden
+ * @param options: Visibility of each component. False if hidden, True if visible. If None, then it will be hidden
+ *
  * There are 3 menus on this control:
  * 1. add-user-menu
  * 2. edit-user-menu
@@ -85,7 +86,7 @@ function initializeUserMenuControl(options) {
       }
       if (options['reminder-menu']) {
         user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='reminder-button' onclick='onReminderButtonClick()' data-toggle='tooltip' data-original-title='Forget your edit link? Resend me an email!'>" +
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='reminder-button' onclick='onReminderButtonClick()' data-toggle='tooltip' data-original-title='Forgot your edit link? Resend me an email!'>" +
             "<span class='glyphicon glyphicon-question-sign'></span>" +
             "</button>"
       }
@@ -123,6 +124,9 @@ function initializeUserMenuControl(options) {
   });
 }
 
+/**
+ * Initialize all icons that needed and set the icon image path
+ */
 function initializeIcons() {
   IconMarker = L.Icon.extend({
     options: {
@@ -143,6 +147,9 @@ function initializeIcons() {
 
 
 /***-------------------- START OF STATE CONTROL----------------------- **/
+/**
+ * Activate Default State
+ */
 function activateDefaultState() {
   current_mode = DEFAULT_MODE; // Change mode to default
   map.off('click', onMapClick); // Stop onMapclick listener
@@ -152,6 +159,9 @@ function activateDefaultState() {
   $('#download-button').removeClass('active');
 }
 
+/**
+ * Activate Add User State. The state when user click 'Add Me' button
+ */
 function activateAddUserState() {
   // Reset to Default State first
   activateDefaultState();
@@ -170,7 +180,9 @@ function activateAddUserState() {
   map.on('click', onMapClick)
 }
 
-
+/**
+ * Activate Download State. The state when user click download data button
+ */
 function activateDownloadState() {
   // Reset to Default State first
   activateDefaultState();
@@ -182,80 +194,31 @@ function activateDownloadState() {
   window.open('/download', '_self');
   activateDefaultState();
 }
-
 /***-------------------- END OF STATE CONTROL -------------------------**/
 
-function onEachFeature(feature, layer) {
-  // does this feature have a property named popupContent?
-  if (feature.properties && feature.properties.popupContent) {
-    layer.bindPopup(feature.properties.popupContent);
+
+/***------------------ START OF LAYER MANAGEMENT --------------------***/
+/**
+ * Return user icon based on user role
+ * @param user_role: a role
+ */
+function getUserIcon(user_role) {
+  var role_icon;
+  if (user_role == USER_ROLE) {
+    role_icon = user_icon;
+  } else if (user_role == TRAINER_ROLE) {
+    role_icon = trainer_icon;
+  } else if (user_role == DEVELOPER_ROLE) {
+    role_icon = developer_icon;
   }
+  return role_icon;
 }
 
-function addUsers(layer, user_role) {
-  $.ajax({
-    type: "POST",
-    url: "/users.json",
-    dataType: 'json',
-    data: {
-      user_type: user_role
-    },
-    success: function (response) {
-      var role_icon;
-      if (user_role == USER_ROLE) {
-        role_icon = user_icon;
-      } else if (user_role == TRAINER_ROLE) {
-        role_icon = trainer_icon;
-      } else if (user_role == DEVELOPER_ROLE) {
-        role_icon = developer_icon;
-      }
-      L.geoJson(
-          response.users,
-          {
-            onEachFeature: onEachFeature,
-            pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: role_icon });
-            }
-          }).addTo(layer);
-    }
-  });
-}
-
-function refreshUserLayer() {
-  users_layer.clearLayers();
-  addUsers(users_layer, USER_ROLE);
-}
-
-function refreshTrainerLayer() {
-  trainers_layer.clearLayers();
-  addUsers(trainers_layer, TRAINER_ROLE);
-}
-
-function refreshDeveloperLayer() {
-  developers_layer.clearLayers();
-  addUsers(developers_layer, DEVELOPER_ROLE);
-}
-
-function onLocationFound(e) {
-  var radius = e.accuracy / 2;
-  var label = "You are within " + radius + " meters from this point";
-  // If estimated_location_circle exists, remove that circle first from map
-  if (typeof estimated_location_circle != 'undefined') {
-    map.removeLayer(estimated_location_circle);
-  }
-  estimated_location_circle = L.circle(e.latlng, radius, {clickable: false, fillOpacity: 0.1});
-  estimated_location_circle.bindLabel(label, {noHide: true, direction: 'auto'}).addTo(map).showLabel();
-}
-
-function onMapClick(e) {
-  // Clear the un-saved clicked marker
-  if (marker_new_user != null) {
-    cancelMarker();
-  }
-  //Get new marker
-  var markerLocation = e.latlng;
-  marker_new_user = L.marker(markerLocation);
-  map.addLayer(marker_new_user);
+/**
+ * Return user form based on user attribute
+ * @param user: associative array containing each value of user attribute
+ */
+function getUserForm(user) {
   var form =
       '<div class="panel panel-default">' +
           '<div class="panel-heading">' +
@@ -266,21 +229,21 @@ function onMapClick(e) {
           '<div class="form-group" >' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Name</span>' +
-          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required/>' +
+          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required value="'+  user['name'] +'" />' +
           '</div>' +
           '</div>' +
 
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Email</span>' +
-          '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required/>' +
+          '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="'+ user['email'] +'"/>' +
           '</div>' +
           '</div>' +
 
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Website</span>' +
-          '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" value="" pattern="https?://.+"/>' +
+          '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" pattern="https?://.+" value="'+ user['website'] +'"/>' +
           '</div>' +
           '</div>' +
 
@@ -313,8 +276,8 @@ function onMapClick(e) {
           '</div>' +
 
           '<div class="form-group">' +
-          '<input style="display: none;" type="text" id="lat" name="lat" value="' + markerLocation.lat.toFixed(6) + '" />' +
-          '<input style="display: none;" type="text" id="lng" name="lng" value="' + markerLocation.lng.toFixed(6) + '" />' +
+          '<input style="display: none;" type="text" id="lat" name="lat" value="' + user['latitude'] + '" />' +
+          '<input style="display: none;" type="text" id="lng" name="lng" value="' + user['longitude'] + '" />' +
           '</div>' +
 
           '<div class="form-group">' +
@@ -326,42 +289,99 @@ function onMapClick(e) {
           '</form>' +
           '</div>' +
           '</div>';
-  marker_new_user.bindPopup(form).openPopup()
+
+  return form;
 }
 
-function validate_add_user_form(str_name, str_email, str_website) {
-  var is_name_valid, is_email_valid, is_website_valid, is_all_valid;
-  if (typeof document.createElement("input").checkValidity == "function") {
-    // This browser support HTML5 Validation
-    // Validate All by HTML5:
-    is_name_valid = document.getElementById('name').checkValidity();
-    is_email_valid = document.getElementById('email').checkValidity();
-    is_website_valid = document.getElementById('website').checkValidity();
-  } else {
-    // This browser doesn't support HTML5 Validation. Use JS Validation instead
-    is_name_valid = isRequiredSatistied(str_name);
-    is_email_valid = isRequiredSatistied(str_email) && isEmailSatisfied(str_email);
-    if (isRequiredSatistied(str_website)) {
-      is_website_valid = isURLSatisfied(str_website);
-    } else {
-      is_website_valid = true;
+/**
+ * Add users to the respective layer based on user_role
+ * @param layer: layer which users added to
+ * @param user_role: the role of users that will be added
+ */
+function addUsers(layer, user_role) {
+  $.ajax({
+    type: "POST",
+    url: "/users.json",
+    dataType: 'json',
+    data: {
+      user_role: user_role
+    },
+    success: function (response) {
+      var role_icon = getUserIcon(user_role);
+      L.geoJson(
+          response.users,
+          {
+            onEachFeature: onEachFeature,
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {icon: role_icon });
+            }
+          }).addTo(layer);
     }
-  }
+  });
+}
+/**
+ * Add edited user to the respective layer
+ * @param layer: layer which users added to
+ * @param user: the user that will be added
+ */
+function addEditedUser(user, layer) {
+  var form = getUserForm(user);
+  var role_icon = getUserIcon(user['role']);
+  L.marker([user['latitude'], user['longitude']], {icon: role_icon }).addTo(layer).bindPopup(form).openPopup();
+}
 
-  is_all_valid = is_name_valid && is_email_valid && is_website_valid;
-  if (!is_name_valid) {
-    $("#name").parent().addClass("has-error");
-    $('#name').attr("placeholder", 'Name is required');
+
+/**
+ * Listener when each feature is added to the map regarding to a layer.
+ * @param feature
+ * @param layer
+ */
+function onEachFeature(feature, layer) {
+  // Set the popup content if it does have it.
+  if (feature.properties && feature.properties.popupContent) {
+    layer.bindPopup(feature.properties.popupContent);
   }
-  if (!is_email_valid) {
-    $("#email").parent().addClass("has-error");
-    $('#email').attr("placeholder", 'Email is required and needs to be valid email');
+}
+
+function refreshUserLayer() {
+  users_layer.clearLayers();
+  addUsers(users_layer, USER_ROLE);
+}
+
+
+function refreshTrainerLayer() {
+  trainers_layer.clearLayers();
+  addUsers(trainers_layer, TRAINER_ROLE);
+}
+
+function refreshDeveloperLayer() {
+  developers_layer.clearLayers();
+  addUsers(developers_layer, DEVELOPER_ROLE);
+}
+
+function onLocationFound(e) {
+  var radius = e.accuracy / 2;
+  var label = "You are within " + radius + " meters from this point";
+  // If estimated_location_circle exists, remove that circle first from map
+  if (typeof estimated_location_circle != 'undefined') {
+    map.removeLayer(estimated_location_circle);
   }
-  if (!is_website_valid) {
-    $("#website").parent().addClass("has-error");
-    $('#website').attr("placeholder", 'Website needs to be valid URL ');
+  estimated_location_circle = L.circle(e.latlng, radius, {clickable: false, fillOpacity: 0.1});
+  estimated_location_circle.bindLabel(label, {noHide: true, direction: 'auto'}).addTo(map).showLabel();
+}
+
+function onMapClick(e) {
+  // Clear the un-saved clicked marker
+  if (marker_new_user != null) {
+    cancelMarker();
   }
-  return is_all_valid;
+  //Get new marker
+  var markerLocation = e.latlng;
+  marker_new_user = L.marker(markerLocation);
+  map.addLayer(marker_new_user);
+  var user = {'name': '', 'email': '', 'website': '', 'role': '', 'latitude': markerLocation.lat.toFixed(6), 'longitude': markerLocation.lng.toFixed(6)}
+  var form = getUserForm(user);
+  marker_new_user.bindPopup(form).openPopup()
 }
 
 function addUser() {
@@ -431,3 +451,42 @@ function addUser() {
 function cancelMarker() {
   map.removeLayer(marker_new_user);
 }
+/***------------------ END OF LAYER MANAGEMENT --------------------***/
+
+
+/***-----------------START OF FORM VALIDATION ---------------------***/
+function validate_add_user_form(str_name, str_email, str_website) {
+  var is_name_valid, is_email_valid, is_website_valid, is_all_valid;
+  if (typeof document.createElement("input").checkValidity == "function") {
+    // This browser support HTML5 Validation
+    // Validate All by HTML5:
+    is_name_valid = document.getElementById('name').checkValidity();
+    is_email_valid = document.getElementById('email').checkValidity();
+    is_website_valid = document.getElementById('website').checkValidity();
+  } else {
+    // This browser doesn't support HTML5 Validation. Use JS Validation instead
+    is_name_valid = isRequiredSatistied(str_name);
+    is_email_valid = isRequiredSatistied(str_email) && isEmailSatisfied(str_email);
+    if (isRequiredSatistied(str_website)) {
+      is_website_valid = isURLSatisfied(str_website);
+    } else {
+      is_website_valid = true;
+    }
+  }
+
+  is_all_valid = is_name_valid && is_email_valid && is_website_valid;
+  if (!is_name_valid) {
+    $("#name").parent().addClass("has-error");
+    $('#name').attr("placeholder", 'Name is required');
+  }
+  if (!is_email_valid) {
+    $("#email").parent().addClass("has-error");
+    $('#email').attr("placeholder", 'Email is required and needs to be valid email');
+  }
+  if (!is_website_valid) {
+    $("#website").parent().addClass("has-error");
+    $('#website').attr("placeholder", 'Website needs to be valid URL ');
+  }
+  return is_all_valid;
+}
+/***-----------------END OF FORM VALIDATION ---------------------***/
