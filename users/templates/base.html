@@ -29,64 +29,44 @@
 
 </head>
 <body>
-<!-- Modal for feedback to user added succesfully -->
-<div class="modal fade" id="add-success-modal" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3 class="modal-title">Information</h3>
-      </div>
-      <div class="modal-body">
-        <p>
-          Thank you for adding yourself to our database! Please check your
-          email to see the registration confirmation.
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Modal for Data Privacy Section -->
-<div class="modal fade" id="data-privacy-modal" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3 class="modal-title">Data Privacy</h3>
+{% block body %}
+  <!-- Modal for Data Privacy Section -->
+  <div class="modal fade" id="data-privacy-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="modal-title">Data Privacy</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+            The data you enter on this site may be visible to others. We suggest
+            that
+            you approximate your physical location to the nearest town or major
+            center. Parts of your data will be made available for others to
+            download
+            and use. We will <strong>not</strong> share:</br>
+          <ul>
+            <li>your email address</li>
+            <li>your unique identifier used to edit your record</li>
+          </ul>
+          If you would like your data removed from this site, please refer to the
+          confirmation email we sent you when you added yourself for instructions.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
+            Close
+          </button>
+        </div>
       </div>
-      <div class="modal-body">
-        <p>
-          The data you enter on this site may be visible to others. We suggest
-          that
-          you approximate your physical location to the nearest town or major
-          center. Parts of your data will be made available for others to
-          download
-          and use. We will <strong>not</strong> share:</br>
-        <ul>
-          <li>your email address</li>
-          <li>your unique identifier used to edit your record</li>
-        </ul>
-        If you would like your data removed from this site, please refer to the
-        confirmation email we sent you when you added yourself for instructions.
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
-          Close
-        </button>
-      </div>
+      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-content -->
+    <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+  <!-- /.modal data privacy control section-->
+{% endblock %} <!--endblock of body -->
 
 <div id="map">
 </div>
@@ -96,6 +76,7 @@
     var ADD_USER_MODE = 1;
     var EDIT_USER_MODE = 2;
     var DOWNLOAD_MODE = 3;
+    var REMINDER_MODE = 4;
     var USER_ROLE = 0;
     var TRAINER_ROLE = 1;
     var DEVELOPER_ROLE = 2;

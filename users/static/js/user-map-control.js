@@ -75,7 +75,7 @@ function initializeUserMenuControl(options) {
       }
       if (options['delete-user-menu']) {
         user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onDeleteUserButtonClick()' data-toggle='tooltip' data-original-title='Delete me from the map!'>" +
+            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='delete-user-button' onclick='onDeleteUserButtonClick()' data-toggle='tooltip' data-original-title='Delete me from the map!'>" +
             "<span class='glyphicon glyphicon-trash'></span>" +
             "</button>";
         onDeleteUserButtonClick = function () {
@@ -99,7 +99,9 @@ function initializeUserMenuControl(options) {
             "<span class='glyphicon glyphicon-question-sign'></span>" +
             "</button>";
          onReminderButtonClick = function () {
-           alert("It's not yet implemented!");
+           if (current_mode != REMINDER_MODE) {
+             activateReminderState();
+           }
          };
       }
 
@@ -124,9 +126,11 @@ function activateDefaultState() {
   current_mode = DEFAULT_MODE; // Change mode to default
   map.off('click', onMapClick); // Stop onMapclick listener
   $('#map').removeAttr('style'); // Remove all dynamic style to default one
-  $('#delete-user-button').removeClass('active');
   $('#add-user-button').removeClass('active');
+  $('#delete-user-button').removeClass('active');
+  $('#edit-user-button').removeClass('active');
   $('#download-button').removeClass('active');
+  $('#reminder-button').removeClass('active');
 }
 
 /**
@@ -163,5 +167,22 @@ function activateDownloadState() {
   //Process here:
   window.open('/download', '_self');
   activateDefaultState();
+}
+
+/**
+ * Activate Reminder State. The state when user click reminder button
+ */
+function activateReminderState() {
+  // Reset to Default State first
+  activateDefaultState();
+  // Set mode to delete user mode
+  current_mode = REMINDER_MODE;
+  // Set css button to active
+  $('#reminder-button').addClass('active');
+  // Open modal:
+  $('#reminder-menu-modal').modal({
+    backdrop: false
+  });
+
 }
 /***-------------------- END OF STATE CONTROL -------------------------**/

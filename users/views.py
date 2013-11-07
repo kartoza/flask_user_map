@@ -33,7 +33,7 @@ def map_view():
 
 @APP.route('/users.json', methods=['POST'])
 def users_view():
-    """Return a json document of users who have registered themselves."""
+    """Return a json document of users with given role who have registered."""
     # Get data:
     user_role = int(request.form['user_role'])
 
@@ -151,6 +151,7 @@ def edit_user_view(guid):
     #pylint: disable=W0142
     return render_template('edit.html', **context)
 
+
 @APP.route('/download')
 def download_view():
     """View to download users.
@@ -179,3 +180,14 @@ def download_view():
         mimetype="text/csv",
         headers={"Content-Disposition": "attachment;filename='users.csv'"})
 
+
+@APP.route('/reminder', methods=['POST'])
+def reminder_view():
+    """View to send reminder email to user.
+
+    :returns: JSON Response containing status of the process
+    :rtype: JSONResponse
+    """
+    message = {}
+    email = str(request.form['email']).strip()
+    return Response(json.dumps(message), mimetype='application/json')
