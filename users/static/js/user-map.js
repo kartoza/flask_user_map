@@ -64,53 +64,51 @@ function initializeUserMenuControl(options) {
         user_menu_container.innerHTML +=
             "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddUserButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
             "<span class='glyphicon glyphicon-user'></span>" +
-            "</button>"
+            "</button>";
+        onAddUserButtonClick = function () {
+          if (current_mode != ADD_USER_MODE) {
+            activateAddUserState();
+        }
+      };
       }
       if (options['edit-user-menu']) {
         user_menu_container.innerHTML +=
             "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onEditUserButtonClick()' data-toggle='tooltip' data-original-title='Edit my data!'>" +
             "<span class='glyphicon glyphicon-pencil'></span>" +
-            "</button>"
+            "</button>";
+        onEditUserButtonClick = function () {
+          alert("It's not yet implemented!");
+      };
       }
       if (options['delete-user-menu']) {
         user_menu_container.innerHTML +=
             "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onDeleteUserButtonClick()' data-toggle='tooltip' data-original-title='Delete me from the map!'>" +
             "<span class='glyphicon glyphicon-trash'></span>" +
-            "</button>"
+            "</button>";
+        onDeleteUserButtonClick = function () {
+          alert("It's not yet implemented!");
+        };
       }
       if (options['download-menu']) {
         user_menu_container.innerHTML +=
             "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users as CSV file!'>" +
             "<span class='glyphicon glyphicon-download-alt'></span>" +
-            "</button>"
+            "</button>";
+        onDownloadButtonClick = function () {
+          if (current_mode != DOWNLOAD_MODE) {
+            activateDownloadState();
+          }
+        };
       }
       if (options['reminder-menu']) {
         user_menu_container.innerHTML +=
             "<button type='button' class='btn btn-default btn-sm user-menu-control' id='reminder-button' onclick='onReminderButtonClick()' data-toggle='tooltip' data-original-title='Forgot your edit link? Resend me an email!'>" +
             "<span class='glyphicon glyphicon-question-sign'></span>" +
-            "</button>"
+            "</button>";
+         onReminderButtonClick = function () {
+           alert("It's not yet implemented!");
+         };
       }
-
-      // Set All Listener Function
-      onAddUserButtonClick = function () {
-        if (current_mode != ADD_USER_MODE) {
-          activateAddUserState();
-        }
-      };
-      onEditUserButtonClick = function () {
-        alert("It's not yet implemented!");
-      };
-      onDeleteUserButtonClick = function () {
-        alert("It's not yet implemented!");
-      };
-      onDownloadButtonClick = function () {
-        if (current_mode != DOWNLOAD_MODE) {
-          activateDownloadState();
-        }
-      };
-      onReminderButtonClick = function () {
-        alert("It's not yet implemented!");
-      };
 
       //Prevent firing drag and onClickMap event when clicking this control
       var stop = L.DomEvent.stopPropagation;
