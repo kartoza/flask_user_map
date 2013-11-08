@@ -6,7 +6,7 @@ from unittest import TestCase
 
 import os
 from users import APP
-from users.user import add_user, get_all_users, get_user
+from users.user import add_user, edit_user, get_all_users, get_user
 
 
 class TestUser(TestCase):
@@ -39,6 +39,24 @@ class TestUser(TestCase):
         self.assertIsNotNone(guid)
         number_of_users_after = len(get_all_users())
         self.assertEqual(number_of_users_before+1, number_of_users_after)
+
+    def test_edit_user(self):
+        """Test for editing user function."""
+        guid = add_user(**self.user_to_add)
+        edited_data = dict(
+            name='Akbar Gumbira',
+            email='gumbira@gmail.com',
+            website='http://www.akbargumbira.com',
+            role=2,
+            email_updates='true',
+            latitude=-6.32,
+            longitude=102.03)
+        guid = edit_user(guid, **edited_data)
+        user = get_user(guid)
+        for key in edited_data:
+            if key != 'email_updates':
+                self.assertEqual(edited_data[key], user[key])
+        self.assertEqual(user['email_updates', 1])
 
     def test_get_user(self):
         """Test for getting user function."""

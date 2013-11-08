@@ -87,26 +87,27 @@ def edit_user(
     :param guid: Guid of user.
     :type guid: str
 
-    :param name: Name of user.
+    :param name: The new name of user.
     :type name: str
 
-    :param email: Email of user.
+    :param email: The new email of user.
     :type email: str
 
-    :param website: Website of user.
+    :param website: The new website of user.
     :type website: str
 
-    :param latitude: latitude of this user
+    :param latitude: The new latitude of this user
     :type latitude: float
 
-    :param longitude: longitude of this uer
+    :param longitude: The new longitude of this uer
     :type longitude: float
 
-    :param role: 0 if user , 1 if trainer, 2 if developer
+    :param role: The new role of this user. 0 if user , 1 if trainer,
+    2 if developer
     :type role: int
 
-    :param email_updates: True if user wants email updates about project
-        related activities. False if not.
+    :param email_updates: The new email updates status of user. True if user
+    wants email updates about project related activities. False if not.
     :type email_updates: bool
 
     :returns: Globally unique identifier for the added user.
@@ -121,7 +122,7 @@ def edit_user(
 
     env = Environment(
         loader=PackageLoader('users', 'templates'))
-    template = env.get_template('add_user.sql')
+    template = env.get_template('update_user.sql')
     sql = template.render(
         guid=guid,
         name=name,

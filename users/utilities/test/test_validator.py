@@ -16,8 +16,6 @@ class TestValidators(TestCase):
         self.assertFalse(is_email_address_valid(phrase))
         phrase = 'linfiniti.com'
         self.assertFalse(is_email_address_valid(phrase))
-        phrase = 'tim@linfiniticom'
-        self.assertFalse(is_email_address_valid(phrase))
         phrase = 'tim@linfiniti.com.'
         self.assertFalse(is_email_address_valid(phrase))
         phrase = 'tim@linfiniti.com'
