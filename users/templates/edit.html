@@ -3,14 +3,27 @@
 
 {% block js_container %}
   <script type="text/javascript">
-    var edited_user_layer;
-    current_mode = EDIT_USER_MODE;
+    var edited_user, edited_user_marker, edited_user_layer, edited_user_popup,
+        edited_user_form_popup;
 
+    edited_user = {
+      'name': '{{ user.name }}', 'email':'{{ user.email }}',
+      'website': '{{ user.website }}', 'role': {{ user.role }},
+      'email_updates':{{ user.email_updates }},'latitude':{{ user.latitude }},
+      'longitude': {{ user.longitude }}};
+
+    {% if user.website != "" %}
+          edited_user_popup =  "<span class='glyphicon glyphicon-user'></span> {{user.name }} </br><span class='glyphicon glyphicon-home'></span> <a href='{{ user.website }}' target='_blank'>Website</a>";
+        {% else %}
+          edited_user_popup =  "<span class='glyphicon glyphicon-user'></span> {{ user.name }}"
+    {% endif %}
+
+    edited_user_form_popup = getUserFormPopup(edited_user, EDIT_USER_MODE);
+    current_mode = DEFAULT_MODE;
     $(document).ready(function () {
       //Add Edited User Layer
       edited_user_layer = new L.LayerGroup();
-      var user = {'name': '{{ user.name }}', 'email': '{{ user.email }}', 'website': '{{ user.website }}', 'role': {{ user.role }}, 'latitude':{{ user.latitude }}, 'longitude': {{ user.longitude }}}
-      addEditedUser(user , edited_user_layer);
+      addEditedUser(edited_user , edited_user_layer, edited_user_popup);
 
       //Create Map with prepared layers
       map = L.map('map', {

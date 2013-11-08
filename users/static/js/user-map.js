@@ -49,78 +49,134 @@ function getUserIcon(user_role) {
 /**
  * Return user form based on user attribute
  * @param user: associative array containing each value of user attribute
+ * @param mode: ADD_USER_MODE or EDIT_USER_MODE
  */
-function getUserForm(user) {
+function getUserForm(user, mode) {
   var form =
       '<div class="panel panel-default">' +
           '<div class="panel-heading">' +
-          '<h3 class="panel-title">InaSAFE User Form</h3>' +
+          '<h3 class="panel-title">User Data</h3>' +
           '</div>' +
           '<div class="panel-body">' +
           '<form action ="" role = "form-horizontal" id="add_user" enctype="multipart/form-data">' +
           '<div class="form-group" >' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Name</span>' +
-          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required value="'+  user['name'] +'" />' +
+          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required value="' + user['name'] + '" />' +
           '</div>' +
           '</div>' +
 
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Email</span>' +
-          '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="'+ user['email'] +'"/>' +
+          '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="' + user['email'] + '"/>' +
           '</div>' +
           '</div>' +
 
           '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Website</span>' +
-          '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" pattern="https?://.+" value="'+ user['website'] +'"/>' +
-          '</div>' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<label for="label-role">Role</label>' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">' +
-          '<input type="radio" name="role" value="0" checked>' +
-          '</span>' +
-          '<span class="form-control"><small>User</small></span>' +
-          '<span class="input-group-addon">' +
-          '<input type="radio" name="role" value="1">' +
-          '</span>' +
-          '<span class="form-control"><small>Trainer</small></span>' +
-          '<span class="input-group-addon">' +
-          '<input type="radio" name="role" value="2">' +
-          '</span>' +
-          '<span class="form-control" ><small>Developer</small></span>' +
-          '</div>' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<label for="label-email-updates">Email Updates</label>' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">' +
-          '<input type="checkbox" id="email_updates" name="email_updates" value="Yes"/>' +
-          '</span>' +
-          '<span class="form-control">Receive project news and updates</span>' +
-          '</div>' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<input style="display: none;" type="text" id="lat" name="lat" value="' + user['latitude'] + '" />' +
-          '<input style="display: none;" type="text" id="lng" name="lng" value="' + user['longitude'] + '" />' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<div>' +
-          '<button type="button" class="btn btn-primary" onclick="addUser()">Done!</button>  ' +
-          '<button type="button" class="btn btn-default" onclick="cancelMarker()">Cancel</button>' +
-          '</div>' +
-          '</div>' +
-          '</form>' +
+          '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" pattern="https?://.+" value="' + user['website'] + '"/>' +
           '</div>' +
           '</div>';
+
+  if ((mode == ADD_USER_MODE) || (user['role'] == USER_ROLE)) {
+    form += '<div class="form-group">' +
+        '<label for="label-role">Role</label>' +
+        '<div class="input-group input-group-sm">' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="0" checked>' +
+        '</span>' +
+        '<span class="form-control"><small>User</small></span>' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="1">' +
+        '</span>' +
+        '<span class="form-control"><small>Trainer</small></span>' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="2">' +
+        '</span>' +
+        '<span class="form-control" ><small>Developer</small></span>' +
+        '</div>' +
+        '</div>';
+
+  } else if (user['role'] == TRAINER_ROLE) {
+    form += '<div class="form-group">' +
+        '<label for="label-role">Role</label>' +
+        '<div class="input-group input-group-sm">' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="0">' +
+        '</span>' +
+        '<span class="form-control"><small>User</small></span>' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="1" checked>' +
+        '</span>' +
+        '<span class="form-control"><small>Trainer</small></span>' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="2">' +
+        '</span>' +
+        '<span class="form-control" ><small>Developer</small></span>' +
+        '</div>' +
+        '</div>';
+  } else if (user['role'] == DEVELOPER_ROLE) {
+    form += '<div class="form-group">' +
+        '<label for="label-role">Role</label>' +
+        '<div class="input-group input-group-sm">' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="0">' +
+        '</span>' +
+        '<span class="form-control"><small>User</small></span>' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="1">' +
+        '</span>' +
+        '<span class="form-control"><small>Trainer</small></span>' +
+        '<span class="input-group-addon">' +
+        '<input type="radio" name="role" value="2" checked>' +
+        '</span>' +
+        '<span class="form-control" ><small>Developer</small></span>' +
+        '</div>' +
+        '</div>';
+  }
+
+  if ((mode == ADD_USER_MODE) || (!user['email_updates'])) {
+    form += '<div class="form-group">' +
+        '<label for="label-email-updates">Email Updates</label>' +
+        '<div class="input-group input-group-sm">' +
+        '<span class="input-group-addon">' +
+        '<input type="checkbox" id="email_updates" name="email_updates" value="Yes"/>' +
+        '</span>' +
+        '<span class="form-control">Receive project news and updates</span>' +
+        '</div>' +
+        '</div>';
+  } else {
+    form += '<div class="form-group">' +
+        '<label for="label-email-updates">Email Updates</label>' +
+        '<div class="input-group input-group-sm">' +
+        '<span class="input-group-addon">' +
+        '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" checked/>' +
+        '</span>' +
+        '<span class="form-control">Receive project news and updates</span>' +
+        '</div>' +
+        '</div>';
+  }
+  form += '<div class="form-group">' +
+      '<input style="display: none;" type="text" id="lat" name="lat" value="' + user['latitude'] + '" />' +
+      '<input style="display: none;" type="text" id="lng" name="lng" value="' + user['longitude'] + '" />' +
+      '</div>' +
+
+      '<div class="form-group">' +
+      '<div>';
+  if (mode == ADD_USER_MODE) {
+    form += '<button type="button" class="btn btn-primary" onclick="addUser()">Done!</button>  ' +
+        '<button type="button" class="btn btn-default" onclick="cancelMarker()">Cancel</button>'
+  } else if (mode == EDIT_USER_MODE) {
+    form += '<button type="button" class="btn btn-primary" onclick="editUser()">Done!</button>  ' +
+        '<button type="button" class="btn btn-default" onclick="cancelEditUser()">Cancel</button>'
+  }
+  form += '</div>' +
+      '</div>' +
+      '</form>' +
+      '</div>' +
+      '</div>';
 
   return form;
 }
@@ -151,15 +207,31 @@ function addUsers(layer, user_role) {
     }
   });
 }
+
+/**
+ * Get Popup containing user form from user
+ * @param user: javascript associative array representing user
+ * @param mode: ADD_USER_MODE or EDIT_USER_MODE
+ * @returns L.popup()
+ */
+function getUserFormPopup(user, mode) {
+  var form = getUserForm(user, mode);
+  var popup = L.popup();
+  popup.setContent(form);
+  return popup;
+}
+
 /**
  * Add edited user to the respective layer
  * @param layer: layer which users added to
  * @param user: the user that will be added
+ * @param popup_content: Content of the popup binding to the user marker
  */
-function addEditedUser(user, layer) {
-  var form = getUserForm(user);
+function addEditedUser(user, layer, popup_content) {
   var role_icon = getUserIcon(user['role']);
-  L.marker([user['latitude'], user['longitude']], {icon: role_icon }).addTo(layer).bindPopup(form).openPopup();
+  edited_user_marker = L.marker([user['latitude'], user['longitude']], {icon: role_icon });
+  edited_user_marker.addTo(layer);
+  edited_user_marker.bindPopup(popup_content).openPopup();
 }
 
 
@@ -212,8 +284,8 @@ function onMapClick(e) {
   marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
   var user = {'name': '', 'email': '', 'website': '', 'role': '', 'latitude': markerLocation.lat.toFixed(6), 'longitude': markerLocation.lng.toFixed(6)}
-  var form = getUserForm(user);
-  marker_new_user.bindPopup(form).openPopup()
+  var popup = getUserFormPopup(user, ADD_USER_MODE);
+  marker_new_user.bindPopup(popup).openPopup()
 }
 
 function addUser() {
@@ -278,6 +350,17 @@ function addUser() {
       }
     });
   }
+}
+
+function editUser() {
+
+}
+
+function cancelEditUser() {
+  edited_user_marker.closePopup();
+  edited_user_marker.bindPopup(edited_user_popup).openPopup();
+  activateDefaultState();
+  map.fitWorld().zoomIn();
 }
 
 function cancelMarker() {

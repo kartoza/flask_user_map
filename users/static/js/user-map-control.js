@@ -70,7 +70,9 @@ function initializeUserMenuControl(options) {
             "<span class='glyphicon glyphicon-pencil'></span>" +
             "</button>";
         onEditUserButtonClick = function () {
-          alert("It's not yet implemented!");
+          if (current_mode != EDIT_USER_MODE) {
+            activateEditUserState();
+          }
       };
       }
       if (options['delete-user-menu']) {
@@ -154,6 +156,21 @@ function activateAddUserState() {
   map.on('click', onMapClick)
 }
 
+/**
+* Activate Edit User State. The state when user click 'Edit User' button
+*/
+function activateEditUserState() {
+  // Reset to Default State first
+  activateDefaultState();
+  // Set current mode to add user mode
+  current_mode = EDIT_USER_MODE;
+  // Set css button to active
+  $('#edit-user-button').addClass('active');
+  //Zoom map to marker:
+  map.fitBounds([[edited_user['latitude'], edited_user['longitude']]]);
+  //Popup the form
+  edited_user_marker.bindPopup(edited_user_form_popup).openPopup();
+}
 /**
  * Activate Download State. The state when user click download data button
  */
