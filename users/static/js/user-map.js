@@ -356,10 +356,19 @@ function editUser() {
 
 }
 
+/**
+ * This method is fired when user click cancel button at edit user form
+ */
 function cancelEditUser() {
+  // Set back the marker
+  edited_user_marker.setLatLng([edited_user['latitude'], edited_user['longitude']]);
+  // Close Form Popup
   edited_user_marker.closePopup();
+  // Bind popup with another popup
   edited_user_marker.bindPopup(edited_user_popup).openPopup();
+  // Activate Default State
   activateDefaultState();
+  // Fit map to world extent
   map.fitWorld().zoomIn();
 }
 
