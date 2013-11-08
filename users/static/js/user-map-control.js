@@ -168,6 +168,8 @@ function activateEditUserState() {
   $('#edit-user-button').addClass('active');
   //Zoom map to marker:
   map.fitBounds([[edited_user['latitude'], edited_user['longitude']]]);
+  // Set Marker to enable dragging
+  edited_user_marker.dragging.enable();
   //Popup the form
   edited_user_marker.bindPopup(edited_user_form_popup).openPopup();
 }
