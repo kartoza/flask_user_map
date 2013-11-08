@@ -56,7 +56,7 @@ class TestUser(TestCase):
         for key in edited_data:
             if key != 'email_updates':
                 self.assertEqual(edited_data[key], user[key])
-        self.assertEqual(user['email_updates', 1])
+        self.assertEqual(user['email_updates'], 1)
 
     def test_get_user(self):
         """Test for getting user function."""
