@@ -52,7 +52,7 @@ def users_view():
 
 @APP.route('/add_user', methods=['POST'])
 def add_user_view():
-    """View to add a user.
+    """Controller to add a user.
 
     Handle post request via ajax and add the user to the user.db
 
@@ -150,6 +150,63 @@ def edit_user_view(guid):
     )
     #pylint: disable=W0142
     return render_template('edit.html', **context)
+
+
+@APP.route('/edit_user', methods=['POST'])
+def edit_user():
+    """Controller to edit a user.
+
+    Handle post request via ajax and edit the user to the user.db
+
+    :returns: A new json response containing status of editing
+    :rtype: HttpResponse
+    """
+    # return any errors as json - see http://flask.pocoo.org/snippets/83/
+    for code in default_exceptions.iterkeys():
+        APP.error_handler_spec[None][code] = make_json_error
+
+    # Get data from form
+    name = str(request.form['name']).strip()
+    email = str(request.form['email']).strip()
+    website = str(request.form['website'])
+    role = int(request.form['role'])
+    email_updates = str(request.form['email_updates'])
+    latitude = str(request.form['latitude'])
+    longitude = str(request.form['longitude'])
+
+    # Validate the data:
+    message = {}
+    if not is_required_valid(name):
+        message['name'] = 'Name is required'
+    if not is_email_address_valid(email):
+        message['email'] = 'Email address is not valid'
+    if not is_required_valid(email):
+        message['email'] = 'Email is required'
+    if role not in [0, 1, 2]:
+        message['role'] = 'Role must be checked'
+    elif not is_boolean(email_updates):
+        message['email_updates'] = 'Notification must be checked'
+
+    # Modify the data:
+    if email_updates == 'true':
+        email_updates = True
+    else:
+        email_updates = False
+
+    if len(website.strip()) != 0 and 'http' not in website:
+        website = 'http://'+website
+
+    # Process data
+    if len(message) != 0:
+        message['type'] = 'Error'
+        return Response(json.dumps(message), mimetype='application/json')
+    else:
+        # Edit User
+        pass #TODO
+
+    added_user = render_template('users.json', users=[user])
+    # Return Response
+    return Response(added_user, mimetype='application/json')
 
 
 @APP.route('/download')

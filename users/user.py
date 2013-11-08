@@ -73,6 +73,71 @@ def add_user(
     return guid
 
 
+def edit_user(
+        guid,
+        name,
+        email,
+        website,
+        latitude,
+        longitude,
+        role,
+        email_updates):
+    """Edit a user with given guid with all new attribute value.
+
+    :param guid: Guid of user.
+    :type guid: str
+
+    :param name: Name of user.
+    :type name: str
+
+    :param email: Email of user.
+    :type email: str
+
+    :param website: Website of user.
+    :type website: str
+
+    :param latitude: latitude of this user
+    :type latitude: float
+
+    :param longitude: longitude of this uer
+    :type longitude: float
+
+    :param role: 0 if user , 1 if trainer, 2 if developer
+    :type role: int
+
+    :param email_updates: True if user wants email updates about project
+        related activities. False if not.
+    :type email_updates: bool
+
+    :returns: Globally unique identifier for the added user.
+    :rtype: str
+    """
+    conn = get_conn(APP.config['DATABASE'])
+
+    if email_updates:
+        email_updates = 1
+    else:
+        email_updates = 0
+
+    env = Environment(
+        loader=PackageLoader('users', 'templates'))
+    template = env.get_template('add_user.sql')
+    sql = template.render(
+        guid=guid,
+        name=name,
+        email=email,
+        website=website,
+        role=role,
+        email_updates=email_updates,
+        longitude=longitude,
+        latitude=latitude
+    )
+    conn.execute(sql)
+    conn.commit()
+    conn.close()
+    return guid
+
+
 def get_user(guid):
     """Get a user given their GUID.
 

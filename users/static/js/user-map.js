@@ -353,7 +353,41 @@ function addUser() {
 }
 
 function editUser() {
+  //Clear Form Message:
+  $("#name").parent().removeClass("has-error");
+  $("#email").parent().removeClass("has-error");
 
+  var name = $("#name").val();
+  var email = $("#email").val();
+  var website = $("#website").val();
+  var role = $('input:radio[name=role]:checked').val();
+  var email_updates;
+  if ($('#email_updates').is(':checked')) {
+    email_updates = "true";
+  } else {
+    email_updates = "false";
+  }
+  var latitude = edited_user_marker.getLatLng().lat.toFixed(6);
+  var longitude = edited_user_marker.getLatLng().lng.toFixed(6);
+
+  var is_client_side_valid = validate_add_user_form(name, email, website);
+  if (is_client_side_valid) {
+     $.ajax({
+      type: "POST",
+      url: "/edit_user",
+      data: {
+        name: name,
+        email: email,
+        website: website,
+        role: role,
+        email_updates: email_updates,
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (response) {
+      }
+    });
+  }
 }
 
 /**
