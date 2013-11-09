@@ -124,10 +124,10 @@ def add_user_view():
     try:
         sender = APP.config['mail_server']['USERNAME']
         subject = 'User Map Registration'
-        message = render_template('add_confirmation_email.txt',
-                                  url=url_for('map_view', _external=True),
-                                  user=user)
-        send_mail(sender, email, subject, message)
+        body = render_template('add_confirmation_email.txt',
+                               url=url_for('map_view', _external=True),
+                               user=user)
+        send_mail(sender, email, subject, body)
     except SMTPException:
         raise Exception('Error: unable to send mail')
 
@@ -280,24 +280,26 @@ def reminder_view():
     :returns: JSON Response containing status of the process
     :rtype: JSONResponse
     """
-    message = {}
+    message = dict()
+
     email = str(request.form['email']).strip()
     user = get_user_by_email(email)
+
     if user is None:
         message['type'] = 'Error'
         message['email'] = 'Email is not registered in our database.'
         return Response(json.dumps(message), mimetype='application/json')
-    else:
-    # Send Email Confirmation:
-        try:
-            sender = APP.config['mail_server']['USERNAME']
-            subject = 'User Map Edit Link'
-            message = render_template('add_confirmation_email.txt',
-                                      url=url_for('map_view', _external=True),
-                                      user=user)
-            send_mail(sender, email, subject, message)
-        except SMTPException:
-            raise Exception('Error: unable to send mail')
 
-        message['type'] = 'Success'
-        return Response(json.dumps(message), mimetype='application/json')
+    # Send Email Confirmation:
+    try:
+        sender = APP.config['mail_server']['USERNAME']
+        subject = 'User Map Edit Link'
+        body = render_template('add_confirmation_email.txt',
+                               url=url_for('map_view', _external=True),
+                               user=user)
+        send_mail(sender, email, subject, body)
+    except SMTPException:
+        raise Exception('Error: unable to send mail')
+
+    message['type'] = 'Success'
+    return Response(json.dumps(message), mimetype='application/json')
