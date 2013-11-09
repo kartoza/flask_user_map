@@ -174,6 +174,25 @@ def get_user(guid):
         return users[0]
 
 
+def get_user_by_email(email):
+    """Get one user by email.
+
+    :param email: Globally unique identifier for the requested user.
+    :type email: str
+
+    :returns: A user expressed as a dictionary of key value pairs or None if
+        the given GUID does not exist.
+    :rtype: dict
+    """
+    conn = get_conn(APP.config['DATABASE'])
+    sql = 'SELECT * FROM user WHERE email="%s"' % email
+    users = query_db(conn, sql)
+    if len(users) == 0:
+        return None
+    else:
+        return users[0]
+
+
 def get_all_users(role=0):
     """Get all users from database.
 

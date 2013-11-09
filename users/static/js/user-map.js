@@ -462,6 +462,35 @@ function deleteUser() {
     });
 }
 
+function sendReminder() {
+  $("#email_reminder").parent().removeClass("has-error");
+  var email = $("#email_reminder").val();
+  is_email_valid = isEmailSatisfied(email);
+  if (is_email_valid) {
+    $.ajax({
+      type: "POST",
+      url: "/reminder",
+      data: {
+        "email": email
+      },
+      success: function(response) {
+        if (response.type.toString() == 'Error') {
+          $("#email_reminder").parent().addClass("has-error");
+          $('#email_reminder').attr("placeholder", 'Email is not registered in our database');
+        } else if (response.type.toString() == 'Success') {
+          $('#reminder-menu-modal').modal('hide');
+          $('#reminder-success-modal').modal({
+            backdrop: false
+          });
+          activateDefaultState();
+        }
+      }
+    });
+  } else {
+    $("#email_reminder").parent().addClass("has-error");
+    $('#email_reminder').attr("placeholder", 'Email is not registered in our database');
+  }
+}
 function cancelMarker() {
   map.removeLayer(marker_new_user);
 }

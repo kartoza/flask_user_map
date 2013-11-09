@@ -25,18 +25,18 @@
     </div>
   </div>
 
-  <!-- Modal for reminder -->
+  <!-- Modal for reminder form -->
   <div class="modal fade" id="reminder-menu-modal" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">Edit Link Reminder</h3>
+          <h3 class="modal-title">Request Edit Link</h3>
         </div>
         <div class="modal-body">
           <p>
             Please enter your email address that you used for registration
-            before.
+            before. We will resend the edit link to that email.
           </p>
           <form action ="" class="form form-horizontal" id="email_reminder_form" enctype="multipart/form-data">
             <div class="form-group">
@@ -50,15 +50,40 @@
 
             <div class="form-group">
               <div class="col-lg-8">
-                <button type="button" class="btn btn-primary" onclick="alert('test')">Send!</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="sendReminder();">Send!</button>
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button class="btn" onclick="activateDefaultState()"
+          <button class="btn btn-default" onclick="activateDefaultState()"
                   data-dismiss="modal" aria-hidden="true">
             Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for email reminder is sent succesfully -->
+  <div class="modal fade" id="reminder-success-modal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="modal-title">Information</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+            Email is succesfully sent to you. Please check your email to see
+            the details.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary"
+                  data-dismiss="modal" aria-hidden="true">
+            OK
           </button>
         </div>
       </div>

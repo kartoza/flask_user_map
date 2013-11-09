@@ -21,6 +21,7 @@ from users.user import (add_user,
                         edit_user,
                         delete_user,
                         get_user,
+                        get_user_by_email,
                         get_all_users)
 
 
@@ -122,8 +123,7 @@ def add_user_view():
     # Send Email Confirmation:
     try:
         sender = APP.config['mail_server']['USERNAME']
-        subject = 'InaSAFE User Map Registration'
-        print url_for('map_view', _external=True)
+        subject = 'User Map Registration'
         message = render_template('add_confirmation_email.txt',
                                   url=url_for('map_view', _external=True),
                                   user=user)
@@ -282,4 +282,22 @@ def reminder_view():
     """
     message = {}
     email = str(request.form['email']).strip()
-    return Response(json.dumps(message), mimetype='application/json')
+    user = get_user_by_email(email)
+    if user is None:
+        message['type'] = 'Error'
+        message['email'] = 'Email is not registered in our database.'
+        return Response(json.dumps(message), mimetype='application/json')
+    else:
+    # Send Email Confirmation:
+        try:
+            sender = APP.config['mail_server']['USERNAME']
+            subject = 'User Map Edit Link'
+            message = render_template('add_confirmation_email.txt',
+                                      url=url_for('map_view', _external=True),
+                                      user=user)
+            send_mail(sender, email, subject, message)
+        except SMTPException:
+            raise Exception('Error: unable to send mail')
+
+        message['type'] = 'Success'
+        return Response(json.dumps(message), mimetype='application/json')

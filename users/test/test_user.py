@@ -9,8 +9,9 @@ from users import APP
 from users.user import (add_user,
                         edit_user,
                         delete_user,
-                        get_all_users,
-                        get_user)
+                        get_user,
+                        get_user_by_email,
+                        get_all_users,)
 
 
 class TestUser(TestCase):
@@ -77,6 +78,13 @@ class TestUser(TestCase):
         user = get_user(None)
         assert user is None
         user = get_user(guid)
+        self.assertEqual('Akbar', user['name'])
+
+    def test_get_user_by_email(self):
+        """Test for getting user function."""
+        guid = add_user(**self.user_to_add)
+        self.assertIsNotNone(guid)
+        user = get_user_by_email(self.user_to_add['email'])
         self.assertEqual('Akbar', user['name'])
 
     def test_get_all_users(self):
