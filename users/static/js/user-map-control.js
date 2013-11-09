@@ -81,7 +81,9 @@ function initializeUserMenuControl(options) {
             "<span class='glyphicon glyphicon-trash'></span>" +
             "</button>";
         onDeleteUserButtonClick = function () {
-          alert("It's not yet implemented!");
+          if (current_mode != DELETE_USER_MODE) {
+            activateDeleteUserState();
+          }
         };
       }
       if (options['download-menu']) {
@@ -129,8 +131,8 @@ function activateDefaultState() {
   map.off('click', onMapClick); // Stop onMapclick listener
   $('#map').removeAttr('style'); // Remove all dynamic style to default one
   $('#add-user-button').removeClass('active');
-  $('#delete-user-button').removeClass('active');
   $('#edit-user-button').removeClass('active');
+  $('#delete-user-button').removeClass('active');
   $('#download-button').removeClass('active');
   $('#reminder-button').removeClass('active');
 }
@@ -177,6 +179,24 @@ function activateEditUserState() {
   //Popup the form
   edited_user_marker.bindPopup(edited_user_form_popup).openPopup();
 }
+
+/**
+ * Activate Delete User State. The state when user click delete button
+ */
+function activateDeleteUserState() {
+  // Reset to Default State first
+  activateDefaultState();
+  // Set current mode to add user mode
+  current_mode = DELETE_USER_MODE;
+  // Set css button to active
+  $('#delete-user-button').addClass('active');
+  // Prompt confirmation to delete:
+  $('#delete-confirmation-modal').modal({
+          backdrop: false
+  });
+
+}
+
 /**
  * Activate Download State. The state when user click download data button
  */

@@ -17,7 +17,11 @@ from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
     is_boolean)
-from users.user import add_user, edit_user, get_user, get_all_users
+from users.user import (add_user,
+                        edit_user,
+                        delete_user,
+                        get_user,
+                        get_all_users)
 
 
 @APP.route('/')
@@ -218,6 +222,26 @@ def edit_user_controller():
     edited_user_json = render_template('user.json', user=edited_user)
     # Return Response
     return Response(edited_user_json, mimetype='application/json')
+
+
+@APP.route('/delete/<guid>', methods=['POST'])
+def delete_user_view(guid):
+    """View to delete a user with given guid.
+
+    :param guid: The unique identifier of a user.
+    :type guid: str
+    :returns: index page
+    :rtype: HttpResponse
+    """
+    # Delete User
+    delete_user(guid)
+
+    #pylint: disable=W0142
+    context = dict(
+        current_tag_name='None',
+        error='None'
+    )
+    return url_for('map_view')
 
 
 @APP.route('/download')

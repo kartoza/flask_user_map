@@ -442,6 +442,18 @@ function cancelEditUser() {
   map.fitWorld().zoomIn();
 }
 
+function deleteUser() {
+    $.ajax({
+      type: "POST",
+      url: "/delete/"+edited_user['guid'],
+      success: function(response) {
+        $('#delete-success-modal').modal({
+          backdrop: false
+        });
+      }
+    });
+}
+
 function cancelMarker() {
   map.removeLayer(marker_new_user);
 }
