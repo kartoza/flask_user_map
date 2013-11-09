@@ -139,6 +139,22 @@ def edit_user(
     return guid
 
 
+def delete_user(guid):
+    """Delete a user with given guid
+
+    :param guid: Guid of user.
+    :type guid: str
+    """
+    conn = get_conn(APP.config['DATABASE'])
+    env = Environment(
+        loader=PackageLoader('users', 'templates'))
+    template = env.get_template('delete_user.sql')
+    sql = template.render(guid=guid)
+    conn.execute(sql)
+    conn.commit()
+    conn.close()
+
+
 def get_user(guid):
     """Get a user given their GUID.
 
