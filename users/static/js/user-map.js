@@ -64,16 +64,24 @@ function getUserForm(user, mode) {
           '<span class="input-group-addon">Name</span>' +
           '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required value="' + user['name'] + '" />' +
           '</div>' +
-          '</div>' +
+          '</div>';
+  if (mode == EDIT_USER_MODE) {
+    form += '<div class="form-group">' +
+        '<div class="input-group input-group-sm">' +
+        '<span class="input-group-addon">Email</span>' +
+        '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="' + user['email'] + '" readonly/>' +
+        '</div>' +
+        '</div>';
+  } else {
+    form += '<div class="form-group">' +
+        '<div class="input-group input-group-sm">' +
+        '<span class="input-group-addon">Email</span>' +
+        '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="' + user['email'] + '"/>' +
+        '</div>' +
+        '</div>';
+  }
 
-          '<div class="form-group">' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">Email</span>' +
-          '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="' + user['email'] + '"/>' +
-          '</div>' +
-          '</div>' +
-
-          '<div class="form-group">' +
+  form += '<div class="form-group">' +
           '<div class="input-group input-group-sm">' +
           '<span class="input-group-addon">Website</span>' +
           '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" pattern="https?://.+" value="' + user['website'] + '"/>' +
