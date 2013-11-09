@@ -17,7 +17,7 @@ from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
     is_boolean)
-from users.user import add_user, get_user, get_all_users
+from users.user import add_user, edit_user, get_user, get_all_users
 
 
 @APP.route('/')
@@ -120,7 +120,7 @@ def add_user_view():
         sender = APP.config['mail_server']['USERNAME']
         subject = 'InaSAFE User Map Registration'
         print url_for('map_view', _external=True)
-        message = render_template('confirmation_email.txt',
+        message = render_template('add_confirmation_email.txt',
                                   url=url_for('map_view', _external=True),
                                   user=user)
         send_mail(sender, email, subject, message)
@@ -143,17 +143,18 @@ def edit_user_view(guid):
     """
     user = get_user(guid)
 
+    user_json = render_template('user.json', user=user)
     context = dict(
         current_tag_name='None',
         error='None',
-        user=user
+        user=user_json
     )
     #pylint: disable=W0142
     return render_template('edit.html', **context)
 
 
 @APP.route('/edit_user', methods=['POST'])
-def edit_user():
+def edit_user_controller():
     """Controller to edit a user.
 
     Handle post request via ajax and edit the user to the user.db
@@ -166,6 +167,7 @@ def edit_user():
         APP.error_handler_spec[None][code] = make_json_error
 
     # Get data from form
+    guid = str(request.form['guid'])
     name = str(request.form['name']).strip()
     email = str(request.form['email']).strip()
     website = str(request.form['website'])
@@ -202,11 +204,20 @@ def edit_user():
         return Response(json.dumps(message), mimetype='application/json')
     else:
         # Edit User
-        pass #TODO
+        guid = edit_user(
+            guid=guid,
+            name=name,
+            email=email,
+            website=website,
+            role=int(role),
+            email_updates=bool(email_updates),
+            latitude=float(latitude),
+            longitude=float(longitude))
 
-    added_user = render_template('users.json', users=[user])
+    edited_user = get_user(guid)
+    edited_user_json = render_template('user.json', user=edited_user)
     # Return Response
-    return Response(added_user, mimetype='application/json')
+    return Response(edited_user_json, mimetype='application/json')
 
 
 @APP.route('/download')

@@ -170,6 +170,10 @@ function activateEditUserState() {
   map.fitBounds([[edited_user['latitude'], edited_user['longitude']]]);
   // Set Marker to enable dragging
   edited_user_marker.dragging.enable();
+  // Give user the information:
+  $('#drag-info-modal').modal({
+          backdrop: false
+  });
   //Popup the form
   edited_user_marker.bindPopup(edited_user_form_popup).openPopup();
 }

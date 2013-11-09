@@ -222,6 +222,25 @@ function getUserFormPopup(user, mode) {
 }
 
 /**
+ * Get Popup containing user data
+ * @param user: javascript associative array representing user
+ * @returns HTML
+ */
+function getUserPopup(user) {
+  var popup;
+  if (user['website'] != "") {
+    popup = "<span class='glyphicon glyphicon-user'></span> " +
+        user['name'] + "</br><span class='glyphicon "
+        + "glyphicon-home'></span>" +
+        "<a href=" + user['website'] + " target='_blank'> Website</a>";
+  } else {
+    popup = "<span class='glyphicon glyphicon-user'></span> " +
+        user['name'];
+  }
+  return popup;
+}
+
+/**
  * Add edited user to the respective layer
  * @param layer: layer which users added to
  * @param user: the user that will be added
@@ -283,7 +302,7 @@ function onMapClick(e) {
   var markerLocation = e.latlng;
   marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
-  var user = {'name': '', 'email': '', 'website': '', 'role': '', 'latitude': markerLocation.lat.toFixed(6), 'longitude': markerLocation.lng.toFixed(6)}
+  var user = {'name': '', 'email': '', 'website': '', 'role': '', 'latitude': markerLocation.lat.toFixed(8), 'longitude': markerLocation.lng.toFixed(8)}
   var popup = getUserFormPopup(user, ADD_USER_MODE);
   marker_new_user.bindPopup(popup).openPopup()
 }
@@ -352,11 +371,19 @@ function addUser() {
   }
 }
 
+function initializeEditedUser(user) {
+  edited_user = user;
+  edited_user_popup = getUserPopup(user);
+  edited_user_form_popup = getUserFormPopup(user, EDIT_USER_MODE);
+
+}
+
 function editUser() {
   //Clear Form Message:
   $("#name").parent().removeClass("has-error");
   $("#email").parent().removeClass("has-error");
 
+  var guid = edited_user['guid']
   var name = $("#name").val();
   var email = $("#email").val();
   var website = $("#website").val();
@@ -367,15 +394,16 @@ function editUser() {
   } else {
     email_updates = "false";
   }
-  var latitude = edited_user_marker.getLatLng().lat.toFixed(6);
-  var longitude = edited_user_marker.getLatLng().lng.toFixed(6);
+  var latitude = edited_user_marker.getLatLng().lat.toFixed(8);
+  var longitude = edited_user_marker.getLatLng().lng.toFixed(8);
 
   var is_client_side_valid = validate_add_user_form(name, email, website);
   if (is_client_side_valid) {
-     $.ajax({
+    $.ajax({
       type: "POST",
       url: "/edit_user",
       data: {
+        guid: guid,
         name: name,
         email: email,
         website: website,
@@ -385,6 +413,14 @@ function editUser() {
         longitude: longitude
       },
       success: function (response) {
+        edited_user_layer.clearLayers();
+        initializeEditedUser(response)
+        addEditedUser(edited_user, edited_user_layer, edited_user_popup);
+        edited_user_marker.dragging.disable();
+        activateDefaultState(); // Back to default state
+        $('#edit-success-modal').modal({
+          backdrop: false
+        });
       }
     });
   }
