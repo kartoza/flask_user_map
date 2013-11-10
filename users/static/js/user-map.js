@@ -1,34 +1,3 @@
-/***--------------- START OF MAP COMPONENTS-------------***/
-function initializeBaseMap() {
-  base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
-      '.png', {
-    attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
-    maxZoom: 18
-  });
-}
-
-/**
- * Initialize all icons that needed and set the icon image path
- */
-function initializeIcons() {
-  IconMarker = L.Icon.extend({
-    options: {
-      shadowUrl: '/static/img/shadow-icon.png',
-      iconSize: [19, 32],
-      shadowSize: [42, 35],
-      iconAnchor: [12, 32],
-      shadowAnchor: [12, 32],
-      popupAnchor: [-2, -32]
-    }
-  });
-
-  user_icon = new IconMarker({iconUrl: '/static/img/user-icon.png'});
-  trainer_icon = new IconMarker({iconUrl: '/static/img/trainer-icon.png'});
-  developer_icon = new IconMarker({iconUrl: '/static/img/developer-icon.png'});
-}
-/***---------- END OF MAP COMPONENTS------------------- ***/
-
-
 /***------------------ START OF LAYER MANAGEMENT --------------------***/
 /**
  * Return user icon based on user role

@@ -59,6 +59,7 @@
 
     initializeEditedUser({{ user | safe }});
     current_mode = DEFAULT_MODE;
+
     $(document).ready(function () {
       //Add Edited User Layer
       edited_user_layer = new L.LayerGroup();
@@ -71,8 +72,12 @@
       map.fitWorld().zoomIn();
 
       //Add Controls:
-      data_privacy_control = initializeDataPrivacyControl();
-      user_menu_control = initializeUserMenuControl({"edit-user-menu": true, "delete-user-menu":true, "download-menu":true});
+      data_privacy_control = createDataPrivacyControl();
+      user_menu_control = createUserMenuControl({
+        "edit-user-menu": true,
+        "delete-user-menu":true,
+        "download-menu":true
+      });
       map.addControl(new data_privacy_control());
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container:'body'});

@@ -64,8 +64,12 @@
       map.fitWorld().zoomIn();
 
       //Add All Controls:
-      data_privacy_control = initializeDataPrivacyControl();
-      user_menu_control = initializeUserMenuControl({"add-user-menu": true, "download-menu": true, "reminder-menu": true });
+      data_privacy_control = createDataPrivacyControl();
+      user_menu_control = createUserMenuControl({
+        "add-user-menu": true,
+        "download-menu": true,
+        "reminder-menu": true
+      });
       map.addControl(new data_privacy_control);
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container: 'body'});
