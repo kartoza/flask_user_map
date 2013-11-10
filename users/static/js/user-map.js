@@ -370,9 +370,11 @@ function addUser() {
             refreshDeveloperLayer();
           }
           activateDefaultState(); // Back to default state
-          $('#add-success-modal').modal({
-            backdrop: false
-          });
+          var add_success_title = "Information"
+          var add_success_info =
+                  "Thank you for adding yourself into our database! Please check your " +
+                  "email to see the registration confirmation";
+          showInformationModal(add_success_title, add_success_info);
         }
       }
     });
@@ -426,9 +428,9 @@ function editUser() {
         addEditedUser(edited_user, edited_user_layer, edited_user_popup);
         edited_user_marker.dragging.disable();
         activateDefaultState(); // Back to default state
-        $('#edit-success-modal').modal({
-          backdrop: false
-        });
+        var info_title = 'Information';
+        var info_content = 'You have successfully edited your data!';
+        showInformationModal(info_title, info_content);
       }
     });
   }
@@ -479,9 +481,11 @@ function sendReminder() {
           $('#email_reminder').attr("placeholder", 'Email is not registered in our database');
         } else if (response.type.toString() == 'Success') {
           $('#reminder-menu-modal').modal('hide');
-          $('#reminder-success-modal').modal({
-            backdrop: false
-          });
+          var info_title = "Information";
+          var info_content =
+              "Email is succesfully sent to you. Please check your email to " +
+              "see the details."
+          showInformationModal(info_title, info_content);
           activateDefaultState();
         }
       }

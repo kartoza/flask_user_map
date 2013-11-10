@@ -3,50 +3,6 @@
 
 {% block body %}
   {{ super() }}
-  <!-- Modal for information about dragging a marker to change location -->
-  <div class="modal fade" id="drag-info-modal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">Information</h3>
-        </div>
-        <div class="modal-body">
-          <p>
-            Drag your marker to change your location!
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
-            OK
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for feedback to user that edited succesfully -->
-  <div class="modal fade" id="edit-success-modal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3 class="modal-title">Information</h3>
-        </div>
-        <div class="modal-body">
-          <p>
-            You have successfully edited your data!
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Modal for delete confirmation -->
   <div class="modal fade" id="delete-confirmation-modal" role="dialog">
     <div class="modal-dialog">
@@ -94,7 +50,6 @@
       </div>
     </div>
   </div>
-
 {% endblock %}
 
 {% block js_container %}

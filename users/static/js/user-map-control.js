@@ -6,13 +6,24 @@ function initializeDataPrivacyControl() {
     options: {
       position: 'bottomleft'
     },
-    onAdd: function (map) {
+    onAdd: function () {
       var data_privacy_container = L.DomUtil.create('div',
           'leaflet-control-attribution');
+      var data_privacy_title = "Data Privacy";
+      var data_privaty_content =
+          "The data you enter on this site may be visible to others. We " +
+          "suggest that you approximate your physical location to the nearest " +
+          "town or major center. Parts of your data will be made available for " +
+          "others to download and use. We will <strong>not</strong> share:</br>"+
+          "<ul> " +
+          "<li>your email address</li>" +
+          "<li>your unique identifier used to edit your record</li>" +
+          "</ul>" +
+          "If you would like your data removed from this site, please refer to " +
+          "the confirmation email we sent you when you added yourself for " +
+          "instructions.";
       onDataPrivacyClick = function () {
-        $('#data-privacy-modal').modal({
-          backdrop: false
-        });
+        showInformationModal(data_privacy_title, data_privaty_content);
       }
       data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>"
 
@@ -173,9 +184,9 @@ function activateEditUserState() {
   // Set Marker to enable dragging
   edited_user_marker.dragging.enable();
   // Give user the information:
-  $('#drag-info-modal').modal({
-          backdrop: false
-  });
+  var info_title = 'Information';
+  var info_content = 'Drag your marker to change your location!';
+  showInformationModal(info_title, info_content);
   //Popup the form
   edited_user_marker.bindPopup(edited_user_form_popup).openPopup();
 }
