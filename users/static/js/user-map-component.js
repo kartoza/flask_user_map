@@ -1,7 +1,61 @@
 /**
- * Initialize Data Privacy Control on the bottom left of the map
+ * Author: Akbar Gumbira (akbargumbira@gmail.com)
+ * Description: This file contains all the function to prepare map components
  */
-function initializeDataPrivacyControl() {
+
+/**
+ * Create basemap instance to be used.
+ * @returns {*}
+ */
+function createBasemap() {
+  var base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
+      '.png', {
+    attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
+    maxZoom: 18
+  });
+  return base_map;
+}
+
+/**
+ * Create IconMarkerBase that will be used for icon marker
+ * @returns {void|b.extend|*|x.extend}
+ */
+function createIconMarkerBase() {
+  var IconMarkerBase = L.Icon.extend({
+    options: {
+      shadowUrl: '/static/img/shadow-icon.png',
+      iconSize: [19, 32],
+      shadowSize: [42, 35],
+      iconAnchor: [12, 32],
+      shadowAnchor: [12, 32],
+      popupAnchor: [-2, -32]
+    }
+  });
+  return IconMarkerBase;
+}
+
+/**
+ * Create all icons that are used.
+ * @returns {{user_icon: IconMarkerBase, trainer_icon: IconMarkerBase, developer_icon: IconMarkerBase}}
+ */
+function createAllIcons() {
+  var IconMarkerBase = createIconMarkerBase();
+  var user_icon = new IconMarkerBase({iconUrl: '/static/img/user-icon.png'});
+  var trainer_icon = new IconMarkerBase({iconUrl: '/static/img/trainer-icon.png'});
+  var developer_icon = new IconMarkerBase({iconUrl: '/static/img/developer-icon.png'});
+  var all_icons = {
+    user_icon: user_icon,
+    trainer_icon: trainer_icon,
+    developer_icon: developer_icon
+  };
+  return all_icons;
+}
+
+/**
+ * Create Data Privacy Control instance on the bottom left of the map
+ * @returns {void|b.extend|*|x.extend}
+ */
+function createDataPrivacyControl() {
   var control = L.Control.extend({
     options: {
       position: 'bottomleft'
@@ -37,7 +91,6 @@ function initializeDataPrivacyControl() {
       return data_privacy_container;
     }
   });
-
   return control;
 }
 
@@ -54,8 +107,7 @@ function initializeDataPrivacyControl() {
  *
  * Usage: initializeUserMenuControl({"add-user-menu": true, "download-menu": true}) to show add-user-menu and download-menu
  */
-function initializeUserMenuControl(options) {
-  // User Menu Control: Add User, Delete User
+function createUserMenuControl(options) {
   var control = L.Control.extend({
     options: {
       position: 'topleft'
@@ -132,111 +184,3 @@ function initializeUserMenuControl(options) {
   });
   return control;
 }
-
-/***-------------------- START OF STATE CONTROL----------------------- **/
-/**
- * Activate Default State
- */
-function activateDefaultState() {
-  current_mode = DEFAULT_MODE; // Change mode to default
-  map.off('click', onMapClick); // Stop onMapclick listener
-  $('#map').removeAttr('style'); // Remove all dynamic style to default one
-  $('#add-user-button').removeClass('active');
-  $('#edit-user-button').removeClass('active');
-  $('#delete-user-button').removeClass('active');
-  $('#download-button').removeClass('active');
-  $('#reminder-button').removeClass('active');
-}
-
-/**
- * Activate Add User State. The state when user click 'Add Me' button
- */
-function activateAddUserState() {
-  // Reset to Default State first
-  activateDefaultState();
-  // Set current mode to add user mode
-  current_mode = ADD_USER_MODE;
-  // Set css button to active
-  $('#add-user-button').addClass('active');
-  //Process here:
-  // Change cursor to crosshair
-  $('#map').css('cursor', 'crosshair');
-  // When location is found, do onLocationFoud
-  map.on('locationfound', onLocationFound)
-  // Locate map to location found
-  map.locate({setView: true, maxZoom: 16});
-  //Set Listener map onClick
-  map.on('click', onMapClick)
-}
-
-/**
-* Activate Edit User State. The state when user click 'Edit User' button
-*/
-function activateEditUserState() {
-  // Reset to Default State first
-  activateDefaultState();
-  // Set current mode to add user mode
-  current_mode = EDIT_USER_MODE;
-  // Set css button to active
-  $('#edit-user-button').addClass('active');
-  //Zoom map to marker:
-  map.fitBounds([[edited_user['latitude'], edited_user['longitude']]]);
-  // Set Marker to enable dragging
-  edited_user_marker.dragging.enable();
-  // Give user the information:
-  var info_title = 'Information';
-  var info_content = 'Drag your marker to change your location!';
-  showInformationModal(info_title, info_content);
-  //Popup the form
-  edited_user_marker.bindPopup(edited_user_form_popup).openPopup();
-}
-
-/**
- * Activate Delete User State. The state when user click delete button
- */
-function activateDeleteUserState() {
-  // Reset to Default State first
-  activateDefaultState();
-  // Set current mode to add user mode
-  current_mode = DELETE_USER_MODE;
-  // Set css button to active
-  $('#delete-user-button').addClass('active');
-  // Prompt confirmation to delete:
-  $('#delete-confirmation-modal').modal({
-          backdrop: false
-  });
-
-}
-
-/**
- * Activate Download State. The state when user click download data button
- */
-function activateDownloadState() {
-  // Reset to Default State first
-  activateDefaultState();
-  // Set mode to delete user mode
-  current_mode = DOWNLOAD_MODE;
-  // Set css button to active
-  $('#download-button').addClass('active');
-  //Process here:
-  window.open('/download', '_self');
-  activateDefaultState();
-}
-
-/**
- * Activate Reminder State. The state when user click reminder button
- */
-function activateReminderState() {
-  // Reset to Default State first
-  activateDefaultState();
-  // Set mode to delete user mode
-  current_mode = REMINDER_MODE;
-  // Set css button to active
-  $('#reminder-button').addClass('active');
-  // Open modal:
-  $('#reminder-menu-modal').modal({
-    backdrop: false
-  });
-
-}
-/***-------------------- END OF STATE CONTROL -------------------------**/
