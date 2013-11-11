@@ -1,161 +1,22 @@
-/***------------------ START OF LAYER MANAGEMENT --------------------***/
 /**
- * Return user icon based on user role
- * @param user_role: a role
+ * Author: Akbar Gumbira (akbargumbira@gmail.com)
+ * Description: This file contains methods related directly to user map
  */
-function getUserIcon(user_role) {
-  var role_icon;
-  if (user_role == USER_ROLE) {
-    role_icon = user_icon;
-  } else if (user_role == TRAINER_ROLE) {
-    role_icon = trainer_icon;
-  } else if (user_role == DEVELOPER_ROLE) {
-    role_icon = developer_icon;
-  }
-  return role_icon;
-}
 
 /**
- * Return user form based on user attribute
- * @param user: associative array containing each value of user attribute
- * @param mode: ADD_USER_MODE or EDIT_USER_MODE
+ * Get User Layer that has been declared based on the role.
+ * @param role: User role
  */
-function getUserForm(user, mode) {
-  var form =
-      '<div class="panel panel-default">' +
-          '<div class="panel-heading">' +
-          '<h3 class="panel-title">User Data</h3>' +
-          '</div>' +
-          '<div class="panel-body">' +
-          '<form action ="" role = "form-horizontal" id="add_user" enctype="multipart/form-data">' +
-          '<div class="form-group" >' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">Name</span>' +
-          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required value="' + user['name'] + '" />' +
-          '</div>' +
-          '</div>';
-  if (mode == EDIT_USER_MODE) {
-    form += '<div class="form-group">' +
-        '<div class="input-group input-group-sm">' +
-        '<span class="input-group-addon">Email</span>' +
-        '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="' + user['email'] + '" readonly/>' +
-        '</div>' +
-        '</div>';
-  } else {
-    form += '<div class="form-group">' +
-        '<div class="input-group input-group-sm">' +
-        '<span class="input-group-addon">Email</span>' +
-        '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="' + user['email'] + '"/>' +
-        '</div>' +
-        '</div>';
+function getUserLayer(role) {
+  var layer;
+  if (role == USER_ROLE) {
+    layer = users_layer;
+  } else if (role == TRAINER_ROLE) {
+    layer = trainers_layer;
+  } else if (role == DEVELOPER_ROLE) {
+    layer = developers_layer;
   }
-
-  form += '<div class="form-group">' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">Website</span>' +
-          '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" pattern="https?://.+" value="' + user['website'] + '"/>' +
-          '</div>' +
-          '</div>';
-
-  if ((mode == ADD_USER_MODE) || (user['role'] == USER_ROLE)) {
-    form += '<div class="form-group">' +
-        '<label for="label-role">Role</label>' +
-        '<div class="input-group input-group-sm">' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="0" checked>' +
-        '</span>' +
-        '<span class="form-control"><small>User</small></span>' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="1">' +
-        '</span>' +
-        '<span class="form-control"><small>Trainer</small></span>' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="2">' +
-        '</span>' +
-        '<span class="form-control" ><small>Developer</small></span>' +
-        '</div>' +
-        '</div>';
-
-  } else if (user['role'] == TRAINER_ROLE) {
-    form += '<div class="form-group">' +
-        '<label for="label-role">Role</label>' +
-        '<div class="input-group input-group-sm">' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="0">' +
-        '</span>' +
-        '<span class="form-control"><small>User</small></span>' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="1" checked>' +
-        '</span>' +
-        '<span class="form-control"><small>Trainer</small></span>' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="2">' +
-        '</span>' +
-        '<span class="form-control" ><small>Developer</small></span>' +
-        '</div>' +
-        '</div>';
-  } else if (user['role'] == DEVELOPER_ROLE) {
-    form += '<div class="form-group">' +
-        '<label for="label-role">Role</label>' +
-        '<div class="input-group input-group-sm">' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="0">' +
-        '</span>' +
-        '<span class="form-control"><small>User</small></span>' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="1">' +
-        '</span>' +
-        '<span class="form-control"><small>Trainer</small></span>' +
-        '<span class="input-group-addon">' +
-        '<input type="radio" name="role" value="2" checked>' +
-        '</span>' +
-        '<span class="form-control" ><small>Developer</small></span>' +
-        '</div>' +
-        '</div>';
-  }
-
-  if ((mode == ADD_USER_MODE) || (!user['email_updates'])) {
-    form += '<div class="form-group">' +
-        '<label for="label-email-updates">Email Updates</label>' +
-        '<div class="input-group input-group-sm">' +
-        '<span class="input-group-addon">' +
-        '<input type="checkbox" id="email_updates" name="email_updates" value="Yes"/>' +
-        '</span>' +
-        '<span class="form-control">Receive project news and updates</span>' +
-        '</div>' +
-        '</div>';
-  } else {
-    form += '<div class="form-group">' +
-        '<label for="label-email-updates">Email Updates</label>' +
-        '<div class="input-group input-group-sm">' +
-        '<span class="input-group-addon">' +
-        '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" checked/>' +
-        '</span>' +
-        '<span class="form-control">Receive project news and updates</span>' +
-        '</div>' +
-        '</div>';
-  }
-  form += '<div class="form-group">' +
-      '<input style="display: none;" type="text" id="lat" name="lat" value="' + user['latitude'] + '" />' +
-      '<input style="display: none;" type="text" id="lng" name="lng" value="' + user['longitude'] + '" />' +
-      '</div>' +
-
-      '<div class="form-group">' +
-      '<div>';
-  if (mode == ADD_USER_MODE) {
-    form += '<button type="button" class="btn btn-primary" onclick="addUser()">Done!</button>  ' +
-        '<button type="button" class="btn btn-default" onclick="cancelMarker()">Cancel</button>'
-  } else if (mode == EDIT_USER_MODE) {
-    form += '<button type="button" class="btn btn-primary" onclick="editUser()">Done!</button>  ' +
-        '<button type="button" class="btn btn-default" onclick="cancelEditUser()">Cancel</button>'
-  }
-  form += '</div>' +
-      '</div>' +
-      '</form>' +
-      '</div>' +
-      '</div>';
-
-  return form;
+  return layer;
 }
 
 /**
@@ -183,38 +44,22 @@ function addUsers(layer, user_role) {
           }).addTo(layer);
     }
   });
+  function onEachFeature(feature, layer) {
+    // Set the popup content if it does have the content
+    if (feature.properties && feature.properties.popupContent) {
+      layer.bindPopup(feature.properties.popupContent);
+    }
+  };
 }
 
 /**
- * Get Popup containing user form from user
- * @param user: javascript associative array representing user
- * @param mode: ADD_USER_MODE or EDIT_USER_MODE
- * @returns L.popup()
+ * Refresh user layer based on the role. Each user who has the same role is grouped on the same layer.
+ * @param role: Role of the users that its layer wants to be refreshed
  */
-function getUserFormPopup(user, mode) {
-  var form = getUserForm(user, mode);
-  var popup = L.popup();
-  popup.setContent(form);
-  return popup;
-}
-
-/**
- * Get Popup containing user data
- * @param user: javascript associative array representing user
- * @returns HTML
- */
-function getUserPopup(user) {
-  var popup;
-  if (user['website'] != "") {
-    popup = "<span class='glyphicon glyphicon-user'></span> " +
-        user['name'] + "</br><span class='glyphicon "
-        + "glyphicon-home'></span>" +
-        "<a href=" + user['website'] + " target='_blank'> Website</a>";
-  } else {
-    popup = "<span class='glyphicon glyphicon-user'></span> " +
-        user['name'];
-  }
-  return popup;
+function refreshUserLayer(role) {
+  var layer = getUserLayer(role);
+  layer.clearLayers();
+  addUsers(layer, role);
 }
 
 /**
@@ -230,60 +75,9 @@ function addEditedUser(user, layer, popup_content) {
   edited_user_marker.bindPopup(popup_content).openPopup();
 }
 
-
 /**
- * Listener when each feature is added to the map regarding to a layer.
- * @param feature
- * @param layer
+ * AJAX Call to server side to add user.
  */
-function onEachFeature(feature, layer) {
-  // Set the popup content if it does have it.
-  if (feature.properties && feature.properties.popupContent) {
-    layer.bindPopup(feature.properties.popupContent);
-  }
-}
-
-function refreshUserLayer() {
-  users_layer.clearLayers();
-  addUsers(users_layer, USER_ROLE);
-}
-
-
-function refreshTrainerLayer() {
-  trainers_layer.clearLayers();
-  addUsers(trainers_layer, TRAINER_ROLE);
-}
-
-function refreshDeveloperLayer() {
-  developers_layer.clearLayers();
-  addUsers(developers_layer, DEVELOPER_ROLE);
-}
-
-function onLocationFound(e) {
-  var radius = e.accuracy / 2;
-  var label = "You are within " + radius + " meters from this point";
-  // If estimated_location_circle exists, remove that circle first from map
-  if (typeof estimated_location_circle != 'undefined') {
-    map.removeLayer(estimated_location_circle);
-  }
-  estimated_location_circle = L.circle(e.latlng, radius, {clickable: false, fillOpacity: 0.1});
-  estimated_location_circle.bindLabel(label, {noHide: true, direction: 'auto'}).addTo(map).showLabel();
-}
-
-function onMapClick(e) {
-  // Clear the un-saved clicked marker
-  if (marker_new_user != null) {
-    cancelMarker();
-  }
-  //Get new marker
-  var markerLocation = e.latlng;
-  marker_new_user = L.marker(markerLocation);
-  map.addLayer(marker_new_user);
-  var user = {'name': '', 'email': '', 'website': '', 'role': '', 'latitude': markerLocation.lat.toFixed(8), 'longitude': markerLocation.lng.toFixed(8)}
-  var popup = getUserFormPopup(user, ADD_USER_MODE);
-  marker_new_user.bindPopup(popup).openPopup()
-}
-
 function addUser() {
   //Clear Form Message:
   $("#name").parent().removeClass("has-error");
@@ -302,7 +96,7 @@ function addUser() {
   var latitude = $("#lat").val();
   var longitude = $("#lng").val();
 
-  var is_client_side_valid = validate_add_user_form(name, email, website);
+  var is_client_side_valid = validate_user_form(name, email, website);
   if (is_client_side_valid) {
     $.ajax({
       type: "POST",
@@ -332,11 +126,11 @@ function addUser() {
           cancelMarker();
           // Refresh Layer according to role
           if (role == USER_ROLE.toString()) {
-            refreshUserLayer();
+            refreshUserLayer(USER_ROLE);
           } else if (role == TRAINER_ROLE.toString()) {
-            refreshTrainerLayer();
+            refreshUserLayer(TRAINER_ROLE);
           } else if (role == DEVELOPER_ROLE.toString()) {
-            refreshDeveloperLayer();
+            refreshUserLayer(DEVELOPER_ROLE);
           }
           activateDefaultState(); // Back to default state
           var add_success_title = "Information"
@@ -350,6 +144,10 @@ function addUser() {
   }
 }
 
+/**
+ * Prepared user that is wanted to be edited.
+ * @param user
+ */
 function initializeEditedUser(user) {
   edited_user = user;
   edited_user_popup = getUserPopup(user);
@@ -357,6 +155,9 @@ function initializeEditedUser(user) {
 
 }
 
+/**
+ * AJAX call to server side to edit user.
+ */
 function editUser() {
   //Clear Form Message:
   $("#name").parent().removeClass("has-error");
@@ -376,7 +177,7 @@ function editUser() {
   var latitude = edited_user_marker.getLatLng().lat.toFixed(8);
   var longitude = edited_user_marker.getLatLng().lng.toFixed(8);
 
-  var is_client_side_valid = validate_add_user_form(name, email, website);
+  var is_client_side_valid = validate_user_form(name, email, website);
   if (is_client_side_valid) {
     $.ajax({
       type: "POST",
@@ -393,7 +194,7 @@ function editUser() {
       },
       success: function (response) {
         edited_user_layer.clearLayers();
-        initializeEditedUser(response)
+        initializeEditedUser(response);
         addEditedUser(edited_user, edited_user_layer, edited_user_popup);
         edited_user_marker.dragging.disable();
         activateDefaultState(); // Back to default state
@@ -406,7 +207,7 @@ function editUser() {
 }
 
 /**
- * This method is fired when user click cancel button at edit user form
+ * This method is fired when user click cancel button at edit user form.
  */
 function cancelEditUser() {
   // Set back the marker
@@ -421,6 +222,9 @@ function cancelEditUser() {
   map.fitWorld().zoomIn();
 }
 
+/**
+ * AJAX Call to server side to delete a user.
+ */
 function deleteUser() {
     $.ajax({
       type: "POST",
@@ -433,10 +237,13 @@ function deleteUser() {
     });
 }
 
+/**
+ * AJAX Call to server side. Used for sending reminder to user email.
+ */
 function sendReminder() {
   $("#email_reminder").parent().removeClass("has-error");
   var email = $("#email_reminder").val();
-  is_email_valid = isEmailSatisfied(email);
+  var is_email_valid = isEmailSatisfied(email);
   if (is_email_valid) {
     $.ajax({
       type: "POST",
@@ -464,14 +271,16 @@ function sendReminder() {
     $('#email_reminder').attr("placeholder", 'Email is not registered in our database');
   }
 }
-function cancelMarker() {
-  map.removeLayer(marker_new_user);
-}
-/***------------------ END OF LAYER MANAGEMENT --------------------***/
 
 
-/***-----------------START OF FORM VALIDATION ---------------------***/
-function validate_add_user_form(str_name, str_email, str_website) {
+/**
+ * User form validation.
+ * @param str_name
+ * @param str_email
+ * @param str_website
+ * @returns {*}
+ */
+function validate_user_form(str_name, str_email, str_website) {
   var is_name_valid, is_email_valid, is_website_valid, is_all_valid;
   if (typeof document.createElement("input").checkValidity == "function") {
     // This browser support HTML5 Validation
@@ -505,4 +314,3 @@ function validate_add_user_form(str_name, str_email, str_website) {
   }
   return is_all_valid;
 }
-/***-----------------END OF FORM VALIDATION ---------------------***/
