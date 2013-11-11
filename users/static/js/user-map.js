@@ -4,22 +4,6 @@
  */
 
 /**
- * Get User Layer that has been declared based on the role.
- * @param role: User role
- */
-function getUserLayer(role) {
-  var layer;
-  if (role == USER_ROLE) {
-    layer = users_layer;
-  } else if (role == TRAINER_ROLE) {
-    layer = trainers_layer;
-  } else if (role == DEVELOPER_ROLE) {
-    layer = developers_layer;
-  }
-  return layer;
-}
-
-/**
  * Add users to the respective layer based on user_role
  * @param layer: layer which users added to
  * @param user_role: the role of users that will be added

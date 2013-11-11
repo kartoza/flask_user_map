@@ -258,16 +258,17 @@ def download_view():
     :returns: A csv file containing all users
     :rtype: HttpResponse
     """
-    csv_users = "ID|NAME|ROLE|LONGITUDE|LATITUDE"
+    csv_users = "ID|NAME|WEBSITE|ROLE|LONGITUDE|LATITUDE"
     all_user_role = (0, 1, 2)
     i = 0
     for user_role in all_user_role:
         users = get_all_users(user_role)
         for user in users:
             i += 1
-            csv_users += ('\n%i|%s|%i|%s|%s') % (
+            csv_users += ('\n%i|%s|%s|%i|%s|%s') % (
                 i,
                 user['name'],
+                user['website'],
                 user['role'],
                 user['longitude'],
                 user['latitude'])

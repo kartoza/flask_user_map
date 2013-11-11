@@ -36,6 +36,22 @@ function getUserIcon(user_role) {
 }
 
 /**
+ * Get User Layer that has been declared based on the role.
+ * @param role: User role
+ */
+function getUserLayer(role) {
+  var layer;
+  if (role == USER_ROLE) {
+    layer = users_layer;
+  } else if (role == TRAINER_ROLE) {
+    layer = trainers_layer;
+  } else if (role == DEVELOPER_ROLE) {
+    layer = developers_layer;
+  }
+  return layer;
+}
+
+/**
  * Return user form based on user attribute
  * @param user: associative array containing each value of user attribute
  * @param mode: ADD_USER_MODE or EDIT_USER_MODE
