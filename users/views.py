@@ -93,20 +93,25 @@ def add_user_view():
     elif not is_boolean(email_updates):
         message['email_updates'] = 'Notification must be checked'
 
-    # Modify the data:
-    if email_updates == 'true':
-        email_updates = True
-    else:
-        email_updates = False
-
-    if len(website.strip()) != 0 and 'http' not in website:
-        website = 'http://'+website
+    # Check if the email has been registered by other user:
+    user = get_user_by_email(email)
+    if user is not None:
+        message['email'] = 'Email has been registered by other user.'
 
     # Process data
     if len(message) != 0:
         message['type'] = 'Error'
         return Response(json.dumps(message), mimetype='application/json')
     else:
+        # Modify the data:
+        if email_updates == 'true':
+            email_updates = True
+        else:
+            email_updates = False
+
+        if len(website.strip()) != 0 and 'http' not in website:
+            website = 'http://' + website
+
         # Create model for user and add user
         guid = add_user(
             name=name,
@@ -118,7 +123,7 @@ def add_user_view():
             longitude=float(longitude))
 
     # Prepare json for added user
-    user = get_user(guid)
+    added_user = get_user(guid)
 
     # Send Email Confirmation:
     try:
@@ -126,14 +131,14 @@ def add_user_view():
         subject = 'User Map Registration'
         body = render_template('add_confirmation_email.txt',
                                url=url_for('map_view', _external=True),
-                               user=user)
+                               user=added_user)
         send_mail(sender, email, subject, body)
     except SMTPException:
         raise Exception('Error: unable to send mail')
 
-    added_user = render_template('users.json', users=[user])
+    added_user_json = render_template('users.json', users=[added_user])
     # Return Response
-    return Response(added_user, mimetype='application/json')
+    return Response(added_user_json, mimetype='application/json')
 
 
 @APP.route('/edit/<guid>')
