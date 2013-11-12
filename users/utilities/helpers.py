@@ -8,6 +8,7 @@ from flask.ext.mail import Message
 
 from users import mail
 
+
 def make_json_error(ex):
     """Return errors as json.
 
@@ -52,4 +53,3 @@ def send_mail(sender, recipients, subject, text_body, html_body):
     message.html = html_body
     thread = Thread(target=send_async_email, args=[message])
     thread.start()
-
