@@ -130,10 +130,9 @@ def add_user_view():
     body = render_template('add_confirmation_email.txt',
                            url=url_for('map_view', _external=True),
                            user=added_user)
-    html_body = ''
     recipient = added_user['email']
     send_mail(sender=MAIL_ADMIN, recipients=[recipient], subject=subject,
-              text_body=body, html_body=html_body)
+              text_body=body, html_body=None)
 
     added_user_json = render_template('users.json', users=[added_user])
     # Return Response

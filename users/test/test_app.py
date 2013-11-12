@@ -4,8 +4,7 @@
 :license: GPLv3, see LICENSE for more details.
 """
 import os
-import json
-from flask import jsonify
+
 from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
 from users import LOGGER
