@@ -8,7 +8,7 @@ import os
 from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
 from users import LOGGER
-from users.utilities.db import get_conn
+from users.user import add_user, get_user
 
 
 class AppTestCase(LoggedTestCase):
@@ -29,11 +29,27 @@ class AppTestCase(LoggedTestCase):
         APP.config['DATABASE'] = self.db_path
         APP.config['TESTING'] = True
         self.app = APP.test_client()
-        self.user_to_add = dict(
+        self.correct_user_data = dict(
             name='Akbar',
             email='test@gmail.com',
             website='http://www.ac.com',
-            role=0,
+            role=1,
+            email_updates='true',
+            latitude=12.32,
+            longitude=-13.03)
+        self.wrong_user_data = dict(
+            name='',
+            email='testgmaicom',
+            website='http://www.ac.com',
+            role=1,
+            email_updates='true',
+            latitude=12.32,
+            longitude=-13.03)
+        self.edited_user_data = dict(
+            name='Akbar Gumbira',
+            email='test@gmail.com',
+            website='http://www.ac.com',
+            role=1,
             email_updates='true',
             latitude=12.32,
             longitude=-13.03)
@@ -53,45 +69,117 @@ class AppTestCase(LoggedTestCase):
 
     def test_users_view(self):
         """Test the users json response works."""
-        conn = get_conn(self.db_path)
-        sql = (
-            'INSERT INTO user VALUES('
-            '1, "12212", "Akbar", "akbargum@gmail.com", "http://www.ac.com",'
-            '1, 1, "2013-10-16", 75.672197, -42.187500);')
-        conn.execute(sql)
-        conn.commit()
-        conn.close()
+        guid = add_user(**self.correct_user_data)
+        if guid is not None:
+            try:
+                result = self.app.post(
+                    '/users.json',
+                    data=dict(user_role=1),
+                    follow_redirects=True)
+                self.assertTrue('Akbar' in result.data)
+            except Exception, e:
+                LOGGER.exception('Basic front page load failed.')
+                raise e
 
+    def test_add_user_view(self):
+        """Test the user added json response works."""
+        # Test correct data
         try:
             result = self.app.post(
-                '/users.json', data=dict(user_role=1), follow_redirects=True)
+                '/add_user', data=self.correct_user_data, follow_redirects=True)
             self.assertTrue('Akbar' in result.data)
+        except Exception, e:
+            LOGGER.exception('Page load failed.')
+            raise e
+
+        # Test wrong data
+        try:
+            result = self.app.post(
+                '/add_user', data=self.wrong_user_data, follow_redirects=True)
+            self.assertTrue('Error' in result.data)
+        except Exception, e:
+            LOGGER.exception('Page load failed.')
+            raise e
+
+    def test_edit_user_view(self):
+        """Test the edit_user_view function.
+        """
+        guid = add_user(**self.correct_user_data)
+        url = '/edit/%s' % guid
+        try:
+            return self.app.get(url, data=dict(), follow_redirects=True)
         except Exception, e:
             LOGGER.exception('Basic front page load failed.')
             raise e
 
-    def test_add_user_view(self):
-        """Test the user added json response works."""
+    def test_edit_user_controller(self):
+        """Test the edit_user_view function.
+        """
+        guid = add_user(**self.correct_user_data)
+        self.edited_user_data['guid'] = guid
+        url = '/edit_user'
         try:
             result = self.app.post(
-                '/add_user', data=self.user_to_add, follow_redirects=True)
-            self.assertTrue('Akbar' in result.data)
+                url,
+                data=self.edited_user_data,
+                follow_redirects=True)
+            self.assertTrue('Akbar Gumbira' in result.data)
         except Exception, e:
-            LOGGER.exception('Page load failed.')
+            LOGGER.exception('Basic front page load failed.')
             raise e
 
+    def test_delete_user_view(self):
+        """Test the delete_user_view function.
+        """
+        guid = add_user(**self.correct_user_data)
+        url = '/delete/%s' % guid
         try:
             result = self.app.post(
-                '/add_user', data=dict(
-                    name='Akbar',
-                    email='testgmail.com',
-                    website='http://www.ac.com',
-                    role=1,
-                    email_updates='true',
-                    latitude='12',
-                    longitude='31'
-                ), follow_redirects=True)
+                url,
+                data=dict(),
+                follow_redirects=True)
+            user = get_user(guid)
+            self.assertIsNone(user)
+
+        except Exception, e:
+            LOGGER.exception('Basic front page load failed.')
+            raise e
+
+    def test_download_view(self):
+        """Test the download_view function.
+        """
+        url = '/download'
+        try:
+            return self.app.get(url, data=dict(), follow_redirects=True)
+        except Exception, e:
+            LOGGER.exception('Basic front page load failed.')
+            raise e
+
+    def test_reminder_view(self):
+        """Test the download_view function.
+            """
+        url = '/reminder'
+
+        # Test OK
+        guid = add_user(**self.correct_user_data)
+        if guid is not None:
+            email = self.correct_user_data['email']
+            try:
+                result = self.app.post(
+                    url, data=dict(email=email), follow_redirects=True)
+                self.assertTrue('Success' in result.data)
+            except Exception, e:
+                LOGGER.exception('Basic front page load failed.')
+                raise e
+
+        # Test Error
+        try:
+            result = self.app.post(
+                url,
+                data=dict(
+                    email='notok@email.com'),
+                follow_redirects=True)
             self.assertTrue('Error' in result.data)
         except Exception, e:
-            LOGGER.exception('Page load failed.')
+            LOGGER.exception('Basic front page load failed.')
             raise e

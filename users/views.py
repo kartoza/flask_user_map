@@ -4,7 +4,6 @@
 :license: GPLv3, see LICENSE for more details.
 """
 import json
-from smtplib import SMTPException
 
 from flask import render_template, Response, request, url_for
 from werkzeug.exceptions import default_exceptions
@@ -239,12 +238,6 @@ def delete_user_view(guid):
     """
     # Delete User
     delete_user(guid)
-
-    #pylint: disable=W0142
-    context = dict(
-        current_tag_name='None',
-        error='None'
-    )
     return url_for('map_view')
 
 
