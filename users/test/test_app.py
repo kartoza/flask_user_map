@@ -4,7 +4,8 @@
 :license: GPLv3, see LICENSE for more details.
 """
 import os
-
+import json
+from flask import jsonify
 from users.views import APP
 from users.test.logged_unittest import LoggedTestCase
 from users import LOGGER
@@ -76,7 +77,8 @@ class AppTestCase(LoggedTestCase):
                     '/users.json',
                     data=dict(user_role=1),
                     follow_redirects=True)
-                self.assertTrue('Akbar' in result.data)
+                data = result.__getattribute__('data')
+                self.assertTrue('Akbar' in data)
             except Exception, e:
                 LOGGER.exception('Basic front page load failed.')
                 raise e
@@ -87,7 +89,8 @@ class AppTestCase(LoggedTestCase):
         try:
             result = self.app.post(
                 '/add_user', data=self.correct_user_data, follow_redirects=True)
-            self.assertTrue('Akbar' in result.data)
+            data = result.__getattribute__('data')
+            self.assertTrue('Akbar' in data)
         except Exception, e:
             LOGGER.exception('Page load failed.')
             raise e
@@ -96,7 +99,8 @@ class AppTestCase(LoggedTestCase):
         try:
             result = self.app.post(
                 '/add_user', data=self.wrong_user_data, follow_redirects=True)
-            self.assertTrue('Error' in result.data)
+            data = result.__getattribute__('data')
+            self.assertTrue('Error' in data)
         except Exception, e:
             LOGGER.exception('Page load failed.')
             raise e
@@ -123,7 +127,8 @@ class AppTestCase(LoggedTestCase):
                 url,
                 data=self.edited_user_data,
                 follow_redirects=True)
-            self.assertTrue('Akbar Gumbira' in result.data)
+            data = result.__getattribute__('data')
+            self.assertTrue('Akbar Gumbira' in data)
         except Exception, e:
             LOGGER.exception('Basic front page load failed.')
             raise e
@@ -134,7 +139,7 @@ class AppTestCase(LoggedTestCase):
         guid = add_user(**self.correct_user_data)
         url = '/delete/%s' % guid
         try:
-            result = self.app.post(
+            self.app.post(
                 url,
                 data=dict(),
                 follow_redirects=True)
@@ -167,7 +172,8 @@ class AppTestCase(LoggedTestCase):
             try:
                 result = self.app.post(
                     url, data=dict(email=email), follow_redirects=True)
-                self.assertTrue('Success' in result.data)
+                data = result.__getattribute__('data')
+                self.assertTrue('Success' in data)
             except Exception, e:
                 LOGGER.exception('Basic front page load failed.')
                 raise e
@@ -179,7 +185,8 @@ class AppTestCase(LoggedTestCase):
                 data=dict(
                     email='notok@email.com'),
                 follow_redirects=True)
-            self.assertTrue('Error' in result.data)
+            data = result.__getattribute__('data')
+            self.assertTrue('Error' in data)
         except Exception, e:
             LOGGER.exception('Basic front page load failed.')
             raise e
