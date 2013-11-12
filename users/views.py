@@ -28,9 +28,11 @@ from config import MAIL_ADMIN
 @APP.route('/')
 def map_view():
     """Default view - shows a map with users."""
+    data_privacy_content = render_template('data_privacy.html')
     context = dict(
         current_tag_name='None',
-        error='None'
+        error='None',
+        data_privacy_content=data_privacy_content
     )
     #pylint: disable=W0142
     return render_template('index.html', **context)
@@ -149,12 +151,13 @@ def edit_user_view(guid):
     :rtype: HttpResponse
     """
     user = get_user(guid)
-
     user_json = render_template('user.json', user=user)
+    data_privacy_content = render_template('data_privacy.html')
     context = dict(
         current_tag_name='None',
         error='None',
-        user=user_json
+        user=user_json,
+        data_privacy_content=data_privacy_content
     )
     #pylint: disable=W0142
     return render_template('edit.html', **context)

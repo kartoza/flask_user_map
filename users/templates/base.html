@@ -57,6 +57,8 @@
   </div>
 {% endblock %} <!--endblock of body -->
 
+{{ data_privacy_content | safe }}
+
 <div id="map">
 </div>
 
@@ -72,16 +74,28 @@
     var TRAINER_ROLE = 1;
     var DEVELOPER_ROLE = 2;
 
-    var map, base_map, data_privacy_control, user_menu_control, user_icon,
-        trainer_icon, developer_icon, estimated_location_circle, current_mode;
+    var map, base_map, data_privacy_content, data_privacy_control,
+        user_menu_control, user_icon, trainer_icon, developer_icon,
+        estimated_location_circle, current_mode;
 
   //Initialize Basemap Layer
   base_map = createBasemap();
+
+  //Create Map with prepared base_map
+  map = L.map('map', {
+    layers: [base_map]
+  });
+  map.fitWorld().zoomIn();
+
   // Initialize all icons for marker
   var icons = createAllIcons();
   user_icon = icons.user_icon;
   trainer_icon = icons.trainer_icon;
   developer_icon = icons.developer_icon;
+
+  // Create Data Privacy Control
+  data_privacy_control = createDataPrivacyControl();
+  map.addControl(new data_privacy_control);
 </script>
 
 {% block js_container %}

@@ -64,21 +64,16 @@
       //Add Edited User Layer
       edited_user_layer = new L.LayerGroup();
       addEditedUser(edited_user , edited_user_layer, edited_user_popup);
-
+      edited_user_layer.addTo(map);
       //Create Map with prepared layers
-      map = L.map('map', {
-        layers: [base_map, edited_user_layer]
-      });
-      map.fitWorld().zoomIn();
 
-      //Add Controls:
-      data_privacy_control = createDataPrivacyControl();
+      //Create user menu Controls:
       user_menu_control = createUserMenuControl({
         "edit-user-menu": true,
         "delete-user-menu":true,
         "download-menu":true
       });
-      map.addControl(new data_privacy_control());
+      //Add all controls to map
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container:'body'});
     })

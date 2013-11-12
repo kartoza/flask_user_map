@@ -53,6 +53,7 @@ function createAllIcons() {
 
 /**
  * Create Data Privacy Control instance on the bottom left of the map.
+ * @param data_privacy_content: Content of data privacy modal.
  * @returns {void|b.extend|*|x.extend}
  */
 function createDataPrivacyControl() {
@@ -64,18 +65,7 @@ function createDataPrivacyControl() {
       var data_privacy_container = L.DomUtil.create('div',
           'leaflet-control-attribution');
       var data_privacy_title = "Data Privacy";
-      var data_privacy_content =
-          "The data you enter on this site may be visible to others. We " +
-              "suggest that you approximate your physical location to the nearest " +
-              "town or major center. Parts of your data will be made available for " +
-              "others to download and use. We will <strong>not</strong> share:</br>" +
-              "<ul> " +
-              "<li>your email address</li>" +
-              "<li>your unique identifier used to edit your record</li>" +
-              "</ul>" +
-              "If you would like your data removed from this site, please refer to " +
-              "the confirmation email we sent you when you added yourself for " +
-              "instructions.";
+      var data_privacy_content = $( ".data-privacy-content-section" ).html();
       onDataPrivacyClick = function () {
         showInformationModal(data_privacy_title, data_privacy_content);
       }

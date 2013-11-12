@@ -53,24 +53,23 @@
       users_layer = new L.LayerGroup();
       trainers_layer = new L.LayerGroup();
       developers_layer = new L.LayerGroup();
+
+      //Add All Users to the right layer
       addUsers(users_layer, USER_ROLE);
       addUsers(trainers_layer, TRAINER_ROLE);
       addUsers(developers_layer, DEVELOPER_ROLE);
 
-      //Create Map with prepared layers
-      map = L.map('map', {
-        layers: [base_map, users_layer, developers_layer, trainers_layer]
-      });
-      map.fitWorld().zoomIn();
+      //Add All users layer to map
+      users_layer.addTo(map);
+      developers_layer.addTo(map);
+      trainers_layer.addTo(map);
 
-      //Add All Controls:
-      data_privacy_control = createDataPrivacyControl();
+      // Add User Menu Controls:
       user_menu_control = createUserMenuControl({
         "add-user-menu": true,
         "download-menu": true,
         "reminder-menu": true
       });
-      map.addControl(new data_privacy_control);
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container: 'body'});
 
