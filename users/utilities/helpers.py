@@ -1,13 +1,12 @@
 # coding=utf-8
 """Helper methods."""
-import smtplib
-from email.mime.text import MIMEText
+from threading import Thread
 
 from flask import jsonify
 from werkzeug.exceptions import HTTPException
+from flask.ext.mail import Message
 
-from users import APP
-
+from users import mail
 
 def make_json_error(ex):
     """Return errors as json.
@@ -25,37 +24,32 @@ def make_json_error(ex):
     return response
 
 
-def send_mail(sender, recipient, subject, email_content):
+def send_async_email(message):
+    """Function to send email by message. This function will be called by a
+    thread on send_mail function.
+    :param message: The message that will be sent.
+    :type message: Message
+    """
+    mail.send(message)
+
+
+def send_mail(sender, recipients, subject, text_body, html_body):
     """To send a single email from sender to receiver
-    :param sender: Sender email address.
+    :param sender: Sender of the email.
     :type sender: str
-    :param recipient: Recipient email address
-    :type recipient: str
+    :param recipients: Recipients email address.
+    :type recipients: list
     :param subject: Subject of the email.
     :type subject: str
-    :param email_content: Content of the email.
-    :type email_content: str
+    :param text_body: Text of the body.
+    :type text_body: str
+    :param html_body: HTML of the body.
+    :type html_body: str
     """
     # Get mail server configuration
-    mail_server = APP.config['mail_server']
-    # Create text/plain message
-    message = MIMEText(email_content)
-
-    # Prepare the message
-    message['From'] = sender
-    message['To'] = recipient
-    message['Subject'] = subject
-
-    # Send the message
-    smtp_server = smtplib.SMTP(
-        mail_server['SERVER'],
-        mail_server['PORT'])
-    smtp_server.ehlo()
-    smtp_server.starttls()
-    smtp_server.ehlo()
-    smtp_server.login(
-        mail_server['USERNAME'],
-        mail_server['PASSWORD'])
-    smtp_server.sendmail(sender, recipient, message.as_string())
-    smtp_server.quit()
+    message = Message(subject=subject, sender=sender, recipients=recipients)
+    message.body = text_body
+    message.html = html_body
+    thread = Thread(target=send_async_email, args=[message])
+    thread.start()
 

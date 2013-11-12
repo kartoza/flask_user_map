@@ -23,6 +23,7 @@ from users.user import (add_user,
                         get_user,
                         get_user_by_email,
                         get_all_users)
+from config import MAIL_ADMIN
 
 
 @APP.route('/')
@@ -126,15 +127,13 @@ def add_user_view():
     added_user = get_user(guid)
 
     # Send Email Confirmation:
-    try:
-        sender = APP.config['mail_server']['USERNAME']
-        subject = 'User Map Registration'
-        body = render_template('add_confirmation_email.txt',
-                               url=url_for('map_view', _external=True),
-                               user=added_user)
-        send_mail(sender, email, subject, body)
-    except SMTPException:
-        raise Exception('Error: unable to send mail')
+    subject = 'User Map Registration'
+    body = render_template('add_confirmation_email.txt',
+                           url=url_for('map_view', _external=True),
+                           user=added_user)
+    recipient = added_user['email']
+    send_mail(sender=MAIL_ADMIN, recipients=[recipient], subject=subject,
+              text_body=body, html_body='')
 
     added_user_json = render_template('users.json', users=[added_user])
     # Return Response
@@ -297,15 +296,12 @@ def reminder_view():
         return Response(json.dumps(message), mimetype='application/json')
 
     # Send Email Confirmation:
-    try:
-        sender = APP.config['mail_server']['USERNAME']
-        subject = 'User Map Edit Link'
-        body = render_template('add_confirmation_email.txt',
-                               url=url_for('map_view', _external=True),
-                               user=user)
-        send_mail(sender, email, subject, body)
-    except SMTPException:
-        raise Exception('Error: unable to send mail')
+    subject = 'User Map Edit Link'
+    body = render_template('add_confirmation_email.txt',
+                           url=url_for('map_view', _external=True),
+                           user=user)
+    send_mail(sender=MAIL_ADMIN, recipients=[email], subject=subject,
+              text_body=body, html_body='')
 
     message['type'] = 'Success'
     return Response(json.dumps(message), mimetype='application/json')
