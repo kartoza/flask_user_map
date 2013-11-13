@@ -177,11 +177,11 @@ def get_user(guid):
 def get_user_by_email(email):
     """Get one user by email.
 
-    :param email: Globally unique identifier for the requested user.
+    :param email: Email address for the requested user.
     :type email: str
 
     :returns: A user expressed as a dictionary of key value pairs or None if
-        the given GUID does not exist.
+        the given email address does not exist.
     :rtype: dict
     """
     conn = get_conn(APP.config['DATABASE'])
