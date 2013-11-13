@@ -65,15 +65,14 @@
       edited_user_layer = new L.LayerGroup();
       addEditedUser(edited_user , edited_user_layer, edited_user_popup);
       edited_user_layer.addTo(map);
-      //Create Map with prepared layers
 
-      //Create user menu Controls:
+      //Create user menu control:
       user_menu_control = createUserMenuControl({
         "edit-user-menu": true,
         "delete-user-menu":true,
         "download-menu":true
       });
-      //Add all controls to map
+      //Add user menu control to map
       map.addControl(new user_menu_control);
       $(".user-menu-control").tooltip({placement: 'right', container:'body'});
     })

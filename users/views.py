@@ -29,6 +29,7 @@ from config import MAIL_ADMIN
 def map_view():
     """Default view - shows a map with users."""
     data_privacy_content = render_template('data_privacy.html')
+
     context = dict(
         current_tag_name='None',
         error='None',
@@ -153,6 +154,7 @@ def edit_user_view(guid):
     user = get_user(guid)
     user_json = render_template('user.json', user=user)
     data_privacy_content = render_template('data_privacy.html')
+
     context = dict(
         current_tag_name='None',
         error='None',
