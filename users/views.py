@@ -134,7 +134,7 @@ def add_user_view():
 
     # Send Email Confirmation:
     subject = 'User Map Registration'
-    body = render_template('text/add_confirmation_email.txt',
+    body = render_template('text/registration_confirmation_email.txt',
                            url=url_for('map_view', _external=True),
                            user=added_user)
     recipient = added_user['email']
@@ -303,7 +303,7 @@ def reminder_view():
 
     # Send Email Confirmation:
     subject = 'User Map Edit Link'
-    body = render_template('text/add_confirmation_email.txt',
+    body = render_template('text/registration_confirmation_email.txt',
                            url=url_for('map_view', _external=True),
                            user=user)
     send_mail(sender=MAIL_ADMIN, recipients=[email], subject=subject,
