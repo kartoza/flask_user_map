@@ -56,7 +56,7 @@ def add_user(
 
     env = Environment(
         loader=PackageLoader('users', 'templates'))
-    template = env.get_template('add_user.sql')
+    template = env.get_template('sql/add_user.sql')
     sql = template.render(
         guid=guid,
         name=name,
