@@ -122,7 +122,7 @@ def edit_user(
 
     env = Environment(
         loader=PackageLoader('users', 'templates'))
-    template = env.get_template('update_user.sql')
+    template = env.get_template('sql/update_user.sql')
     sql = template.render(
         guid=guid,
         name=name,
@@ -148,7 +148,7 @@ def delete_user(guid):
     conn = get_conn(APP.config['DATABASE'])
     env = Environment(
         loader=PackageLoader('users', 'templates'))
-    template = env.get_template('delete_user.sql')
+    template = env.get_template('sql/delete_user.sql')
     sql = template.render(guid=guid)
     conn.execute(sql)
     conn.commit()

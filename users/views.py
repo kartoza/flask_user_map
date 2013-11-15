@@ -28,9 +28,9 @@ from config import MAIL_ADMIN
 @APP.route('/')
 def map_view():
     """Default view - shows a map with users."""
-    information_modal = render_template('information_modal.html')
-    data_privacy_content = render_template('data_privacy.html')
-    user_form_template = render_template('user_form.html')
+    information_modal = render_template('html/information_modal.html')
+    data_privacy_content = render_template('html/data_privacy.html')
+    user_form_template = render_template('html/user_form.html')
 
     context = dict(
         current_tag_name='None',
@@ -40,7 +40,7 @@ def map_view():
         user_form_template=user_form_template
     )
     #pylint: disable=W0142
-    return render_template('index.html', **context)
+    return render_template('html/index.html', **context)
 
 
 @APP.route('/users.json', methods=['POST'])
@@ -51,7 +51,7 @@ def users_view():
 
     # Create model user
     all_users = get_all_users(role=user_role)
-    json_users = render_template('users.json', users=all_users)
+    json_users = render_template('json/users.json', users=all_users)
 
     users_json = (
         '{'
@@ -134,14 +134,14 @@ def add_user_view():
 
     # Send Email Confirmation:
     subject = 'User Map Registration'
-    body = render_template('add_confirmation_email.txt',
+    body = render_template('text/add_confirmation_email.txt',
                            url=url_for('map_view', _external=True),
                            user=added_user)
     recipient = added_user['email']
     send_mail(sender=MAIL_ADMIN, recipients=[recipient], subject=subject,
               text_body=body, html_body=None)
 
-    added_user_json = render_template('users.json', users=[added_user])
+    added_user_json = render_template('json/users.json', users=[added_user])
     # Return Response
     return Response(added_user_json, mimetype='application/json')
 
@@ -156,10 +156,10 @@ def edit_user_view(guid):
     :rtype: HttpResponse
     """
     user = get_user(guid)
-    user_json = render_template('user.json', user=user)
-    information_modal = render_template('information_modal.html')
-    data_privacy_content = render_template('data_privacy.html')
-    user_form_template = render_template('user_form.html')
+    user_json = render_template('json/user.json', user=user)
+    information_modal = render_template('html/information_modal.html')
+    data_privacy_content = render_template('html/data_privacy.html')
+    user_form_template = render_template('html/user_form.html')
 
     context = dict(
         current_tag_name='None',
@@ -170,7 +170,7 @@ def edit_user_view(guid):
         user_form_template=user_form_template
     )
     #pylint: disable=W0142
-    return render_template('edit.html', **context)
+    return render_template('html/edit.html', **context)
 
 
 @APP.route('/edit_user', methods=['POST'])
@@ -235,7 +235,7 @@ def edit_user_controller():
             longitude=float(longitude))
 
     edited_user = get_user(guid)
-    edited_user_json = render_template('user.json', user=edited_user)
+    edited_user_json = render_template('json/user.json', user=edited_user)
     # Return Response
     return Response(edited_user_json, mimetype='application/json')
 
@@ -303,7 +303,7 @@ def reminder_view():
 
     # Send Email Confirmation:
     subject = 'User Map Edit Link'
-    body = render_template('add_confirmation_email.txt',
+    body = render_template('text/add_confirmation_email.txt',
                            url=url_for('map_view', _external=True),
                            user=user)
     send_mail(sender=MAIL_ADMIN, recipients=[email], subject=subject,
