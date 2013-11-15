@@ -60,8 +60,11 @@ function getUserForm(user, mode) {
   var form_content = $('#user_form_content').html();
   var form = $('<div>' + form_content + '</div>');
 
-  // Set latitude and longitude value, whatever the mode!
-  // If it's from the new marker, before passing to this form, that marker location should be added to user attributes
+  /**
+   * Set latitude and longitude value, whatever the mode!
+   * If it's from the new marker, before passing to this form,
+   * that marker location should be added to user attributes
+   */
   form.find('input[type=text]#lat').attr('value', user['latitude']);
   form.find('input[type=text]#lng').attr('value', user['longitude']);
 

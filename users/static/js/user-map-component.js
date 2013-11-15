@@ -86,7 +86,8 @@ function createDataPrivacyControl() {
 
 /**
  * Create User Menu Control on the top left of the map.
- * @param options: Visibility of each component. False if hidden, True if visible. If None, then it will be hidden.
+ * @param options: Visibility of each component.
+ * False if hidden, True if visible. If None, then it will be hidden.
  *
  * There are 3 menus on this control:
  * 1. add-user-menu
@@ -95,7 +96,8 @@ function createDataPrivacyControl() {
  * 4. download-menu
  * 5. reminder-menu
  *
- * Usage: initializeUserMenuControl({"add-user-menu": true, "download-menu": true}) to show add-user-menu and download-menu
+ * Usage: initializeUserMenuControl({"add-user-menu": true, "download-menu": true})
+ * to show add-user-menu and download-menu
  */
 function createUserMenuControl(options) {
   var control = L.Control.extend({
@@ -107,10 +109,8 @@ function createUserMenuControl(options) {
       var user_menu_container = L.DomUtil.create('div',
           'user_menu_control btn-group-vertical');
       if (options['add-user-menu']) {
-        user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='add-user-button' onclick='onAddUserButtonClick()' data-toggle='tooltip' data-original-title='Add me to map!'>" +
-                "<span class='glyphicon glyphicon-user'></span>" +
-                "</button>";
+        var button = $("#user-menu-add-button").html();
+        user_menu_container.innerHTML += button;
         onAddUserButtonClick = function () {
           if (current_mode != ADD_USER_MODE) {
             activateAddUserState();
@@ -118,10 +118,8 @@ function createUserMenuControl(options) {
         };
       }
       if (options['edit-user-menu']) {
-        user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='edit-user-button' onclick='onEditUserButtonClick()' data-toggle='tooltip' data-original-title='Edit my data!'>" +
-                "<span class='glyphicon glyphicon-pencil'></span>" +
-                "</button>";
+        var button = $("#user-menu-edit-button").html();
+        user_menu_container.innerHTML += button;
         onEditUserButtonClick = function () {
           if (current_mode != EDIT_USER_MODE) {
             activateEditUserState();
@@ -129,10 +127,8 @@ function createUserMenuControl(options) {
         };
       }
       if (options['delete-user-menu']) {
-        user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='delete-user-button' onclick='onDeleteUserButtonClick()' data-toggle='tooltip' data-original-title='Delete me from the map!'>" +
-                "<span class='glyphicon glyphicon-trash'></span>" +
-                "</button>";
+        var button = $("#user-menu-delete-button").html();
+        user_menu_container.innerHTML += button;
         onDeleteUserButtonClick = function () {
           if (current_mode != DELETE_USER_MODE) {
             activateDeleteUserState();
@@ -140,10 +136,8 @@ function createUserMenuControl(options) {
         };
       }
       if (options['download-menu']) {
-        user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='download-button' onclick='onDownloadButtonClick()' data-toggle='tooltip' data-original-title='Download all users as CSV file!'>" +
-                "<span class='glyphicon glyphicon-download-alt'></span>" +
-                "</button>";
+        var button = $("#user-menu-download-button").html();
+        user_menu_container.innerHTML += button;
         onDownloadButtonClick = function () {
           if (current_mode != DOWNLOAD_MODE) {
             activateDownloadState();
@@ -151,10 +145,8 @@ function createUserMenuControl(options) {
         };
       }
       if (options['reminder-menu']) {
-        user_menu_container.innerHTML +=
-            "<button type='button' class='btn btn-default btn-sm user-menu-control' id='reminder-button' onclick='onReminderButtonClick()' data-toggle='tooltip' data-original-title='Forgot your edit link? Resend me an email!'>" +
-                "<span class='glyphicon glyphicon-question-sign'></span>" +
-                "</button>";
+        var button = $("#user-menu-reminder-button").html();
+        user_menu_container.innerHTML += button;
         onReminderButtonClick = function () {
           if (current_mode != REMINDER_MODE) {
             activateReminderState();
@@ -189,7 +181,9 @@ function onLocationFound(e) {
   if (typeof estimated_location_circle != 'undefined') {
     map.removeLayer(estimated_location_circle);
   }
-  estimated_location_circle = L.circle(e.latlng, radius, {clickable: false, fillOpacity: 0.1});
+  estimated_location_circle = L.circle(
+      e.latlng, radius, {clickable: false, fillOpacity: 0.1}
+  );
   estimated_location_circle.bindLabel(label, {noHide: true}).addTo(map);
 }
 
@@ -206,7 +200,10 @@ function onMapClick(e) {
   var markerLocation = e.latlng;
   marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
-  var user = {'latitude': markerLocation.lat.toFixed(8), 'longitude': markerLocation.lng.toFixed(8)}
+  var user = {
+    'latitude': markerLocation.lat.toFixed(8),
+    'longitude': markerLocation.lng.toFixed(8)
+  }
   var popup = getUserFormPopup(user, ADD_USER_MODE);
   marker_new_user.bindPopup(popup).openPopup()
 }

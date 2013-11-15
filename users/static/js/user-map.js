@@ -5,7 +5,7 @@
 
 /**
  * Add users to the respective layer based on user_role
- * @param layer: layer which users added to
+ * @param layer: the layer that users will be added to
  * @param user_role: the role of users that will be added
  */
 function addUsers(layer, user_role) {
@@ -37,8 +37,9 @@ function addUsers(layer, user_role) {
 }
 
 /**
- * Refresh user layer based on the role. Each user who has the same role is grouped on the same layer.
- * @param role: Role of the users that its layer wants to be refreshed
+ * Refresh user layer based on the role.
+ * Each user who has the same role is grouped on the same layer.
+ * @param role: Role of the users that its layer is wanted to be refreshed
  */
 function refreshUserLayer(role) {
   var layer = getUserLayer(role);
@@ -48,13 +49,16 @@ function refreshUserLayer(role) {
 
 /**
  * Add edited user to the respective layer
- * @param layer: layer which users added to
+ * @param layer: the layer that users will be added to
  * @param user: the user that will be added
- * @param popup_content: Content of the popup binding to the user marker
+ * @param popup_content: Content of the popup that will be bind to the user marker
  */
 function addEditedUser(user, layer, popup_content) {
   var role_icon = getUserIcon(user['role']);
-  edited_user_marker = L.marker([user['latitude'], user['longitude']], {icon: role_icon });
+  edited_user_marker = L.marker(
+      [user['latitude'], user['longitude']],
+      {icon: role_icon }
+  );
   edited_user_marker.addTo(layer);
   edited_user_marker.bindPopup(popup_content).openPopup();
 }
@@ -119,8 +123,9 @@ function addUser() {
           activateDefaultState(); // Back to default state
           var add_success_title = "Information"
           var add_success_info =
-                  "Thank you for adding yourself into our database! Please check your " +
-                  "email to see the registration confirmation";
+                  "Thank you for adding yourself into our database! " +
+                  "Please check your email to see the registration " +
+                  "confirmation";
           showInformationModal(add_success_title, add_success_info);
         }
       }
@@ -129,14 +134,13 @@ function addUser() {
 }
 
 /**
- * Prepared user that is wanted to be edited.
+ * Prepare user who will be edited.
  * @param user
  */
 function initializeEditedUser(user) {
   edited_user = user;
   edited_user_popup = getUserPopup(user);
   edited_user_form_popup = getUserFormPopup(user, EDIT_USER_MODE);
-
 }
 
 /**
@@ -147,7 +151,7 @@ function editUser() {
   $("#name").parent().removeClass("has-error");
   $("#email").parent().removeClass("has-error");
 
-  var guid = edited_user['guid']
+  var guid = edited_user['guid'];
   var name = $("#name").val();
   var email = $("#email").val();
   var website = $("#website").val();
@@ -195,7 +199,9 @@ function editUser() {
  */
 function cancelEditUser() {
   // Set back the marker
-  edited_user_marker.setLatLng([edited_user['latitude'], edited_user['longitude']]);
+  edited_user_marker.setLatLng(
+      [edited_user['latitude'], edited_user['longitude']]
+  );
   // Close Form Popup
   edited_user_marker.closePopup();
   // Bind popup with another popup
@@ -210,15 +216,15 @@ function cancelEditUser() {
  * AJAX Call to server side to delete a user.
  */
 function deleteUser() {
-    $.ajax({
-      type: "POST",
-      url: "/delete/"+edited_user['guid'],
-      success: function(response) {
-        $('#delete-success-modal').modal({
-          backdrop: false
-        });
-      }
-    });
+  $.ajax({
+    type: "POST",
+    url: "/delete/"+edited_user['guid'],
+    success: function(response) {
+      $('#delete-success-modal').modal({
+        backdrop: false
+      });
+    }
+  });
 }
 
 /**
@@ -238,7 +244,8 @@ function sendReminder() {
       success: function(response) {
         if (response.type.toString() == 'Error') {
           $("#email_reminder").parent().addClass("has-error");
-          $('#email_reminder').attr("placeholder", 'Email is not registered in our database');
+          $('#email_reminder')
+              .attr("placeholder", 'Email is not registered in our database');
         } else if (response.type.toString() == 'Success') {
           $('#reminder-menu-modal').modal('hide');
           var info_title = "Information";
@@ -252,7 +259,8 @@ function sendReminder() {
     });
   } else {
     $("#email_reminder").parent().addClass("has-error");
-    $('#email_reminder').attr("placeholder", 'Email is not registered in our database');
+    $('#email_reminder')
+        .attr("placeholder", 'Email is not registered in our database');
   }
 }
 
@@ -290,7 +298,8 @@ function validate_user_form(str_name, str_email, str_website) {
   }
   if (!is_email_valid) {
     $("#email").parent().addClass("has-error");
-    $('#email').attr("placeholder", 'Email is required and needs to be valid email');
+    $('#email')
+        .attr("placeholder", 'Email is required and needs to be valid email');
   }
   if (!is_website_valid) {
     $("#website").parent().addClass("has-error");

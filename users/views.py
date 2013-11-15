@@ -31,13 +31,15 @@ def map_view():
     information_modal = render_template('html/information_modal.html')
     data_privacy_content = render_template('html/data_privacy.html')
     user_form_template = render_template('html/user_form.html')
+    user_menu_button = render_template('html/user_menu_button.html')
 
     context = dict(
         current_tag_name='None',
         error='None',
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
-        user_form_template=user_form_template
+        user_form_template=user_form_template,
+        user_menu_button=user_menu_button
     )
     #pylint: disable=W0142
     return render_template('html/index.html', **context)
@@ -160,6 +162,7 @@ def edit_user_view(guid):
     information_modal = render_template('html/information_modal.html')
     data_privacy_content = render_template('html/data_privacy.html')
     user_form_template = render_template('html/user_form.html')
+    user_menu_button = render_template('html/user_menu_button.html')
 
     context = dict(
         current_tag_name='None',
@@ -167,7 +170,8 @@ def edit_user_view(guid):
         user=user_json,
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
-        user_form_template=user_form_template
+        user_form_template=user_form_template,
+        user_menu_button=user_menu_button
     )
     #pylint: disable=W0142
     return render_template('html/edit.html', **context)
