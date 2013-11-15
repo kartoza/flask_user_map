@@ -28,12 +28,16 @@ from config import MAIL_ADMIN
 @APP.route('/')
 def map_view():
     """Default view - shows a map with users."""
+    information_modal = render_template('information_modal.html')
     data_privacy_content = render_template('data_privacy.html')
+    user_form_template = render_template('user_form.html')
 
     context = dict(
         current_tag_name='None',
         error='None',
-        data_privacy_content=data_privacy_content
+        information_modal=information_modal,
+        data_privacy_content=data_privacy_content,
+        user_form_template=user_form_template
     )
     #pylint: disable=W0142
     return render_template('index.html', **context)
@@ -153,13 +157,17 @@ def edit_user_view(guid):
     """
     user = get_user(guid)
     user_json = render_template('user.json', user=user)
+    information_modal = render_template('information_modal.html')
     data_privacy_content = render_template('data_privacy.html')
+    user_form_template = render_template('user_form.html')
 
     context = dict(
         current_tag_name='None',
         error='None',
         user=user_json,
-        data_privacy_content=data_privacy_content
+        information_modal=information_modal,
+        data_privacy_content=data_privacy_content,
+        user_form_template=user_form_template
     )
     #pylint: disable=W0142
     return render_template('edit.html', **context)

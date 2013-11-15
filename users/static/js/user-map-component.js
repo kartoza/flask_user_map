@@ -65,7 +65,7 @@ function createDataPrivacyControl() {
       var data_privacy_container = L.DomUtil.create('div',
           'leaflet-control-attribution');
       var data_privacy_title = "Data Privacy";
-      var data_privacy_content = $( ".data-privacy-content-section" ).html();
+      var data_privacy_content = $( "#data-privacy-content-section" ).html();
       onDataPrivacyClick = function () {
         showInformationModal(data_privacy_title, data_privacy_content);
       }

@@ -57,79 +57,46 @@ function getUserLayer(role) {
  * @param mode: ADD_USER_MODE or EDIT_USER_MODE
  */
 function getUserForm(user, mode) {
-  var form =
-      '<div class="panel panel-default">' +
-          '<div class="panel-heading">' +
-          '<h3 class="panel-title">User Data</h3>' +
-          '</div>' +
-          '<div class="panel-body">' +
-          '<form action ="" role = "form-horizontal" id="add_user" enctype="multipart/form-data">' +
-          '<div class="form-group" >' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">Name</span>' +
-          '<input type="text" class="form-control" placeholder="Required" id="name" name="name" required value="' + ((mode == EDIT_USER_MODE)?user['name']:'') + '" />' +
-          '</div>' +
-          '</div>' +
+  var form_content = $('#user_form_content').html();
+  var form = $('<div>' + form_content + '</div>');
 
-          '<div class="form-group">' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">Email</span>' +
-          '<input type="email" class="form-control" placeholder="Required"  id="email" name="email" required value="' + ((mode == EDIT_USER_MODE)? user['email']:'') + '" '+ ((mode == EDIT_USER_MODE)? 'readonly':'') +'>' +
-          '</div>' +
-          '</div>' +
+  // Set latitude and longitude value, whatever the mode!
+  // If it's from the new marker, before passing to this form, that marker location should be added to user attributes
+  form.find('input[type=text]#lat').attr('value', user['latitude']);
+  form.find('input[type=text]#lng').attr('value', user['longitude']);
 
-          '<div class="form-group">' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">Website</span>' +
-          '<input type="url" class="form-control" placeholder="If filled, use http:// or https://." id="website" name="website" pattern="https?://.+" value="' + ((mode == EDIT_USER_MODE)? user['website']:'') + '"/>' +
-          '</div>' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<label for="label-role">Role</label>' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">' +
-          '<input type="radio" name="role" value="0" '+ ((mode == ADD_USER_MODE) || (user['role'] == USER_ROLE)? 'checked':'') +'>' +
-          '</span>' +
-          '<span class="form-control"><small>User</small></span>' +
-          '<span class="input-group-addon">' +
-          '<input type="radio" name="role" value="1" '+ ((mode == EDIT_USER_MODE) && (user['role'] == TRAINER_ROLE)? 'checked':'') +'>' +
-          '</span>' +
-          '<span class="form-control"><small>Trainer</small></span>' +
-          '<span class="input-group-addon">' +
-          '<input type="radio" name="role" value="2" '+ ((mode == EDIT_USER_MODE) && (user['role'] == DEVELOPER_ROLE)? 'checked':'') +'>' +
-          '</span>' +
-          '<span class="form-control" ><small>Developer</small></span>' +
-          '</div>' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<label for="label-email-updates">Email Updates</label>' +
-          '<div class="input-group input-group-sm">' +
-          '<span class="input-group-addon">' +
-          '<input type="checkbox" id="email_updates" name="email_updates" value="Yes" '+ ((mode == EDIT_USER_MODE) && (user['email_updates'])? 'checked':'') +'>' +
-          '</span>' +
-          '<span class="form-control">Receive project news and updates</span>' +
-          '</div>' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<input style="display: none;" type="text" id="lat" name="lat" value="' + user['latitude'] + '" />' +
-          '<input style="display: none;" type="text" id="lng" name="lng" value="' + user['longitude'] + '" />' +
-          '</div>' +
-
-          '<div class="form-group">' +
-          '<div>' +
-
-          '<button type="button" class="btn btn-primary" onclick="'+ ((mode == ADD_USER_MODE)?'addUser()':'editUser()') +'">Done!</button>  ' +
-          '<button type="button" class="btn btn-default" onclick="'+ ((mode == ADD_USER_MODE)?'cancelMarker()':'cancelEditUser()') +'">Cancel</button>' +
-
-          '</div>' +
-          '</div>' +
-          '</form>' +
-          '</div>' +
-          '</div>';
-  return form;
+  if (mode == ADD_USER_MODE) {
+    // Set onclick attribute on button
+    form.find(':button#submit_form').attr('onclick', 'addUser();');
+    form.find(':button#cancel_form').attr('onclick', 'cancelMarker();');
+  } else if (mode == EDIT_USER_MODE) {
+    // Set name value
+    form.find('input[type=text]#name').attr('value', user['name']);
+    // Set email value and set to readonly
+    form.find('input[type=email]#email').attr('value', user['email']);
+    form.find('input[type=email]#email').attr('readonly', true);
+    // Set website value
+    form.find('input[type=url]#website').attr('value', user['website']);
+    // Checked one of the radio option of Role
+    if (user['role'] == USER_ROLE) {
+      form.find('input[type=radio][name=role]:nth(0)').attr('checked', true);
+    } else if (user['role'] == TRAINER_ROLE) {
+      form.find('input[type=radio][name=role]:nth(1)').attr('checked', true);
+    } else if (user['role'] == DEVELOPER_ROLE) {
+      form.find('input[type=radio][name=role]:nth(2)').attr('checked', true);
+    }
+    // Checked email updates checkbox if the user should get email updates
+    if (user['email_updates']) {
+      form.find('input[type=checkbox]#email_updates').attr('checked', true);
+    }
+    // Set latitude and longitude value
+    form.find('input[type=text]#lat').attr('value', user['latitude']);
+    form.find('input[type=text]#lng').attr('value', user['longitude']);
+    // Set onclick attribute on button:
+    form.find(':button#submit_form').attr('onclick', 'editUser();');
+    form.find(':button#cancel_form').attr('onclick', 'cancelEditUser();');
+  }
+  return form.html().toString();
 }
 
 /**

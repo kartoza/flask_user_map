@@ -1,4 +1,4 @@
-<div class="user_form_content" style="display: none;">
+<script id="user_form_content" type="text/template">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">User Data</h3>
@@ -9,7 +9,7 @@
           <div class="input-group input-group-sm">
             <span class="input-group-addon">Name</span>
             <input type="text" class="form-control" placeholder="Required"
-                   id="name" name="name" required value="{{ user.name }}"/>
+                   id="name" name="name" required value=""/>
           </div>
         </div>
 
@@ -17,9 +17,7 @@
           <div class="input-group input-group-sm">
             <span class="input-group-addon">Email</span>
             <input type="email" class="form-control" placeholder="Required"
-                   id="email" name="email" required
-                   value="{% if user.mode == "ADD" %}{{ user.email }}{% endif %}"
-                {% if user.mode == "EDIT" %} readonly {% endif %}/>
+                   id="email" name="email" value="" required />
           </div>
         </div>
 
@@ -28,31 +26,23 @@
             <span class="input-group-addon">Website</span>
             <input type="url" class="form-control"
                    placeholder="If filled, use http:// or https://."
-                   id="website" name="website" pattern="https?://.+"
-                   value="{% if user.mode == "EDIT" %}{{ user.website }}{% endif %}"/>
+                   id="website" name="website" pattern="https?://.+" value=""/>
           </div>
         </div>
 
         <div class="form-group">
           <label for="label-role">Role</label>
-
           <div class="input-group input-group-sm">
           <span class="input-group-addon">
-            <input type="radio" name="role" value="0"
-                {% if user.mode == "ADD" or user.role == 0 %} checked
-                {% endif %}/>
+            <input type="radio" name="role" value="0"/>
           </span>
             <span class="form-control"><small>User</small></span>
           <span class="input-group-addon">
-          <input type="radio" name="role" value="1"
-              {% if user.mode == "EDIT" and user.role == 1 %} checked
-              {% endif %}/>
+          <input type="radio" name="role" value="1"/>
           </span>
             <span class="form-control"><small>Trainer</small></span>
           <span class="input-group-addon">
-          <input type="radio" name="role" value="2"
-              {% if user.mode == "EDIT" and user.role == 2 %} checked
-              {% endif %}/>
+          <input type="radio" name="role" value="2"/>
           </span>
             <span class="form-control"><small>Developer</small></span>
           </div>
@@ -63,9 +53,8 @@
 
           <div class="input-group input-group-sm">
           <span class="input-group-addon">
-          <input type="checkbox" id="email_updates" name="email_updates" value="Yes"
-              {% if user.mode == "EDIT" and user.email_updates %} checked
-              {% endif %}/>
+          <input type="checkbox" id="email_updates" name="email_updates"
+                 value="Yes"/>
           </span>
             <span class="form-control">Receive project news and updates</span>
           </div>
@@ -73,28 +62,17 @@
 
         <div class="form-group">
           <input style="display: none;" type="text" id="lat" name="lat"
-                 value="{{ user.latitude }}"/>
+                 value=""/>
           <input style="display: none;" type="text" id="lng" name="lng"
-                 value="{{ user.longitude }}"/>
+                 value=""/>
         </div>
 
         <div class="form-group">
           <div>
-
-            <button type="button" class="btn btn-primary"
-                        {% if user.mode == "ADD" %}
-                          onclick = "addUser();"
-                        {% else %}
-                          onclick = "editUser();"
-                        {% endif %}>
+            <button type="button" id="submit_form" class="btn btn-primary">
               Done!
             </button>
-            <button type="button" class="btn btn-default"
-                        {% if user.mode == "ADD" %}
-                          onclick="cancelMarker();"
-                        {% else %}
-                          onclick="cancelEditUser();"
-                        {% endif %}>
+            <button type="button" id="cancel_form" class="btn btn-default">
               Cancel
             </button>
           </div>
@@ -102,4 +80,4 @@
       </form>
     </div>
   </div>
-</div>
+</script>
