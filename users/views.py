@@ -31,7 +31,15 @@ def map_view():
     information_modal = render_template('html/information_modal.html')
     data_privacy_content = render_template('html/data_privacy.html')
     user_form_template = render_template('html/user_form.html')
-    user_menu_button = render_template('html/user_menu_button.html')
+    user_menu = dict(
+        add_user=True,
+        download=True,
+        reminder=True
+    )
+    user_menu_button = render_template(
+        'html/user_menu_button.html',
+        **user_menu
+    )
 
     context = dict(
         current_tag_name='None',
@@ -162,7 +170,15 @@ def edit_user_view(guid):
     information_modal = render_template('html/information_modal.html')
     data_privacy_content = render_template('html/data_privacy.html')
     user_form_template = render_template('html/user_form.html')
-    user_menu_button = render_template('html/user_menu_button.html')
+    user_menu = dict(
+        edit_user=True,
+        delete_user=True,
+        download=True
+    )
+    user_menu_button = render_template(
+        'html/user_menu_button.html',
+        **user_menu
+    )
 
     context = dict(
         current_tag_name='None',
