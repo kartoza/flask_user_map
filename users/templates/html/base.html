@@ -22,11 +22,11 @@
   <script src="/users/static/js/leaflet.label.js"></script>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map.js"></script>
-<script language="javascript"
+  <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map-component.js"></script>
-<script language="javascript"
+  <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map-state.js"></script>
-<script language="javascript"
+  <script language="javascript"
           type="text/javascript" src="/users/static/js/user-map-utilities.js"></script>
   <script language="javascript"
           type="text/javascript" src="/users/static/js/validate.js"></script>
@@ -50,20 +50,20 @@
 <!-- endblock of all the template -->
 
 <script type="text/javascript">
-    var DEFAULT_MODE = 0;
-    var ADD_USER_MODE = 1;
-    var EDIT_USER_MODE = 2;
-    var DELETE_USER_MODE = 3;
-    var DOWNLOAD_MODE = 4;
-    var REMINDER_MODE = 5;
+  var DEFAULT_MODE = 0;
+  var ADD_USER_MODE = 1;
+  var EDIT_USER_MODE = 2;
+  var DELETE_USER_MODE = 3;
+  var DOWNLOAD_MODE = 4;
+  var REMINDER_MODE = 5;
 
-    var USER_ROLE = 0;
-    var TRAINER_ROLE = 1;
-    var DEVELOPER_ROLE = 2;
+  var USER_ROLE = 0;
+  var TRAINER_ROLE = 1;
+  var DEVELOPER_ROLE = 2;
 
-    var map, base_map, data_privacy_content, data_privacy_control,
-        user_menu_control, user_icon, trainer_icon, developer_icon,
-        estimated_location_circle, current_mode;
+  var map, base_map, data_privacy_content, data_privacy_control,
+      user_menu_control, user_icon, trainer_icon, developer_icon,
+      estimated_location_circle, current_mode;
 
   //Initialize Basemap Layer
   base_map = createBasemap();
@@ -83,6 +83,19 @@
   // Create Data Privacy Control
   data_privacy_control = createDataPrivacyControl();
   map.addControl(new data_privacy_control);
+
+  // Create User Menu Control and add some tooltips
+  user_menu = {
+    "add-user-menu": '{{ user_menu.add_user }}' === 'True',
+    "edit-user-menu": '{{ user_menu.edit_user }}' === 'True',
+    "delete-user-menu": '{{ user_menu.delete_user }}' === 'True',
+    "download-menu": '{{ user_menu.download }}' === 'True',
+    "reminder-menu": '{{ user_menu.reminder }}' === 'True'
+  }
+  user_menu_control = createUserMenuControl(user_menu);
+  map.addControl(new user_menu_control);
+  $(".user-menu-control").tooltip({placement: 'right',
+    container: 'body'});
 </script>
 
 {% block js_container %}

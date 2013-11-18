@@ -64,15 +64,6 @@
       developers_layer.addTo(map);
       trainers_layer.addTo(map);
 
-      // Add User Menu Control:
-      user_menu_control = createUserMenuControl({
-        "add-user-menu": true,
-        "download-menu": true,
-        "reminder-menu": true
-      });
-      map.addControl(new user_menu_control);
-      $(".user-menu-control").tooltip({placement: 'right', container: 'body'});
-
       //Specify all layers on overlays_layers control
       overlays_layer = {
         "Users": users_layer,

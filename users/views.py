@@ -47,6 +47,7 @@ def map_view():
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
         user_form_template=user_form_template,
+        user_menu=user_menu,
         user_menu_button=user_menu_button
     )
     #pylint: disable=W0142
@@ -187,6 +188,7 @@ def edit_user_view(guid):
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
         user_form_template=user_form_template,
+        user_menu=user_menu,
         user_menu_button=user_menu_button
     )
     #pylint: disable=W0142
