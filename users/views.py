@@ -1,6 +1,6 @@
 # coding=utf-8
 """Views to handle url requests. Flask main entry point is also defined here.
-:copyright: (c) 2013 by Tim Sutton
+:copyright: (c) 2013 by Tim Sutton, Akbar Gumbira
 :license: GPLv3, see LICENSE for more details.
 """
 import json
@@ -16,26 +16,31 @@ from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
     is_boolean)
-from users.user import (add_user,
-                        edit_user,
-                        delete_user,
-                        get_user,
-                        get_user_by_email,
-                        get_all_users)
+from users.user import (
+    add_user,
+    edit_user,
+    delete_user,
+    get_user,
+    get_user_by_email,
+    get_all_users)
 from config import MAIL_ADMIN
 
 
 @APP.route('/')
 def map_view():
     """Default view - shows a map with users."""
+    #noinspection PyUnresolvedReferences
     information_modal = render_template('html/information_modal.html')
+    #noinspection PyUnresolvedReferences
     data_privacy_content = render_template('html/data_privacy.html')
+    #noinspection PyUnresolvedReferences
     user_form_template = render_template('html/user_form.html')
     user_menu = dict(
         add_user=True,
         download=True,
         reminder=True
     )
+    #noinspection PyUnresolvedReferences
     user_menu_button = render_template(
         'html/user_menu_button.html',
         **user_menu
@@ -50,6 +55,7 @@ def map_view():
         user_menu=user_menu,
         user_menu_button=user_menu_button
     )
+    #noinspection PyUnresolvedReferences
     #pylint: disable=W0142
     return render_template('html/index.html', **context)
 
@@ -62,6 +68,7 @@ def users_view():
 
     # Create model user
     all_users = get_all_users(role=user_role)
+    #noinspection PyUnresolvedReferences
     json_users = render_template('json/users.json', users=all_users)
 
     users_json = (
@@ -145,13 +152,20 @@ def add_user_view():
 
     # Send Email Confirmation:
     subject = 'User Map Registration'
-    body = render_template('text/registration_confirmation_email.txt',
-                           url=url_for('map_view', _external=True),
-                           user=added_user)
+    #noinspection PyUnresolvedReferences
+    body = render_template(
+        'text/registration_confirmation_email.txt',
+        url=url_for('map_view', _external=True),
+        user=added_user)
     recipient = added_user['email']
-    send_mail(sender=MAIL_ADMIN, recipients=[recipient], subject=subject,
-              text_body=body, html_body=None)
+    send_mail(
+        sender=MAIL_ADMIN,
+        recipients=[recipient],
+        subject=subject,
+        text_body=body,
+        html_body='')
 
+    #noinspection PyUnresolvedReferences
     added_user_json = render_template('json/users.json', users=[added_user])
     # Return Response
     return Response(added_user_json, mimetype='application/json')
@@ -167,18 +181,24 @@ def edit_user_view(guid):
     :rtype: HttpResponse
     """
     user = get_user(guid)
+    #noinspection PyUnresolvedReferences
     user_json = render_template('json/user.json', user=user)
+    #noinspection PyUnresolvedReferences
     user_popup_content = render_template(
         'html/user_info_popup_content.html', user=user
     )
+    #noinspection PyUnresolvedReferences
     information_modal = render_template('html/information_modal.html')
+    #noinspection PyUnresolvedReferences
     data_privacy_content = render_template('html/data_privacy.html')
+    #noinspection PyUnresolvedReferences
     user_form_template = render_template('html/user_form.html')
     user_menu = dict(
         edit_user=True,
         delete_user=True,
         download=True
     )
+    #noinspection PyUnresolvedReferences
     user_menu_button = render_template(
         'html/user_menu_button.html',
         **user_menu
@@ -195,6 +215,7 @@ def edit_user_view(guid):
         user_menu=user_menu,
         user_menu_button=user_menu_button
     )
+    #noinspection PyUnresolvedReferences
     #pylint: disable=W0142
     return render_template('html/edit.html', **context)
 
@@ -261,7 +282,9 @@ def edit_user_controller():
             longitude=float(longitude))
 
     edited_user = get_user(guid)
+    #noinspection PyUnresolvedReferences
     edited_user_json = render_template('json/user.json', user=edited_user)
+    #noinspection PyUnresolvedReferences
     edited_user_popup_content = render_template(
         'html/user_info_popup_content.html', user=edited_user
     )
@@ -337,6 +360,7 @@ def reminder_view():
 
     # Send Email Confirmation:
     subject = 'User Map Edit Link'
+    #noinspection PyUnresolvedReferences
     body = render_template('text/registration_confirmation_email.txt',
                            url=url_for('map_view', _external=True),
                            user=user)
