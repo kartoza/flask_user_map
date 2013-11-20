@@ -1,4 +1,13 @@
 {% extends "html/base.html" %}
+
+{% block head_resources %}
+  {{ super() }}
+  <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css"/>
+  <link rel="stylesheet" href="/users/static/css/MarkerCluster.user-map.css"/>
+  <!--[if lte IE 8]><link rel="stylesheet"  href="/users/static/css//MarkerCluster.user-map.ie.css" /><![endif]-->
+  <script src="/users/static/js/leaflet.markercluster-src.js"></script>
+{% endblock head_resources %}
+
 {% block body %}
   {{ super() }}
   <!-- Modal for reminder form -->
@@ -14,19 +23,21 @@
             Please enter your email address that you used for registration
             before. We will resend the edit link to that email.
           </p>
-          <form action ="" class="form form-horizontal" id="email_reminder_form" enctype="multipart/form-data">
+
+          <form action="" class="form form-horizontal" id="email_reminder_form" enctype="multipart/form-data">
             <div class="form-group">
               <div class="input-group input-group-sm  col-lg-8">
                 <span class="input-group-addon">Email</span>
                 <input type="email" class="form-control"
-                       placeholder="Required"  id="email_reminder"
+                       placeholder="Required" id="email_reminder"
                        name="email_reminder" required value=""/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-lg-8">
                 <button type="button" class="btn btn-primary"
-                        onclick="sendReminder();">Send!</button>
+                        onclick="sendReminder();">Send!
+                </button>
               </div>
             </div>
           </form>
@@ -41,7 +52,6 @@
     </div>
   </div>
 {% endblock %}
-
 {% block js_container %}
   <script type="text/javascript">
     var marker_new_user, overlays_layer, users_layer,
@@ -49,10 +59,30 @@
     current_mode = DEFAULT_MODE;
 
     $(document).ready(function () {
-      //User Layer
-      users_layer = new L.LayerGroup();
-      trainers_layer = new L.LayerGroup();
-      developers_layer = new L.LayerGroup();
+      //All Users Layer using MarkerCLusterGroup
+      users_layer = new L.markerClusterGroup({
+        iconCreateFunction: function (cluster) {
+          return L.divIcon({ html: '<div><span>' + cluster.getChildCount() + '</span></div>',
+            className: 'marker-cluster marker-cluster-user',
+            iconSize: L.point(40, 40)});
+        }
+      });
+      trainers_layer = new L.markerClusterGroup({
+        iconCreateFunction: function (cluster) {
+          return L.divIcon({ html: '<div><span>' + cluster.getChildCount() + '</span></div>',
+            className: 'marker-cluster marker-cluster-trainer',
+            iconSize: L.point(40, 40)});
+        }
+      });
+      developers_layer = new L.markerClusterGroup(
+          {
+            iconCreateFunction: function (cluster) {
+              return L.divIcon({ html: '<div><span>' + cluster.getChildCount() + '</span></div>',
+                className: 'marker-cluster marker-cluster-developer',
+                iconSize: L.point(40, 40)});
+            }
+          }
+      );
 
       //Add All Users to the right layer
       addUsers(users_layer, USER_ROLE);

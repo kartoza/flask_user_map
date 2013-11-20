@@ -1,6 +1,10 @@
 {% extends "html/base.html" %}
 {% block title %} Edit User {% endblock %}
 
+{% block head_resources %}
+  {{ super() }}
+{% endblock head_resources %}
+
 {% block body %}
   {{ super() }}
   <!-- Modal for delete confirmation -->
