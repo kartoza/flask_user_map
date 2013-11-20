@@ -71,7 +71,7 @@ function getUserForm(user, mode) {
   if (mode == ADD_USER_MODE) {
     // Set onclick attribute on button
     form.find(':button#submit_form').attr('onclick', 'addUser();');
-    form.find(':button#cancel_form').attr('onclick', 'cancelMarker();');
+    form.find(':button#cancel_form').attr('onclick', 'cancelAddUser();');
   } else if (mode == EDIT_USER_MODE) {
     // Set name value
     form.find('input[type=text]#name').attr('value', user['name']);
