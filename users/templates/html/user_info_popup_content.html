@@ -1,0 +1,8 @@
+{%- filter safe -%}
+  <span class='glyphicon glyphicon-user'></span> {{ user.name }}<br>
+{%- endfilter -%}
+{%- if user.website != "" -%}
+  {%- filter safe -%}
+    <span class='glyphicon glyphicon-home'></span><a href='{{ user.website }}' target='_blank'> Website</a>
+  {%- endfilter -%}
+{%- endif -%}

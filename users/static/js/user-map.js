@@ -48,22 +48,6 @@ function refreshUserLayer(role) {
 }
 
 /**
- * Add edited user to the respective layer
- * @param layer: the layer that users will be added to
- * @param user: the user that will be added
- * @param popup_content: Content of the popup that will be bind to the user marker
- */
-function addEditedUser(user, layer, popup_content) {
-  var role_icon = getUserIcon(user['role']);
-  edited_user_marker = L.marker(
-      [user['latitude'], user['longitude']],
-      {icon: role_icon }
-  );
-  edited_user_marker.addTo(layer);
-  edited_user_marker.bindPopup(popup_content).openPopup();
-}
-
-/**
  * AJAX Call to server side to add user.
  */
 function addUser() {
@@ -137,10 +121,26 @@ function addUser() {
  * Prepare user who will be edited.
  * @param user
  */
-function initializeEditedUser(user) {
+function initializeEditedUser(user, popup_content) {
   edited_user = user;
-  edited_user_popup = getUserPopup(user);
+  edited_user_popup = popup_content
   edited_user_form_popup = getUserFormPopup(user, EDIT_USER_MODE);
+}
+
+/**
+ * Add edited user to the respective layer
+ * @param layer: the layer that users will be added to
+ * @param user: the user that will be added
+ * @param popup_content: Content of the popup that will be bind to the user marker
+ */
+function addEditedUser(user, layer, popup_content) {
+  var role_icon = getUserIcon(user['role']);
+  edited_user_marker = L.marker(
+      [user['latitude'], user['longitude']],
+      {icon: role_icon }
+  );
+  edited_user_marker.addTo(layer);
+  edited_user_marker.bindPopup(popup_content).openPopup();
 }
 
 /**
@@ -182,7 +182,7 @@ function editUser() {
       },
       success: function (response) {
         edited_user_layer.clearLayers();
-        initializeEditedUser(response);
+        initializeEditedUser(JSON.parse(response.edited_user), response.edited_user_popup);
         addEditedUser(edited_user, edited_user_layer, edited_user_popup);
         edited_user_marker.dragging.disable();
         activateDefaultState(); // Back to default state

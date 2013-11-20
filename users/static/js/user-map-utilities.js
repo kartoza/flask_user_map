@@ -114,22 +114,3 @@ function getUserFormPopup(user, mode) {
   popup.setContent(form);
   return popup;
 }
-
-/**
- * Get Popup containing user data
- * @param user: javascript associative array representing user
- * @returns HTML
- */
-function getUserPopup(user) {
-  var popup;
-  if (user['website'] != "") {
-    popup = "<span class='glyphicon glyphicon-user'></span> " +
-        user['name'] + "</br><span class='glyphicon "
-        + "glyphicon-home'></span>" +
-        "<a href=" + user['website'] + " target='_blank'> Website</a>";
-  } else {
-    popup = "<span class='glyphicon glyphicon-user'></span> " +
-        user['name'];
-  }
-  return popup;
-}

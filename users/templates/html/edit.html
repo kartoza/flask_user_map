@@ -58,7 +58,7 @@
     var edited_user, edited_user_marker, edited_user_layer, edited_user_popup,
         edited_user_form_popup;
 
-    initializeEditedUser({{ user | safe }});
+    initializeEditedUser({{ user | safe }}, "{{ edited_user_popup_content | safe }}");
     current_mode = DEFAULT_MODE;
 
     $(document).ready(function () {

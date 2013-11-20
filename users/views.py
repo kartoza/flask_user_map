@@ -168,6 +168,9 @@ def edit_user_view(guid):
     """
     user = get_user(guid)
     user_json = render_template('json/user.json', user=user)
+    user_popup_content = render_template(
+        'html/user_info_popup_content.html', user=user
+    )
     information_modal = render_template('html/information_modal.html')
     data_privacy_content = render_template('html/data_privacy.html')
     user_form_template = render_template('html/user_form.html')
@@ -185,6 +188,7 @@ def edit_user_view(guid):
         current_tag_name='None',
         error='None',
         user=user_json,
+        edited_user_popup_content=user_popup_content,
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
         user_form_template=user_form_template,
@@ -258,8 +262,16 @@ def edit_user_controller():
 
     edited_user = get_user(guid)
     edited_user_json = render_template('json/user.json', user=edited_user)
+    edited_user_popup_content = render_template(
+        'html/user_info_popup_content.html', user=edited_user
+    )
+    edited_user_response = dict()
+    edited_user_response['edited_user'] = edited_user_json
+    edited_user_response['edited_user_popup'] = edited_user_popup_content
     # Return Response
-    return Response(edited_user_json, mimetype='application/json')
+    return Response(
+        json.dumps(edited_user_response),
+        mimetype='application/json')
 
 
 @APP.route('/delete/<guid>', methods=['POST'])

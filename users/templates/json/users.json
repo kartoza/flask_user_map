@@ -5,11 +5,7 @@
       "type": "Feature",
       "properties": {
         "name": "{{ user.name }}",
-        {% if user.website != "" %}
-          "popupContent": "<span class='glyphicon glyphicon-user'></span> {{ user.name }} </br><span class='glyphicon glyphicon-home'></span> <a href='{{ user.website }}' target='_blank'>Website</a>"
-        {% else %}
-          "popupContent": "<span class='glyphicon glyphicon-user'></span> {{ user.name }}"
-        {% endif %}
+        "popupContent": "{% include 'html/user_info_popup_content.html'%}"
       },
       "geometry": {
         "type": "Point",
