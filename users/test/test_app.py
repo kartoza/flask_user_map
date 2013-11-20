@@ -87,7 +87,9 @@ class AppTestCase(LoggedTestCase):
         # Test correct data
         try:
             result = self.app.post(
-                '/add_user', data=self.correct_user_data, follow_redirects=True)
+                '/add_user', 
+                data=self.correct_user_data, 
+                follow_redirects=True)
             data = result.__getattribute__('data')
             self.assertTrue('Akbar' in data)
         except Exception, e:
