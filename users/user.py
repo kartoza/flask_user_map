@@ -226,4 +226,3 @@ def get_role_name(role):
         raise Exception('Input role is not correct.')
 
     return roles[role]
-
