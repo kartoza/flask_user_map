@@ -26,5 +26,7 @@ nosetests -v --with-id --with-xcoverage --with-xunit --verbose --cover-package=u
 # see http://stackoverflow.com/questions/7347233/jenkins-with-pylint-gives-build-failure
 # pylint --output-format=parseable --reports=y --rcfile=pylintrc users > pylint.log || exit 0
 pylint --output-format=parseable --reports=y --rcfile=pylintrc users > pylint.log
+# || exit 0 is only needed when jenkins calls pylint directly, not
+# when it is pylint is run from in a shell script.
 pep8 --repeat --ignore W391 --exclude venv,none.py users > pep8.log
 deactivate

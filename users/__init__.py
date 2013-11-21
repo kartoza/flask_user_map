@@ -8,7 +8,7 @@ import os
 import logging
 
 from flask import Flask
-from flask.ext.mail import Mail
+from flask_mail import Mail
 
 from users.config import MAIL_CONFIG
 
