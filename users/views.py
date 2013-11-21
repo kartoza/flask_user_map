@@ -201,6 +201,7 @@ def edit_user_view(guid):
         download=True
     )
     #noinspection PyUnresolvedReferences
+    #pylint: disable=W0142
     user_menu_button = render_template(
         'html/user_menu_button.html',
         **user_menu
