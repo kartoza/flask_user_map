@@ -24,6 +24,7 @@ nosetests -v --with-id --with-xcoverage --with-xunit --verbose --cover-package=u
 #rm -f pylint.log
 # We do || exit 0 to prevent the build failing even for small jenkins warnings
 # see http://stackoverflow.com/questions/7347233/jenkins-with-pylint-gives-build-failure
-pylint --output-format=parseable --reports=y --rcfile=pylintrc users > pylint.log || exit 0
-pep8 --repeat --ignore W391 --exclude venv,none.py . > pep8.log
+# pylint --output-format=parseable --reports=y --rcfile=pylintrc users > pylint.log || exit 0
+pylint --output-format=parseable --reports=y --rcfile=pylintrc users > pylint.log
+pep8 --repeat --ignore W391 --exclude venv,none.py users > pep8.log
 deactivate
