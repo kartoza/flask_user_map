@@ -5,6 +5,7 @@
 # Tim Sutton, November 2013
 
 export USER_MAP_LOGFILE='/tmp/user_map-jenkins.log'
+cp users/config.py.test users/config.py
 rm -rf venv
 virtualenv venv
 source venv/bin/activate
