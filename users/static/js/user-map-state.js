@@ -15,6 +15,10 @@ function activateDefaultState() {
   $('#delete-user-button').removeClass('active');
   $('#download-button').removeClass('active');
   $('#reminder-button').removeClass('active');
+  // If estimated_location_circle exists, remove that circle from map
+  if (typeof estimated_location_circle != 'undefined') {
+    map.removeLayer(estimated_location_circle);
+  }
 }
 
 /**
@@ -54,7 +58,7 @@ function activateEditUserState() {
   edited_user_marker.dragging.enable();
   // Give user the information:
   var info_title = 'Information';
-  var info_content = 'Drag your marker to change your location!';
+  var info_content = 'Drag your marker and click Done to change your location!';
   showInformationModal(info_title, info_content);
   //Popup the form
   edited_user_marker.bindPopup(edited_user_form_popup).openPopup();
