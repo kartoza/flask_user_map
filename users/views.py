@@ -24,7 +24,7 @@ from users.user import (
     get_user_by_email,
     get_all_users,
     get_role_name)
-from config import MAIL_ADMIN
+from users.config import MAIL_ADMIN
 
 
 @APP.route('/')
@@ -42,6 +42,7 @@ def map_view():
         reminder=True
     )
     #noinspection PyUnresolvedReferences
+    #pylint: disable=W0403
     user_menu_button = render_template(
         'html/user_menu_button.html',
         **user_menu
