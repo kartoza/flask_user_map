@@ -3,6 +3,14 @@ User Map
 
 A simple flask application for creating user community maps.
 
+First create a valid ``config.py`` e.g.
+
+```
+cp users/config.py.prod users/config.py
+```
+
+Then edit the config file, setting appropriate values as needed.
+
 To run in debug mode (which will also serve up static content), use the -d
 flag.
 

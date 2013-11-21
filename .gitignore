@@ -1,6 +1,8 @@
 .idea/workspace.xml
 venv
+test_users.db
 users.db
+users/config.py
 *.py[cod]
 
 # C extensions
@@ -37,4 +39,3 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
-users.db
