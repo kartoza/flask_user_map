@@ -125,12 +125,8 @@ function cancelAddUser() {
   cancelMarker();
   // Activate Default State
   activateDefaultState();
-  // If estimated_location_circle exists, remove that circle first from map
-  if (typeof estimated_location_circle != 'undefined') {
-    map.removeLayer(estimated_location_circle);
-  }
-
 }
+
 /**
  * Prepare user who will be edited.
  * @param user
