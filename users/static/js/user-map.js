@@ -4,9 +4,16 @@
  */
 
 /**
- * Add users to the respective layer based on user_role
- * @param layer: the layer that users will be added to
- * @param user_role: the role of users that will be added
+ * Add users to the respective layer based on user_role.
+ * @param {object} layer The layer that users will be added to.
+ * @param {int} user_role The role of users that will be added.
+ * @name L The Class from Leaflet.
+ * @property geoJson
+ * @property users
+ * @property addTo
+ * @property properties
+ * @property popupContent
+ * @property bindPopup
  */
 function addUsers(layer, user_role) {
   $.ajax({
@@ -33,13 +40,13 @@ function addUsers(layer, user_role) {
     if (feature.properties && feature.properties.popupContent) {
       layer.bindPopup(feature.properties.popupContent);
     }
-  };
+  }
 }
 
 /**
  * Refresh user layer based on the role.
  * Each user who has the same role is grouped on the same layer.
- * @param role: Role of the users that its layer is wanted to be refreshed
+ * @param {int} role The role of the users that its layer is wanted to be refreshed.
  */
 function refreshUserLayer(role) {
   var layer = getUserLayer(role);
@@ -49,15 +56,21 @@ function refreshUserLayer(role) {
 
 /**
  * AJAX Call to server side to add user.
+ *
  */
 function addUser() {
-  //Clear Form Message:
-  $("#name").parent().removeClass("has-error");
-  $("#email").parent().removeClass("has-error");
+  // Get the input by jQuery Selector
+  var name_input = $("#name");
+  var email_input = $("#email");
+  var website_input = $("#website");
 
-  var name = $("#name").val();
-  var email = $("#email").val();
-  var website = $("#website").val();
+  //Clear Form Message:
+  name_input.parent().removeClass("has-error");
+  email_input.parent().removeClass("has-error");
+
+  var name = name_input.val();
+  var email = email_input.val();
+  var website = website_input.val();
   var role = $('input:radio[name=role]:checked').val();
   var email_updates;
   if ($('#email_updates').is(':checked')) {
@@ -105,7 +118,7 @@ function addUser() {
             refreshUserLayer(DEVELOPER_ROLE);
           }
           activateDefaultState(); // Back to default state
-          var add_success_title = "Information"
+          var add_success_title = "Information";
           var add_success_info =
                   "Thank you for adding yourself into our database! " +
                   "Please check your email to see the registration " +
@@ -129,19 +142,21 @@ function cancelAddUser() {
 
 /**
  * Prepare user who will be edited.
- * @param user
+ * @param {object} user The user who will be edited.
+ * @param {string} popup_content Popup content of the this edited user marker.
  */
 function initializeEditedUser(user, popup_content) {
   edited_user = user;
-  edited_user_popup = popup_content
+  edited_user_popup = popup_content;
   edited_user_form_popup = getUserFormPopup(user, EDIT_USER_MODE);
 }
 
 /**
- * Add edited user to the respective layer
- * @param layer: the layer that users will be added to
- * @param user: the user that will be added
- * @param popup_content: Content of the popup that will be bind to the user marker
+ * Add edited user to the respective layer.
+ * @param {object} layer The layer that users will be added to.
+ * @param {object} user The user that will be added.
+ * @param {string} popup_content The content of the popup that will be bind to the user marker.
+ * @property marker
  */
 function addEditedUser(user, layer, popup_content) {
   var role_icon = getUserIcon(user['role']);
@@ -155,15 +170,22 @@ function addEditedUser(user, layer, popup_content) {
 
 /**
  * AJAX call to server side to edit user.
+ * @name edited_user_layer
+ * @property getLatLng
+ * @property edited_user
+ * @property edited_user_popup
+ * @property dragging
  */
 function editUser() {
+  var name_input = $("#name");
+  var email_input = $("#email");
   //Clear Form Message:
-  $("#name").parent().removeClass("has-error");
-  $("#email").parent().removeClass("has-error");
+  name_input.parent().removeClass("has-error");
+  email_input.parent().removeClass("has-error");
 
   var guid = edited_user['guid'];
-  var name = $("#name").val();
-  var email = $("#email").val();
+  var name = name_input.val();
+  var email = email_input.val();
   var website = $("#website").val();
   var role = $('input:radio[name=role]:checked').val();
   var email_updates;
@@ -206,6 +228,11 @@ function editUser() {
 
 /**
  * This method is fired when user click cancel button at edit user form.
+ * @name map
+ * @property openPopup
+ * @property closePopup
+ * @property fitWorld
+ * @property zoomIn
  */
 function cancelEditUser() {
   // Set back the marker
@@ -229,7 +256,7 @@ function deleteUser() {
   $.ajax({
     type: "POST",
     url: "/delete/"+edited_user['guid'],
-    success: function(response) {
+    success: function() {
       $('#delete-success-modal').modal({
         backdrop: false
       });
@@ -239,10 +266,13 @@ function deleteUser() {
 
 /**
  * AJAX Call to server side. Used for sending reminder to user email.
+ * @property modal
  */
 function sendReminder() {
-  $("#email_reminder").parent().removeClass("has-error");
-  var email = $("#email_reminder").val();
+  var email_reminder_input = $("#email_reminder");
+
+  email_reminder_input.parent().removeClass("has-error");
+  var email = email_reminder_input.val();
   var is_email_valid = isEmailSatisfied(email);
   if (is_email_valid) {
     $.ajax({
@@ -253,34 +283,32 @@ function sendReminder() {
       },
       success: function(response) {
         if (response.type.toString() == 'Error') {
-          $("#email_reminder").parent().addClass("has-error");
-          $('#email_reminder')
-              .attr("placeholder", 'Email is not registered in our database');
+          email_reminder_input.parent().addClass("has-error");
+          email_reminder_input.attr("placeholder", 'Email is not registered in our database');
         } else if (response.type.toString() == 'Success') {
           $('#reminder-menu-modal').modal('hide');
           var info_title = "Information";
           var info_content =
               "Email is succesfully sent to you. Please check your email to " +
-              "see the details."
+              "see the details.";
           showInformationModal(info_title, info_content);
           activateDefaultState();
         }
       }
     });
   } else {
-    $("#email_reminder").parent().addClass("has-error");
-    $('#email_reminder')
-        .attr("placeholder", 'Email is not registered in our database');
+    email_reminder_input.parent().addClass("has-error");
+    email_reminder_input.attr("placeholder", 'Email is not registered in our database');
   }
 }
 
 
 /**
  * User form validation.
- * @param str_name
- * @param str_email
- * @param str_website
- * @returns {*}
+ * @param {string} str_name The name value.
+ * @param {string} str_email The email value.
+ * @param {string} str_website The website value.
+ * @returns {boolean} is_all_valid The validity value of submitted user form.
  */
 function validate_user_form(str_name, str_email, str_website) {
   var is_name_valid, is_email_valid, is_website_valid, is_all_valid;

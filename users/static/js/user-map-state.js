@@ -23,6 +23,7 @@ function activateDefaultState() {
 
 /**
  * Activate Add User State. The state when user click 'Add Me' button
+ * @property locate
  */
 function activateAddUserState() {
   // Reset to Default State first
@@ -44,6 +45,7 @@ function activateAddUserState() {
 
 /**
 * Activate Edit User State. The state when user click 'Edit User' button
+* @property fitBounds
 */
 function activateEditUserState() {
   // Reset to Default State first

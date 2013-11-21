@@ -5,10 +5,12 @@
 
 /**
  * Create basemap instance to be used.
- * @returns {*}
+ * @property tileLayer
+ * @returns {object} base_map
  */
 function createBasemap() {
-  var base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
+  var base_map;
+  base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
       '.png', {
     attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
     maxZoom: 18
@@ -18,10 +20,12 @@ function createBasemap() {
 
 /**
  * Create IconMarkerBase that will be used for icon marker.
- * @returns {void|b.extend|*|x.extend}
+ * @returns {object} IconMarkerBase
+ * @property Icon
  */
 function createIconMarkerBase() {
-  var IconMarkerBase = L.Icon.extend({
+  var IconMarkerBase;
+  IconMarkerBase = L.Icon.extend({
     options: {
       shadowUrl: '/static/img/shadow-icon.png',
       iconSize: [19, 32],
@@ -43,7 +47,8 @@ function createAllIcons() {
   var user_icon = new IconMarkerBase({iconUrl: '/static/img/user-icon.png'});
   var trainer_icon = new IconMarkerBase({iconUrl: '/static/img/trainer-icon.png'});
   var developer_icon = new IconMarkerBase({iconUrl: '/static/img/developer-icon.png'});
-  var all_icons = {
+  var all_icons;
+  all_icons = {
     user_icon: user_icon,
     trainer_icon: trainer_icon,
     developer_icon: developer_icon
@@ -53,11 +58,14 @@ function createAllIcons() {
 
 /**
  * Create Data Privacy Control instance on the bottom left of the map.
- * @param data_privacy_content: Content of data privacy modal.
- * @returns {void|b.extend|*|x.extend}
+ * @property Control
+ * @property DomUtil
+ * @property DomEvent
+ * @returns {object} control
  */
 function createDataPrivacyControl() {
-  var control = L.Control.extend({
+  var control;
+  control = L.Control.extend({
     options: {
       position: 'bottomleft'
     },
@@ -69,7 +77,7 @@ function createDataPrivacyControl() {
       onDataPrivacyClick = function () {
         showInformationModal(data_privacy_title, data_privacy_content);
       }
-      data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>"
+      data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>";
 
       //Prevent firing drag and onClickMap event when clicking this control
       var stop = L.DomEvent.stopPropagation;
@@ -86,7 +94,7 @@ function createDataPrivacyControl() {
 
 /**
  * Create User Menu Control on the top left of the map.
- * @param options: Visibility of each component.
+ * @param {object} options Visibility of each component.
  * False if hidden, True if visible. If None, then it will be hidden.
  *
  * There are 3 menus on this control:
@@ -100,11 +108,12 @@ function createDataPrivacyControl() {
  * to show add-user-menu and download-menu
  */
 function createUserMenuControl(options) {
-  var control = L.Control.extend({
+  var control;
+  control = L.Control.extend({
     options: {
       position: 'topleft'
     },
-    onAdd: function (map) {
+    onAdd: function () {
       // Set HTML and CSS for it
       var user_menu_container = L.DomUtil.create('div',
           'user_menu_control btn-group-vertical');
