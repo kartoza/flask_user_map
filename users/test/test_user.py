@@ -44,7 +44,7 @@ class TestUser(TestCase):
         guid = add_user(**self.user_to_add)
         self.assertIsNotNone(guid)
         number_of_users_after = len(get_all_users())
-        self.assertEqual(number_of_users_before+1, number_of_users_after)
+        self.assertEqual(number_of_users_before + 1, number_of_users_after)
 
     def test_edit_user(self):
         """Test for edit user function."""

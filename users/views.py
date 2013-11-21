@@ -264,7 +264,7 @@ def edit_user_controller():
         email_updates = False
 
     if len(website.strip()) != 0 and 'http' not in website:
-        website = 'http://'+website
+        website = 'http://%s' % website
 
     # Process data
     if len(message) != 0:
