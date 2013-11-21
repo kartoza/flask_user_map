@@ -9,8 +9,15 @@ rm -rf venv
 virtualenv venv
 source venv/bin/activate
 venv/bin/pip install -r requirements.txt
-venv/bin/pip install pep8 pylint
-rm users.db test_users.db
+venv/bin/pip install pep8 pylint nose nosexcover
+if [ -f users.db ];
+then
+  rm users.db
+fi
+if [ -f test_users.db ];
+then
+  rm test_users.db
+fi
 export PYTHONPATH=`pwd`/users:`pwd`:`pwd`/venv/lib/python2.7/site-packages/
 nosetests -v --with-id --with-xcoverage --with-xunit --verbose --cover-package=users users
 #rm -f pylint.log
