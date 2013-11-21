@@ -42,7 +42,7 @@ def map_view():
         reminder=True
     )
     #noinspection PyUnresolvedReferences
-    #pylint: disable=W0403
+    #pylint: disable=W0142
     user_menu_button = render_template(
         'html/user_menu_button.html',
         **user_menu
