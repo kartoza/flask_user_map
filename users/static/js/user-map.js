@@ -1,6 +1,9 @@
 /**
  * Author: Akbar Gumbira (akbargumbira@gmail.com)
- * Description: This file contains methods related directly to user map
+ * Description:
+ * This file contains methods related directly to user map.
+ * It follows Airbnb Javascript style guide (https://github.com/airbnb/javascript)
+ * and JSDoc for the documentation.
  */
 
 /**
@@ -8,17 +11,17 @@
  * @param {object} layer The layer that users will be added to.
  * @param {int} user_role The role of users that will be added.
  * @name L The Class from Leaflet.
- * @property geoJson
- * @property users
- * @property addTo
- * @property properties
- * @property popupContent
- * @property bindPopup
+ * @property geoJson Property of L class.
+ * @property users Property of response object.
+ * @function addTo add child element to the map.
+ * @property properties Property of a feature.
+ * @property popupContent Property of properties.
+ * @function bindPopup Bind popup to marker
  */
 function addUsers(layer, user_role) {
   $.ajax({
-    type: "POST",
-    url: "/users.json",
+    type: 'POST',
+    url: '/users.json',
     dataType: 'json',
     data: {
       user_role: user_role
@@ -56,36 +59,38 @@ function refreshUserLayer(role) {
 
 /**
  * AJAX Call to server side to add user.
- *
  */
 function addUser() {
   // Get the input by jQuery Selector
-  var name_input = $("#name");
-  var email_input = $("#email");
-  var website_input = $("#website");
+  var $name_input = $('#name');
+  var $email_input = $('#email');
+  var $website_input = $('#website');
 
   //Clear Form Message:
-  name_input.parent().removeClass("has-error");
-  email_input.parent().removeClass("has-error");
+  $name_input.parent().removeClass('has-error');
+  $email_input.parent().removeClass('has-error');
 
-  var name = name_input.val();
-  var email = email_input.val();
-  var website = website_input.val();
+  var name = $name_input.val();
+  var email = $email_input.val();
+  var website = $website_input.val();
   var role = $('input:radio[name=role]:checked').val();
+
+  var $email_updates_input = $('#email_updates');
   var email_updates;
-  if ($('#email_updates').is(':checked')) {
-    email_updates = "true";
+  if ($email_updates_input.is(':checked')) {
+    email_updates = 'true';
   } else {
-    email_updates = "false";
+    email_updates = 'false';
   }
-  var latitude = $("#lat").val();
-  var longitude = $("#lng").val();
+
+  var latitude = $('#lat').val();
+  var longitude = $('#lng').val();
 
   var is_client_side_valid = validate_user_form(name, email, website);
   if (is_client_side_valid) {
     $.ajax({
-      type: "POST",
-      url: "/add_user",
+      type: 'POST',
+      url: '/add_user',
       data: {
         name: name,
         email: email,
@@ -98,13 +103,13 @@ function addUser() {
       success: function (response) {
         if (response.type.toString() == 'Error') {
           if (typeof response.name != 'undefined') {
-            $("#name").parent().addClass("has-error");
-            $('#name').attr("placeholder", response.name.toString());
+            $name_input.parent().addClass('has-error');
+            $name_input.attr('placeholder', response.name.toString());
 
           }
           if (typeof response.email != 'undefined') {
-            $("#email").parent().addClass("has-error");
-            $('#email').attr("placeholder", response.email.toString());
+            $email_input.parent().addClass('has-error');
+            $email_input.attr('placeholder', response.email.toString());
           }
         } else {
           //Clear marker
@@ -118,11 +123,11 @@ function addUser() {
             refreshUserLayer(DEVELOPER_ROLE);
           }
           activateDefaultState(); // Back to default state
-          var add_success_title = "Information";
+          var add_success_title = 'Information';
           var add_success_info =
-                  "Thank you for adding yourself into our database! " +
-                  "Please check your email to see the registration " +
-                  "confirmation";
+                  'Thank you for adding yourself into our database! ' +
+                  'Please check your email to see the registration ' +
+                  'confirmation';
           showInformationModal(add_success_title, add_success_info);
         }
       }
@@ -170,29 +175,29 @@ function addEditedUser(user, layer, popup_content) {
 
 /**
  * AJAX call to server side to edit user.
- * @name edited_user_layer
- * @property getLatLng
- * @property edited_user
- * @property edited_user_popup
- * @property dragging
+ * @name edited_user_layer Global variable of a layer of edited user.
+ * @property getLatLng Method to get Latitude and Longitude from a marker.
+ * @property edited_user Global variable of a user who will be edited
+ * @property edited_user_popup Global variable of a user popup content
+ * @property dragging Property of a marker to set drag option.
  */
 function editUser() {
-  var name_input = $("#name");
-  var email_input = $("#email");
+  var name_input = $('#name');
+  var email_input = $('#email');
   //Clear Form Message:
-  name_input.parent().removeClass("has-error");
-  email_input.parent().removeClass("has-error");
+  name_input.parent().removeClass('has-error');
+  email_input.parent().removeClass('has-error');
 
   var guid = edited_user['guid'];
   var name = name_input.val();
   var email = email_input.val();
-  var website = $("#website").val();
+  var website = $('#website').val();
   var role = $('input:radio[name=role]:checked').val();
   var email_updates;
   if ($('#email_updates').is(':checked')) {
-    email_updates = "true";
+    email_updates = 'true';
   } else {
-    email_updates = "false";
+    email_updates = 'false';
   }
   var latitude = edited_user_marker.getLatLng().lat.toFixed(8);
   var longitude = edited_user_marker.getLatLng().lng.toFixed(8);
@@ -200,8 +205,8 @@ function editUser() {
   var is_client_side_valid = validate_user_form(name, email, website);
   if (is_client_side_valid) {
     $.ajax({
-      type: "POST",
-      url: "/edit_user",
+      type: 'POST',
+      url: '/edit_user',
       data: {
         guid: guid,
         name: name,
@@ -217,7 +222,7 @@ function editUser() {
         initializeEditedUser(JSON.parse(response.edited_user), response.edited_user_popup);
         addEditedUser(edited_user, edited_user_layer, edited_user_popup);
         edited_user_marker.dragging.disable();
-        activateDefaultState(); // Back to default state
+        activateDefaultState();
         var info_title = 'Information';
         var info_content = 'You have successfully edited your data!';
         showInformationModal(info_title, info_content);
@@ -228,11 +233,11 @@ function editUser() {
 
 /**
  * This method is fired when user click cancel button at edit user form.
- * @name map
- * @property openPopup
- * @property closePopup
- * @property fitWorld
- * @property zoomIn
+ * @name map Global variable of the map.
+ * @property openPopup Method of a popup to open it.
+ * @property closePopup Method of a popup to close it.
+ * @property fitWorld Method from the L.map.
+ * @property zoomIn Methof from fitWorld.
  */
 function cancelEditUser() {
   // Set back the marker
@@ -254,8 +259,8 @@ function cancelEditUser() {
  */
 function deleteUser() {
   $.ajax({
-    type: "POST",
-    url: "/delete/"+edited_user['guid'],
+    type: 'POST',
+    url: '/delete/'+edited_user['guid'],
     success: function() {
       $('#delete-success-modal').modal({
         backdrop: false
@@ -266,39 +271,39 @@ function deleteUser() {
 
 /**
  * AJAX Call to server side. Used for sending reminder to user email.
- * @property modal
+ * @property modal Bootstrap modal.
  */
 function sendReminder() {
-  var email_reminder_input = $("#email_reminder");
+  var $email_reminder_input = $("#email_reminder");
+  $email_reminder_input.parent().removeClass("has-error");
+  var email = $email_reminder_input.val();
 
-  email_reminder_input.parent().removeClass("has-error");
-  var email = email_reminder_input.val();
   var is_email_valid = isEmailSatisfied(email);
   if (is_email_valid) {
     $.ajax({
-      type: "POST",
-      url: "/reminder",
+      type: 'POST',
+      url: '/reminder',
       data: {
         "email": email
       },
       success: function(response) {
         if (response.type.toString() == 'Error') {
-          email_reminder_input.parent().addClass("has-error");
-          email_reminder_input.attr("placeholder", 'Email is not registered in our database');
+          $email_reminder_input.parent().addClass('has-error');
+          $email_reminder_input.attr('placeholder', 'Email is not registered in our database');
         } else if (response.type.toString() == 'Success') {
           $('#reminder-menu-modal').modal('hide');
           var info_title = "Information";
           var info_content =
-              "Email is succesfully sent to you. Please check your email to " +
-              "see the details.";
+              'Email is succesfully sent to you. Please check your email to ' +
+              'see the details.';
           showInformationModal(info_title, info_content);
           activateDefaultState();
         }
       }
     });
   } else {
-    email_reminder_input.parent().addClass("has-error");
-    email_reminder_input.attr("placeholder", 'Email is not registered in our database');
+    $email_reminder_input.parent().addClass('has-error');
+    $email_reminder_input.attr('placeholder', 'Email is not registered in our database');
   }
 }
 
@@ -312,7 +317,7 @@ function sendReminder() {
  */
 function validate_user_form(str_name, str_email, str_website) {
   var is_name_valid, is_email_valid, is_website_valid, is_all_valid;
-  if (typeof document.createElement("input").checkValidity == "function") {
+  if (typeof document.createElement('input').checkValidity == 'function') {
     // This browser support HTML5 Validation
     // Validate All by HTML5:
     is_name_valid = document.getElementById('name').checkValidity();
@@ -331,17 +336,19 @@ function validate_user_form(str_name, str_email, str_website) {
 
   is_all_valid = is_name_valid && is_email_valid && is_website_valid;
   if (!is_name_valid) {
-    $("#name").parent().addClass("has-error");
-    $('#name').attr("placeholder", 'Name is required');
+    var $name_input = $('#name');
+    $name_input.parent().addClass('has-error');
+    $name_input.attr('placeholder', 'Name is required');
   }
   if (!is_email_valid) {
-    $("#email").parent().addClass("has-error");
-    $('#email')
-        .attr("placeholder", 'Email is required and needs to be valid email');
+    var $email_input = $('#email');
+    $email_input.parent().addClass('has-error');
+    $email_input.attr('placeholder', 'Email is required and needs to be valid email');
   }
   if (!is_website_valid) {
-    $("#website").parent().addClass("has-error");
-    $('#website').attr("placeholder", 'Website needs to be valid URL ');
+    var $website_input =$("#website");
+    $website_input.parent().addClass('has-error');
+    $website_input.attr('placeholder', 'Website needs to be a valid URL');
   }
   return is_all_valid;
 }

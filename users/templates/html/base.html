@@ -8,18 +8,18 @@
     <link rel="shortcut icon" href="/users/static/img/favicon.ico"/>
     <link rel="stylesheet" href="/users/static/css/bootstrap.css"
           type="text/css" static="screen, projection"/>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css"/>
-    <link rel="stylesheet" href="/users/static/css/leaflet.label.css"/>
+    <link rel="stylesheet" href="/users/static/css/leaflet.css"/>
     <!--[if lte IE 8]>
-             <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+             <link rel="stylesheet" href="/users/static/css/leaflet.ie.css" />
          <![endif]-->
+    <link rel="stylesheet" href="/users/static/css/leaflet.label.css"/>
     <link rel="stylesheet" href="/users/static/css/user-map.css"
-          type="text/css" static="screen, projection"/>
+          type="text/css"/>
     <script language="javascript"
             type="text/javascript" src="/users/static/js/jquery.js"></script>
     <script language="javascript"
             type="text/javascript" src="/users/static/js/bootstrap.min.js"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script src="/users/static/js/leaflet.js"></script>
     <script src="/users/static/js/leaflet.label.js"></script>
     <script language="javascript"
             type="text/javascript" src="/users/static/js/user-map.js"></script>
@@ -92,7 +92,7 @@
     "delete-user-menu": '{{ user_menu.delete_user }}' === 'True',
     "download-menu": '{{ user_menu.download }}' === 'True',
     "reminder-menu": '{{ user_menu.reminder }}' === 'True'
-  }
+  };
   user_menu_control = createUserMenuControl(user_menu);
   map.addControl(new user_menu_control);
   $(".user-menu-control").tooltip({placement: 'right',

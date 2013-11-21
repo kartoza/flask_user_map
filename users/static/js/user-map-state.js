@@ -1,6 +1,9 @@
 /**
  * Author: Akbar Gumbira (akbargumbira@gmail.com)
- * Description: This file contains all the function regarding to state user menu control
+ * Description:
+ * This file contains all the function regarding to state user menu control.
+ * It follows Airbnb Javascript style guide (https://github.com/airbnb/javascript)
+ * and JSDoc for the documentation.
  */
 
 /**
@@ -104,7 +107,7 @@ function activateDownloadState() {
 function activateReminderState() {
   // Reset to Default State first
   activateDefaultState();
-  $("#email_reminder").parent().removeClass("has-error");
+  $('#email_reminder').parent().removeClass('has-error');
   // Set mode to delete user mode
   current_mode = REMINDER_MODE;
   // Set css button to active
