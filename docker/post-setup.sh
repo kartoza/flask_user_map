@@ -16,3 +16,4 @@ then
     ln -s /etc/nginx/sites-available/default
 fi
 
+chown -R web.web /home/web/
