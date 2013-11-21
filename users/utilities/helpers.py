@@ -6,7 +6,7 @@ from flask import jsonify
 from werkzeug.exceptions import HTTPException
 from flask.ext.mail import Message
 
-from users import mail
+from users import mail, APP
 
 
 def make_json_error(ex):
@@ -25,17 +25,9 @@ def make_json_error(ex):
     return response
 
 
-def send_async_email(message):
-    """Function to send email by message. This function will be called by a
-    thread on send_mail function.
-    :param message: The message that will be sent.
-    :type message: Message
-    """
-    mail.send(message)
-
-
 def send_mail(sender, recipients, subject, text_body, html_body):
-    """To send a single email from sender to receiver
+    """To send a single email from sender to receiver synchronously
+
     :param sender: Sender of the email.
     :type sender: str
     :param recipients: Recipients email address.
@@ -51,5 +43,29 @@ def send_mail(sender, recipients, subject, text_body, html_body):
     message = Message(subject=subject, sender=sender, recipients=recipients)
     message.body = text_body
     message.html = html_body
-    thread = Thread(target=send_async_email, args=[message])
-    thread.start()
+    with APP.app_context():
+        mail.send(message)
+
+
+def send_async_mail(sender, recipients, subject, text_body, html_body):
+    """To send email asynchronously
+
+     :param sender: Sender of the email.
+    :type sender: str
+    :param recipients: Recipients email address.
+    :type recipients: list
+    :param subject: Subject of the email.
+    :type subject: str
+    :param text_body: Text of the body.
+    :type text_body: str
+    :param html_body: HTML of the body.
+    :type html_body: str
+    :return sender_thread: The thread for sending the email.
+    :rtype: Thread
+    """
+    sender_thread = Thread(
+        target=send_mail,
+        args=[sender, recipients, subject, text_body, html_body]
+    )
+    sender_thread.start()
+    return sender_thread

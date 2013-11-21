@@ -11,7 +11,7 @@ from werkzeug.exceptions import default_exceptions
 # App declared directly in __init__ as per
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 from . import APP
-from users.utilities.helpers import make_json_error, send_mail
+from users.utilities.helpers import make_json_error, send_mail, send_async_mail
 from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
@@ -159,7 +159,7 @@ def add_user_view():
         url=url_for('map_view', _external=True),
         user=added_user)
     recipient = added_user['email']
-    send_mail(
+    send_async_mail(
         sender=MAIL_ADMIN,
         recipients=[recipient],
         subject=subject,
