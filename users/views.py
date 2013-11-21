@@ -22,7 +22,8 @@ from users.user import (
     delete_user,
     get_user,
     get_user_by_email,
-    get_all_users)
+    get_all_users,
+    get_role_name)
 from config import MAIL_ADMIN
 
 
@@ -327,11 +328,11 @@ def download_view():
         users = get_all_users(user_role)
         for user in users:
             i += 1
-            csv_users += '\n%i|%s|%s|%i|%s|%s' % (
+            csv_users += '\n%i|%s|%s|%s|%s|%s' % (
                 i,
                 user['name'],
                 user['website'],
-                user['role'],
+                get_role_name(user['role']),
                 user['longitude'],
                 user['latitude'])
 

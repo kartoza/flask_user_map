@@ -209,3 +209,21 @@ def get_all_users(role=0):
 
     all_users = query_db(conn, sql)
     return all_users
+
+
+def get_role_name(role):
+    """Return string of the role name of a role.
+    0 = user , 1 = trainer, 2 = developer
+    :param role: Role [0, 1, 2]
+    :type role: int
+    """
+    roles = {
+        0: 'User',
+        1: 'Trainer',
+        2: 'Developer'}
+
+    if role not in roles:
+        raise Exception('Input role is not correct.')
+
+    return roles[role]
+

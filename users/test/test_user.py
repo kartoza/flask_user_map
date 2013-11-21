@@ -11,7 +11,8 @@ from users.user import (add_user,
                         delete_user,
                         get_user,
                         get_user_by_email,
-                        get_all_users,)
+                        get_all_users,
+                        get_role_name)
 
 
 class TestUser(TestCase):
@@ -93,3 +94,13 @@ class TestUser(TestCase):
         # Test if all the attribute exist
         for user in users:
             self.assertEqual(len(user), 10)
+
+    def test_get_role_name(self):
+        """Test for getting the role name of a role number."""
+        role = 1
+        role_name = get_role_name(role)
+        self.assertEqual(role_name, 'Trainer')
+
+        role = 4
+        with self.assertRaises(BaseException):
+            get_role_name(role)
