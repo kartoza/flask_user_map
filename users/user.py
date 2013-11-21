@@ -213,9 +213,14 @@ def get_all_users(role=0):
 
 def get_role_name(role):
     """Return string of the role name of a role.
+
     0 = user , 1 = trainer, 2 = developer
+
     :param role: Role [0, 1, 2]
     :type role: int
+
+    :returns: User, Trainer, Developer
+    :rtype: str
     """
     roles = {
         0: 'User',
