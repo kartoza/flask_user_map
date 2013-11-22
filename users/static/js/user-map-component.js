@@ -177,6 +177,15 @@ function createUserMenuControl(options) {
   return control;
 }
 
+/**
+ * Create legend control instance on the bottom right of the map.
+ * The legend contains the icon and the name of the role:
+ * 1. User
+ * 2. Trainer
+ * 3. Developer
+ *
+ * @returns {object} control
+ */
 function createLegendControl(user_icon_path, trainer_icon_path, developer_icon_path){
   var control;
   control = L.Control.extend({
@@ -203,6 +212,7 @@ function createLegendControl(user_icon_path, trainer_icon_path, developer_icon_p
   });
   return control;
 }
+
 /**
  * Listener to geolocation. Called when location is found.
  * NOTE:
