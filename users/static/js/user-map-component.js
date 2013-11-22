@@ -177,6 +177,32 @@ function createUserMenuControl(options) {
   return control;
 }
 
+function createLegendControl(user_icon_path, trainer_icon_path, developer_icon_path){
+  var control;
+  control = L.Control.extend({
+    options: {
+      position: 'bottomright'
+    },
+    onAdd: function () {
+      var legend_container = L.DomUtil.create('div',
+          'info legend');
+      legend_container.innerHTML += "<h4>Legend</h4>";
+      legend_container.innerHTML += "<img height='25' width='20' src='" +user_icon_path + "'>" + " User<br>";
+      legend_container.innerHTML += "<img height='25' width='20' src='" +trainer_icon_path + "'>" + " Trainer<br>";
+      legend_container.innerHTML += "<img height='25' width='20' src='" +developer_icon_path + "'>" + " Developer";
+
+      //Prevent firing drag and onClickMap event when clicking this control
+      var stop = L.DomEvent.stopPropagation;
+      L.DomEvent
+          .on(legend_container, 'click', stop)
+          .on(legend_container, 'mousedown', stop)
+          .on(legend_container, 'dblclick', stop)
+          .on(legend_container, 'click', L.DomEvent.preventDefault);
+      return legend_container;
+    }
+  });
+  return control;
+}
 /**
  * Listener to geolocation. Called when location is found.
  * NOTE:

@@ -93,6 +93,14 @@
   map.addControl(new user_menu_control);
   $(".user-menu-control").tooltip({placement: 'right',
     container: 'body'});
+
+  // Create Legend Control:
+  legend_control = createLegendControl(
+      '{{ user_icons.user }}',
+      '{{ user_icons.trainer }}',
+      '{{ user_icons.developer }}'
+  )
+  map.addControl(new legend_control);
 </script>
 
 {% block js_container %}
