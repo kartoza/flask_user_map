@@ -1,6 +1,9 @@
 /**
  * Author: Akbar Gumbira (akbargumbira@gmail.com)
- * Description: This file contains all the function to prepare map components
+ * Description:
+ * This file contains all the function to prepare map components.
+ * It follows Airbnb Javascript style guide (https://github.com/airbnb/javascript)
+ * and JSDoc for the documentation.
  */
 
 /**
