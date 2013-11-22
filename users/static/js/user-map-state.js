@@ -81,7 +81,7 @@ function activateDeleteUserState() {
   $('#delete-user-button').addClass('active');
   // Prompt confirmation to delete:
   $('#delete-confirmation-modal').modal({
-          backdrop: false
+    backdrop: false
   });
 
 }

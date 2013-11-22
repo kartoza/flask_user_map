@@ -76,7 +76,7 @@ function createDataPrivacyControl() {
       var data_privacy_content = $( "#data-privacy-content-section" ).html();
       onDataPrivacyClick = function () {
         showInformationModal(data_privacy_title, data_privacy_content);
-      }
+      };
       data_privacy_container.innerHTML += "<a onclick='onDataPrivacyClick()'>Data Privacy</a>";
 
       //Prevent firing drag and onClickMap event when clicking this control
@@ -118,8 +118,7 @@ function createUserMenuControl(options) {
       var user_menu_container = L.DomUtil.create('div',
           'user_menu_control btn-group-vertical');
       if (options['add-user-menu']) {
-        var button = $("#user-menu-add-button").html();
-        user_menu_container.innerHTML += button;
+        user_menu_container.innerHTML += $("#user-menu-add-button").html();
         onAddUserButtonClick = function () {
           if (current_mode != ADD_USER_MODE) {
             activateAddUserState();
@@ -127,8 +126,7 @@ function createUserMenuControl(options) {
         };
       }
       if (options['edit-user-menu']) {
-        var button = $("#user-menu-edit-button").html();
-        user_menu_container.innerHTML += button;
+        user_menu_container.innerHTML += $("#user-menu-edit-button").html();
         onEditUserButtonClick = function () {
           if (current_mode != EDIT_USER_MODE) {
             activateEditUserState();
@@ -136,8 +134,7 @@ function createUserMenuControl(options) {
         };
       }
       if (options['delete-user-menu']) {
-        var button = $("#user-menu-delete-button").html();
-        user_menu_container.innerHTML += button;
+        user_menu_container.innerHTML += $("#user-menu-delete-button").html();
         onDeleteUserButtonClick = function () {
           if (current_mode != DELETE_USER_MODE) {
             activateDeleteUserState();
@@ -145,8 +142,7 @@ function createUserMenuControl(options) {
         };
       }
       if (options['download-menu']) {
-        var button = $("#user-menu-download-button").html();
-        user_menu_container.innerHTML += button;
+        user_menu_container.innerHTML += $("#user-menu-download-button").html();
         onDownloadButtonClick = function () {
           if (current_mode != DOWNLOAD_MODE) {
             activateDownloadState();
@@ -154,8 +150,7 @@ function createUserMenuControl(options) {
         };
       }
       if (options['reminder-menu']) {
-        var button = $("#user-menu-reminder-button").html();
-        user_menu_container.innerHTML += button;
+        user_menu_container.innerHTML += $("#user-menu-reminder-button").html();
         onReminderButtonClick = function () {
           if (current_mode != REMINDER_MODE) {
             activateReminderState();

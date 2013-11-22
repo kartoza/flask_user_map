@@ -51,20 +51,12 @@
 <!-- endblock of all the template -->
 
 <script type="text/javascript">
-  var DEFAULT_MODE = 0;
-  var ADD_USER_MODE = 1;
-  var EDIT_USER_MODE = 2;
-  var DELETE_USER_MODE = 3;
-  var DOWNLOAD_MODE = 4;
-  var REMINDER_MODE = 5;
-
-  var USER_ROLE = 0;
-  var TRAINER_ROLE = 1;
-  var DEVELOPER_ROLE = 2;
-
   var map, base_map, data_privacy_content, data_privacy_control,
       user_menu_control, user_icon, trainer_icon, developer_icon,
       estimated_location_circle, current_mode;
+
+  // Set current_mode to default one
+  current_mode = DEFAULT_MODE;
 
   //Initialize Basemap Layer
   base_map = createBasemap();

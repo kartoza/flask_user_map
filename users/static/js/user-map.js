@@ -7,6 +7,28 @@
  */
 
 /**
+ * ALL THE CONSTANTS
+ * @const {int} DEFAULT_MODE The default state of the apps.
+ * @const {int} ADD_USER_MODE The state when user clicks add user menu button.
+ * @const {int} EDIT_USER_MODE The state when user clicks edit user menu button.
+ * @const {int} DELETE_USER_MODE The state when user clicks delete user menu btn.
+ * @const {int} DOWNLOAD_MODE The state when user clicks download user list btn.
+ * @const {int} REMINDER_MODE The state when user clicks reminder button.
+ * @const {int} USER_ROLE The number representation for user role.
+ * @const {int} TRAINER_ROLE The number representation for trainer role.
+ * @const {int} DEVELOPER_ROLE The number representation for developer role.
+ */
+var DEFAULT_MODE = 0;
+var ADD_USER_MODE = 1;
+var EDIT_USER_MODE = 2;
+var DELETE_USER_MODE = 3;
+var DOWNLOAD_MODE = 4;
+var REMINDER_MODE = 5;
+var USER_ROLE = 0;
+var TRAINER_ROLE = 1;
+var DEVELOPER_ROLE = 2;
+
+/**
  * Add users to the respective layer based on user_role.
  * @param {object} layer The layer that users will be added to.
  * @param {int} user_role The role of users that will be added.
@@ -237,7 +259,7 @@ function editUser() {
  * @property openPopup Method of a popup to open it.
  * @property closePopup Method of a popup to close it.
  * @property fitWorld Method from the L.map.
- * @property zoomIn Methof from fitWorld.
+ * @property zoomIn Method from fitWorld.
  */
 function cancelEditUser() {
   // Set back the marker
