@@ -11,7 +11,7 @@ from werkzeug.exceptions import default_exceptions
 # App declared directly in __init__ as per
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 from . import APP
-from users.utilities.helpers import make_json_error, send_mail, send_async_mail
+from users.utilities.helpers import make_json_error, send_async_mail
 from users.utilities.validator import (
     is_email_address_valid,
     is_required_valid,
@@ -51,6 +51,9 @@ def map_view():
     context = dict(
         current_tag_name='None',
         error='None',
+        project_name=APP.config['PROJECT_NAME'],
+        project_favicon_file=APP.config['PROJECT_FAVICON_FILE'],
+        user_icons=APP.config['USER_ICONS'],
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
         user_form_template=user_form_template,
@@ -137,7 +140,7 @@ def add_user_view():
             email_updates = False
 
         if len(website.strip()) != 0 and 'http' not in website:
-            website = 'http://' + website
+            website = 'http://%s' % website
 
         # Create model for user and add user
         guid = add_user(
@@ -153,10 +156,11 @@ def add_user_view():
     added_user = get_user(guid)
 
     # Send Email Confirmation:
-    subject = 'User Map Registration'
+    subject = '%s User Map Registration' % APP.config['PROJECT_NAME']
     #noinspection PyUnresolvedReferences
     body = render_template(
         'text/registration_confirmation_email.txt',
+        project_name=APP.config['PROJECT_NAME'],
         url=url_for('map_view', _external=True),
         user=added_user)
     recipient = added_user['email']
@@ -210,6 +214,9 @@ def edit_user_view(guid):
     context = dict(
         current_tag_name='None',
         error='None',
+        project_name=APP.config['PROJECT_NAME'],
+        project_favicon_file=APP.config['PROJECT_FAVICON_FILE'],
+        user_icons=APP.config['USER_ICONS'],
         user=user_json,
         edited_user_popup_content=user_popup_content,
         information_modal=information_modal,
@@ -338,10 +345,12 @@ def download_view():
                 user['longitude'],
                 user['latitude'])
 
+    filename = '%s-users.csv' % APP.config['PROJECT_NAME']
+    content = "attachment;filename='%s'" % filename
     return Response(
         csv_users,
-        mimetype="text/csv",
-        headers={"Content-Disposition": "attachment;filename='users.csv'"})
+        mimetype='text/csv',
+        headers={'Content-Disposition': content})
 
 
 @APP.route('/reminder', methods=['POST'])
@@ -362,13 +371,18 @@ def reminder_view():
         return Response(json.dumps(message), mimetype='application/json')
 
     # Send Email Confirmation:
-    subject = 'User Map Edit Link'
+    subject = '%s - User Map Edit Link' % APP.config['PROJECT_NAME']
     #noinspection PyUnresolvedReferences
-    body = render_template('text/registration_confirmation_email.txt',
-                           url=url_for('map_view', _external=True),
-                           user=user)
-    send_mail(sender=MAIL_ADMIN, recipients=[email], subject=subject,
-              text_body=body, html_body='')
+    body = render_template(
+        'text/registration_confirmation_email.txt',
+        project_name=APP.config['PROJECT_NAME'],
+        url=url_for('map_view', _external=True),
+        user=user)
+    send_async_mail(
+        sender=MAIL_ADMIN,
+        recipients=[email],
+        subject=subject,
+        text_body=body, html_body='')
 
     message['type'] = 'Success'
     return Response(json.dumps(message), mimetype='application/json')

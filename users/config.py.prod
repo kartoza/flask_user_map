@@ -1,15 +1,41 @@
 # coding=utf-8
 """Module for saving all configuration."""
+import os
 
-# EMAIL SERVER
+# PROJECT_NAME: Project Name.
+# It would override page title, email confirmation to user, so on.
+PROJECT_NAME = 'InaSAFE'
+
+# PROJECT_FAVICON_FILE: Path to project favicon file
+PROJECT_FAVICON_FILE = '/users/static/img/user-icon.png'
+
+# PATH TO SQLITE DB
+SQLITE_DB_PATH = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__),
+        os.path.pardir,
+        'users.db'
+    )
+)
+
+# MAIL SERVER
 MAIL_CONFIG = dict(
-    TESTING=True,
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=587,
     MAIL_USE_TLS=True,
     MAIL_USE_SSL=False,
     MAIL_USERNAME='',
-    MAIL_PASSWORD='',
+    MAIL_PASSWORD=''
 )
+
 # MAIL ADMINISTRATOR
-MAIL_ADMIN = ('User Map Administrator', 'usermapadmin@example.com')
+MAIL_ADMIN = ('InaSAFE User Map Administrator', MAIL_CONFIG['MAIL_USERNAME'])
+
+# USER ICONS: All icon paths that are used.
+# For now, there are only 3 icons that should be configured: user, trainer,
+# developer. Next time, we can be more flexible about this (the role)
+USER_ICONS = dict(
+    user='/static/img/user-icon.png',
+    trainer='/static/img/trainer-icon.png',
+    developer='/static/img/developer-icon.png'
+)

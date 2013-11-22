@@ -10,7 +10,12 @@ import logging
 from flask import Flask
 from flask_mail import Mail
 
-from users.config import MAIL_CONFIG
+from users.config import (
+    PROJECT_NAME,
+    PROJECT_FAVICON_FILE,
+    MAIL_CONFIG,
+    SQLITE_DB_PATH,
+    USER_ICONS)
 
 
 def add_handler_once(logger, handler):
@@ -84,13 +89,16 @@ def setup_logger():
 
 setup_logger()
 LOGGER = logging.getLogger('user_map')
-DB = db_file = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.path.pardir, 'users.db'))
 
 APP = Flask(__name__)
+
+# Load configuration
+APP.config['PROJECT_NAME'] = PROJECT_NAME
+APP.config['PROJECT_FAVICON_FILE'] = PROJECT_FAVICON_FILE
 APP.config.update(MAIL_CONFIG)
 mail = Mail(APP)
-APP.config['DATABASE'] = DB
+APP.config['DATABASE'] = SQLITE_DB_PATH
+APP.config['USER_ICONS'] = USER_ICONS
 # Don't import actual view methods themselves - see:
 # http://flask.pocoo.org/docs/patterns/packages/#larger-applications
 # Also views must be imported AFTER app is created above.

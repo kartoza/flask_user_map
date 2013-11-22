@@ -1,7 +1,8 @@
 Dear {{ user.name }},
 
-Thank you for adding yourself to the user map at {{ url }}. If this record was not added by
-yourself, read on below for more information on how to remove it again.
+Thank you for adding yourself to the {{ project_name }} User Map at {{ url }}.
+If this record was not added by yourself, read on below for more information
+on how to remove it again.
 
 Please note that the following information in your user record will be freely downloadable
 by anyone visiting the user map page:

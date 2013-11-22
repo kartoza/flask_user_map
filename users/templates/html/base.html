@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>{% block title %}User Map{% endblock %}</title>
+  <link rel="shortcut icon" href="{{ project_favicon_file }}">
+  <title>{% block title %}{{ project_name | safe }} User Map{% endblock %}</title>
   {% block head_resources %}
-    <link rel="shortcut icon" href="/users/static/img/favicon.ico"/>
     <link rel="stylesheet" href="/users/static/css/bootstrap.css"
           type="text/css" static="screen, projection"/>
     <link rel="stylesheet" href="/users/static/css/leaflet.css"/>
@@ -68,7 +68,11 @@
   map.fitWorld().zoomIn();
 
   // Initialize all icons for marker
-  var icons = createAllIcons();
+  var icons = createAllIcons(
+      '{{ user_icons.user }}',
+      '{{ user_icons.trainer }}',
+      '{{ user_icons.developer }}'
+  );
   user_icon = icons.user_icon;
   trainer_icon = icons.trainer_icon;
   developer_icon = icons.developer_icon;
