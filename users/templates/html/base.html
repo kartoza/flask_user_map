@@ -47,6 +47,7 @@
 {{ user_menu_button | safe }}
 {{ information_modal | safe }}
 {{ data_privacy_content | safe }}
+{{ legend | safe }}
 {{ user_form_template | safe }}
 <!-- endblock of all the template -->
 
@@ -95,11 +96,7 @@
     container: 'body'});
 
   // Create Legend Control:
-  legend_control = createLegendControl(
-      '{{ user_icons.user }}',
-      '{{ user_icons.trainer }}',
-      '{{ user_icons.developer }}'
-  )
+  legend_control = createLegendControl();
   map.addControl(new legend_control);
 </script>
 

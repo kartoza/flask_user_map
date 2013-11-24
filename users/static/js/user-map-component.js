@@ -186,7 +186,7 @@ function createUserMenuControl(options) {
  *
  * @returns {object} control
  */
-function createLegendControl(user_icon_path, trainer_icon_path, developer_icon_path){
+function createLegendControl(){
   var control;
   control = L.Control.extend({
     options: {
@@ -195,10 +195,7 @@ function createLegendControl(user_icon_path, trainer_icon_path, developer_icon_p
     onAdd: function () {
       var legend_container = L.DomUtil.create('div',
           'info legend');
-      legend_container.innerHTML += "<h4>Legend</h4>";
-      legend_container.innerHTML += "<img height='25' width='20' src='" +user_icon_path + "'>" + " User<br>";
-      legend_container.innerHTML += "<img height='25' width='20' src='" +trainer_icon_path + "'>" + " Trainer<br>";
-      legend_container.innerHTML += "<img height='25' width='20' src='" +developer_icon_path + "'>" + " Developer";
+      legend_container.innerHTML += $("#legend").html();
 
       //Prevent firing drag and onClickMap event when clicking this control
       var stop = L.DomEvent.stopPropagation;

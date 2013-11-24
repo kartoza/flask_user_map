@@ -35,6 +35,11 @@ def map_view():
     #noinspection PyUnresolvedReferences
     data_privacy_content = render_template('html/data_privacy.html')
     #noinspection PyUnresolvedReferences
+    legend = render_template(
+        'html/legend.html',
+        user_icons=APP.config['USER_ICONS']
+    )
+    #noinspection PyUnresolvedReferences
     user_form_template = render_template('html/user_form.html')
     user_menu = dict(
         add_user=True,
@@ -56,6 +61,7 @@ def map_view():
         user_icons=APP.config['USER_ICONS'],
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
+        legend=legend,
         user_form_template=user_form_template,
         user_menu=user_menu,
         user_menu_button=user_menu_button
@@ -198,6 +204,11 @@ def edit_user_view(guid):
     #noinspection PyUnresolvedReferences
     data_privacy_content = render_template('html/data_privacy.html')
     #noinspection PyUnresolvedReferences
+    legend = render_template(
+        'html/legend.html',
+        user_icons=APP.config['USER_ICONS']
+    )
+    #noinspection PyUnresolvedReferences
     user_form_template = render_template('html/user_form.html')
     user_menu = dict(
         edit_user=True,
@@ -221,6 +232,7 @@ def edit_user_view(guid):
         edited_user_popup_content=user_popup_content,
         information_modal=information_modal,
         data_privacy_content=data_privacy_content,
+        legend=legend,
         user_form_template=user_form_template,
         user_menu=user_menu,
         user_menu_button=user_menu_button
