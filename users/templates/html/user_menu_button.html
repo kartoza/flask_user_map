@@ -1,4 +1,4 @@
-{% if add_user %}
+{%- if add_user %}
   <script id="user-menu-add-button" type="text/template">
     <button type="button" class="btn btn-default btn-sm user-menu-control"
             id="add-user-button" onclick="onAddUserButtonClick()"
@@ -8,7 +8,7 @@
   </script>
 {% endif %}
 
-{% if edit_user %}
+{%- if edit_user %}
   <script id="user-menu-edit-button" type="text/template">
       <button type="button" class="btn btn-default btn-sm user-menu-control"
             id="edit-user-button" onclick="onEditUserButtonClick()""
@@ -18,7 +18,7 @@
   </script>
 {% endif %}
 
-{% if delete_user %}
+{%- if delete_user %}
   <script id="user-menu-delete-button" type="text/template">
     <button type="button" class="btn btn-default btn-sm user-menu-control"
             id="delete-user-button" onclick="onDeleteUserButtonClick()"
@@ -28,7 +28,7 @@
   </script>
 {% endif %}
 
-{% if download %}
+{%- if download %}
   <script id="user-menu-download-button" type="text/template">
     <button type="button" class="btn btn-default btn-sm user-menu-control"
             id="download-button" onclick="onDownloadButtonClick()"
@@ -39,7 +39,7 @@
   </script>
 {% endif %}
 
-{% if reminder %}
+{%- if reminder %}
   <script id="user-menu-reminder-button" type="text/template">
     <button type="button" class="btn btn-default btn-sm user-menu-control"
             id="reminder-button" onclick="onReminderButtonClick()"
