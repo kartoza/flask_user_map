@@ -33,9 +33,11 @@ MAIL_ADMIN = ('InaSAFE User Map Administrator', MAIL_CONFIG['MAIL_USERNAME'])
 
 # USER ICONS: All icon paths that are used.
 # For now, there are only 3 icons that should be configured: user, trainer,
-# developer. Next time, we can be more flexible about this (the role)
+# developer. And used the same shadow for all of the icons. Next time,
+# we can be more flexible about this (the role)
 USER_ICONS = dict(
     user='/static/img/user-icon.png',
     trainer='/static/img/trainer-icon.png',
-    developer='/static/img/developer-icon.png'
+    developer='/static/img/developer-icon.png',
+    shadow='/static/img/shadow-icon.png'
 )

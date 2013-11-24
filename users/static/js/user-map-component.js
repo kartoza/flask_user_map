@@ -23,14 +23,15 @@ function createBasemap() {
 
 /**
  * Create IconMarkerBase that will be used for icon marker.
+ * @param {string} shadow_icon_path The path to shadow icon.
  * @returns {object} IconMarkerBase
  * @property Icon
  */
-function createIconMarkerBase() {
+function createIconMarkerBase(shadow_icon_path) {
   var IconMarkerBase;
   IconMarkerBase = L.Icon.extend({
     options: {
-      shadowUrl: '/static/img/shadow-icon.png',
+      shadowUrl: shadow_icon_path,
       iconSize: [19, 32],
       shadowSize: [42, 35],
       iconAnchor: [12, 32],
@@ -46,10 +47,11 @@ function createIconMarkerBase() {
  * @param {string} user_icon_path The icon path for user role.
  * @param {string} trainer_icon_path The icon path for trainer role.
  * @param {string} developer_icon_path The icon path for developer role.
+ * @param {string} shadow_icon_path The shadow for all icons.
  * @returns {{user_icon: IconMarkerBase, trainer_icon: IconMarkerBase, developer_icon: IconMarkerBase}}
  */
-function createAllIcons(user_icon_path, trainer_icon_path, developer_icon_path) {
-  var IconMarkerBase = createIconMarkerBase();
+function createAllIcons(user_icon_path, trainer_icon_path, developer_icon_path, shadow_icon_path) {
+  var IconMarkerBase = createIconMarkerBase(shadow_icon_path);
   var user_icon = new IconMarkerBase({iconUrl: user_icon_path});
   var trainer_icon = new IconMarkerBase({iconUrl: trainer_icon_path});
   var developer_icon = new IconMarkerBase({iconUrl: developer_icon_path});
@@ -246,7 +248,7 @@ function onMapClick(e) {
   var user = {
     'latitude': markerLocation.lat.toFixed(8),
     'longitude': markerLocation.lng.toFixed(8)
-  }
+  };
   var popup = getUserFormPopup(user, ADD_USER_MODE);
   marker_new_user.bindPopup(popup).openPopup()
 }
