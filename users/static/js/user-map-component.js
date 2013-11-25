@@ -13,7 +13,7 @@
  */
 function createBasemap() {
   var base_map;
-  base_map = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}' +
+  base_map = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}' +
       '.png', {
     attribution: '© <a href="http://www.openstreetmap.org" target="_parent">OpenStreetMap</a> and contributors, under an <a href="http://www.openstreetmap.org/copyright" target="_parent">open license</a>',
     maxZoom: 18
