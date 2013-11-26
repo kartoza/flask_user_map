@@ -12,6 +12,7 @@ from flask_mail import Mail
 
 from users.config import (
     PROJECT_NAME,
+    PUBLIC_URL,
     PROJECT_FAVICON_FILE,
     MAIL_CONFIG,
     SQLITE_DB_PATH,
@@ -94,6 +95,7 @@ APP = Flask(__name__)
 
 # Load configuration
 APP.config['PROJECT_NAME'] = PROJECT_NAME
+APP.config['PUBLIC_URL'] = PUBLIC_URL
 APP.config['PROJECT_FAVICON_FILE'] = PROJECT_FAVICON_FILE
 APP.config.update(MAIL_CONFIG)
 mail = Mail(APP)

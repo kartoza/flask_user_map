@@ -6,6 +6,12 @@ import os
 # It would override page title, email confirmation to user, so on.
 PROJECT_NAME = 'InaSAFE'
 
+# PUBLIC_URL: Public URL that is used for publishing this apps.
+# It will be used for detail of the email confirmation, and other things if
+# it's needed
+PUBLIC_URL = 'http://users.inasafe.org'
+
+
 # PROJECT_FAVICON_FILE: Path to project favicon file
 PROJECT_FAVICON_FILE = '/users/static/img/user-icon.png'
 
