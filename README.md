@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/timlinux/user_map.png?label=ready)](https://waffle.io/timlinux/user_map)
 User Map
 ========
 
