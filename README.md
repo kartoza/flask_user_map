@@ -1,4 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/timlinux/user_map.png?label=ready)](https://waffle.io/timlinux/user_map)
+[![Build Status](http://jenkins.linfiniti.com/buildStatus/icon?job=UserMap)](http://jenkins.linfiniti.com/job/UserMap/)
+
 User Map
 ========
 
