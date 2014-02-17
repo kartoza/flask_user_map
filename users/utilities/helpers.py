@@ -4,7 +4,7 @@ from threading import Thread
 
 from flask import jsonify
 from werkzeug.exceptions import HTTPException
-from flask_mail import Message
+from flask_sendmail import Message
 from users import mail, APP
 
 

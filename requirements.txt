@@ -8,3 +8,4 @@ pydns==2.3.6
 validate-email==1.1
 wsgiref==0.1.2
 Flask-mail==0.9.0
+Flask-sendmail==0.1

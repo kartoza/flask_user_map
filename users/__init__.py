@@ -8,13 +8,13 @@ import os
 import logging
 
 from flask import Flask
-from flask_mail import Mail
+from flask_sendmail import Mail
 
 from users.config import (
     PROJECT_NAME,
     PUBLIC_URL,
     PROJECT_FAVICON_FILE,
-    MAIL_CONFIG,
+    MAIL_ADMIN,
     SQLITE_DB_PATH,
     USER_ICONS)
 
@@ -97,7 +97,7 @@ APP = Flask(__name__)
 APP.config['PROJECT_NAME'] = PROJECT_NAME
 APP.config['PUBLIC_URL'] = PUBLIC_URL
 APP.config['PROJECT_FAVICON_FILE'] = PROJECT_FAVICON_FILE
-APP.config.update(MAIL_CONFIG)
+APP.config['MAIL_ADMIN'] = MAIL_ADMIN
 mail = Mail(APP)
 APP.config['DATABASE'] = SQLITE_DB_PATH
 APP.config['USER_ICONS'] = USER_ICONS

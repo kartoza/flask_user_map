@@ -24,7 +24,6 @@ from users.user import (
     get_user_by_email,
     get_all_users,
     get_role_name)
-from users.config import MAIL_ADMIN
 
 
 @APP.route('/')
@@ -171,7 +170,7 @@ def add_user_view():
         user=added_user)
     recipient = added_user['email']
     send_async_mail(
-        sender=MAIL_ADMIN,
+        sender=APP.config['MAIL_ADMIN'],
         recipients=[recipient],
         subject=subject,
         text_body=body,
@@ -391,7 +390,7 @@ def reminder_view():
         url=APP.config['PUBLIC_URL'],
         user=user)
     send_async_mail(
-        sender=MAIL_ADMIN,
+        sender=APP.config['MAIL_ADMIN'],
         recipients=[email],
         subject=subject,
         text_body=body, html_body='')
