@@ -136,7 +136,7 @@ function addUser() {
           }
         } else {
           //Clear marker
-          cancelMarker();
+          cancelMarker(marker_new_user);
           // Refresh Layer according to role
           if (role == USER_ROLE.toString()) {
             refreshUserLayer(USER_ROLE);
@@ -163,7 +163,7 @@ function addUser() {
  */
 function cancelAddUser() {
   // Delete Marker
-  cancelMarker();
+  cancelMarker(marker_new_user);
   // Activate Default State
   activateDefaultState();
 }

@@ -36,7 +36,7 @@ function activateAddUserState() {
   current_mode = ADD_USER_MODE;
   // Set css button to active
   $('#add-user-button').addClass('active');
-  //Process here:
+  // Process here:
   // Change cursor to crosshair
   $('#map').css('cursor', 'crosshair');
   // When location is found, do onLocationFoud
@@ -130,5 +130,8 @@ function activateAddEventState() {
   // Set css button to active
   $('#add-event-button').addClass('active');
   // Process here
-  showInformationModal('Tes', 'add event');
+  // Change cursor to crosshair
+  $('#map').css('cursor', 'crosshair');
+   //Set Listener map onClick
+  map.on('click', onAddEventMapClick)
 }

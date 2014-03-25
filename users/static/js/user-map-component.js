@@ -248,7 +248,7 @@ function onLocationFound(e) {
 function onMapClick(e) {
   // Clear the un-saved clicked marker
   if (marker_new_user != null) {
-    cancelMarker();
+    cancelMarker(marker_new_user);
   }
   //Get new marker
   var markerLocation = e.latlng;
@@ -263,8 +263,31 @@ function onMapClick(e) {
 }
 
 /**
- * Cancel new user marker from the map.
+ * Listener when map is clicked on add event mode.
+ * @param e
  */
-function cancelMarker() {
-  map.removeLayer(marker_new_user);
+function onAddEventMapClick(e) {
+  // Clear the un-saved clicked marker
+  if (marker_new_event != null) {
+    cancelMarker(marker_new_event);
+  }
+  //Get new marker
+  var markerLocation = e.latlng;
+  marker_new_event = L.marker(markerLocation);
+  map.addLayer(marker_new_event);
+  var event = {
+    'latitude': markerLocation.lat.toFixed(8),
+    'longitude': markerLocation.lng.toFixed(8)
+  };
+  tes = 'Latitude: ' + event['latitude'] + ' Longitude:' + event['longitude']
+  showInformationModal('Tes', tes);
+}
+
+/**
+ * Cancel marker from the map.
+ *
+ * @param {L.marker} marker The marker that will be deleted
+ */
+function cancelMarker(marker) {
+  map.removeLayer(marker);
 }
