@@ -49,3 +49,14 @@
     </button>
   </script>
 {% endif %}
+
+{%- if add_event %}
+  <script id="event-menu-add-button" type="text/template">
+    <button type="button" class="btn btn-default btn-sm user-menu-control"
+            id="add-event-button" onclick="onAddEventButtonClick()"
+            data-toggle="tooltip"
+            data-original-title="Add event related to InaSAFE!">
+      <span class="glyphicon glyphicon-bullhorn"></span>
+    </button>
+  </script>
+{% endif %}

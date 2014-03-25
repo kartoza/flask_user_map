@@ -89,11 +89,13 @@
     "edit-user-menu": '{{ user_menu.edit_user }}' === 'True',
     "delete-user-menu": '{{ user_menu.delete_user }}' === 'True',
     "download-menu": '{{ user_menu.download }}' === 'True',
-    "reminder-menu": '{{ user_menu.reminder }}' === 'True'
+    "reminder-menu": '{{ user_menu.reminder }}' === 'True',
+    "add-event-menu": '{{ user_menu.add_event }}' === 'True'
   };
   user_menu_control = createUserMenuControl(user_menu);
   map.addControl(new user_menu_control);
-  $(".user-menu-control").tooltip({placement: 'right',
+  $(".user-menu-control").tooltip({
+    placement: 'right',
     container: 'body'});
 
   // Create Legend Control:

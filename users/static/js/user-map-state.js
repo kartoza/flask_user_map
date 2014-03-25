@@ -18,6 +18,7 @@ function activateDefaultState() {
   $('#delete-user-button').removeClass('active');
   $('#download-button').removeClass('active');
   $('#reminder-button').removeClass('active');
+  $('#add-event-button').removeClass('active');
   // If estimated_location_circle exists, remove that circle from map
   if (typeof estimated_location_circle != 'undefined') {
     map.removeLayer(estimated_location_circle);
@@ -116,4 +117,18 @@ function activateReminderState() {
   $('#reminder-menu-modal').modal({
     backdrop: false
   });
+}
+
+/**
+ * Activate Add Event State. The state when user click add event button
+ */
+function activateAddEventState() {
+  // Reset to Default State first
+  activateDefaultState();
+  // Set mode to add event mode
+  current_mode = ADD_EVENT_MODE;
+  // Set css button to active
+  $('#add-event-button').addClass('active');
+  // Process here
+  showInformationModal('Tes', 'add event');
 }

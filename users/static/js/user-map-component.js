@@ -105,12 +105,13 @@ function createDataPrivacyControl() {
  * @param {object} options Visibility of each component.
  * False if hidden, True if visible. If None, then it will be hidden.
  *
- * There are 3 menus on this control:
+ * There are 6 menus on this control:
  * 1. add-user-menu
  * 2. edit-user-menu
  * 3. delete-user-menu
  * 4. download-menu
  * 5. reminder-menu
+ * 6. add-event-menu
  *
  * Usage: initializeUserMenuControl({"add-user-menu": true, "download-menu": true})
  * to show add-user-menu and download-menu
@@ -162,6 +163,14 @@ function createUserMenuControl(options) {
         onReminderButtonClick = function () {
           if (current_mode != REMINDER_MODE) {
             activateReminderState();
+          }
+        };
+      }
+      if (options['add-event-menu']) {
+        user_menu_container.innerHTML += $("#event-menu-add-button").html();
+        onAddEventButtonClick = function () {
+          if (current_mode != ADD_EVENT_MODE) {
+            activateAddEventState();
           }
         };
       }

@@ -44,7 +44,8 @@ def map_view():
     user_menu = dict(
         add_user=True,
         download=True,
-        reminder=True
+        reminder=True,
+        add_event=True
     )
     #noinspection PyUnresolvedReferences
     #pylint: disable=W0142
