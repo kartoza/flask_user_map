@@ -1,6 +1,6 @@
 # coding=utf-8
 """Test for user model module."""
-__author__ = 'akbar'
+__author__ = 'Akbar Gumbira (akbargumbira@gmail.com)'
 
 from unittest import TestCase
 
@@ -22,7 +22,6 @@ class TestUser(TestCase):
         """Constructor."""
         self.db_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__),
-            os.pardir,
             os.pardir,
             os.pardir,
             'test_users.db'))

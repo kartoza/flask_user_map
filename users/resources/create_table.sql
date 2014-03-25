@@ -9,3 +9,17 @@
   date_added DATETIME DEFAULT CURRENT_TIMESTAMP,
   latitude FLOAT,
   longitude FLOAT);
+
+  CREATE TABLE event (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  guid VARCHAR(37) NOT NULL,
+  event_type INTEGER DEFAULT 0,
+  name TEXT NOT NULL,
+  organizer TEXT NOT NULL,
+  presenter_name TEXT NOT NULL,
+  contact_email TEXT NOT NULL,
+  date DATETIME NOT NULL,
+  description TEXT NOT NULL,
+  number_participant INTEGER NOT NULL,
+  latitude FLOAT,
+  longitude FLOAT);
