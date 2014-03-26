@@ -54,6 +54,9 @@ def map_view():
         **user_menu
     )
 
+    # noinspection PyUnresolvedReferences
+    event_form_template = render_template('html/event_form.html')
+
     context = dict(
         current_tag_name='None',
         error='None',
@@ -64,6 +67,7 @@ def map_view():
         data_privacy_content=data_privacy_content,
         legend=legend,
         user_form_template=user_form_template,
+        event_form_template=event_form_template,
         user_menu=user_menu,
         user_menu_button=user_menu_button
     )

@@ -116,3 +116,12 @@ function getUserFormPopup(user, mode) {
   popup.setContent(form);
   return popup;
 }
+
+/**
+ * Return event form.
+ */
+function getEventForm() {
+  var form_content = $('#event_form_content').html();
+  var $form = $('<div>' + form_content + '</div>');
+  return $form.html().toString();
+}

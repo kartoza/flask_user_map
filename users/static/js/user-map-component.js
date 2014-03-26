@@ -279,8 +279,9 @@ function onAddEventMapClick(e) {
     'latitude': markerLocation.lat.toFixed(8),
     'longitude': markerLocation.lng.toFixed(8)
   };
-  tes = 'Latitude: ' + event['latitude'] + ' Longitude:' + event['longitude']
-  showInformationModal('Tes', tes);
+  var form = getEventForm();
+  showInformationModal('Event Information', form);
+  $("#date").datepicker();
 }
 
 /**
