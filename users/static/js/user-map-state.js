@@ -12,6 +12,7 @@
 function activateDefaultState() {
   current_mode = DEFAULT_MODE; // Change mode to default
   map.off('click', onMapClick); // Stop onMapclick listener
+  map.off('click', onAddEventMapClick) // Stop OnAddEventMapClick listener
   $('#map').removeAttr('style'); // Remove all dynamic style to default one
   $('#add-user-button').removeClass('active');
   $('#edit-user-button').removeClass('active');

@@ -279,8 +279,14 @@ function onAddEventMapClick(e) {
     'latitude': markerLocation.lat.toFixed(8),
     'longitude': markerLocation.lng.toFixed(8)
   };
-  var form = getEventForm();
-  showInformationModal('Event Information', form);
+  // Get event form
+  var form = getEventForm(event, ADD_EVENT_MODE);
+  // Show Add Event Modal
+  var $add_event_modal = $('#add-event-menu-modal');
+  $add_event_modal.find('.modal-body').html(form);
+  $add_event_modal.modal({
+    backdrop: false
+  });
   $("#date").datepicker();
 }
 

@@ -375,3 +375,25 @@ function validate_user_form(str_name, str_email, str_website) {
   }
   return is_all_valid;
 }
+
+
+/**
+ * AJAX call to server side to add event
+ */
+function addEvent() {
+  // Delete Marker
+  cancelMarker(marker_new_event);
+  alert('tetot')
+  // Activate Default State
+  activateDefaultState();
+}
+
+/**
+ * Function when user clicks Cancel in Add Event form
+ */
+function cancelAddEvent() {
+  // Delete Marker
+  cancelMarker(marker_new_event);
+  // Activate Default State
+  activateDefaultState();
+}

@@ -28,7 +28,6 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h3 class="modal-title">Request Edit Link</h3>
         </div>
         <div class="modal-body">
@@ -46,16 +45,12 @@
                        name="email_reminder" required value=""/>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-lg-8">
-                <button type="button" class="btn btn-primary"
-                        onclick="sendReminder();">Send!
-                </button>
-              </div>
-            </div>
           </form>
         </div>
         <div class="modal-footer">
+          <button class="btn btn btn-primary" onclick="sendReminder();">
+            Send!
+          </button>
           <button class="btn btn-default" onclick="activateDefaultState()"
                   data-dismiss="modal" aria-hidden="true">
             Close
@@ -64,6 +59,22 @@
       </div>
     </div>
   </div>
+  <!-- EOF reminder form modal-->
+
+  <!-- Modal for Add Event form -->
+  <div class="modal fade" id="add-event-menu-modal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h3 class="modal-title">Add Event Details</h3>
+        </div>
+        <div class="modal-body">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- EOF Add event form modal -->
 {% endblock %}
 {% block js_container %}
   <script type="text/javascript">
