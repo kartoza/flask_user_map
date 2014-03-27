@@ -381,9 +381,27 @@ function validate_user_form(str_name, str_email, str_website) {
  * AJAX call to server side to add event
  */
 function addEvent() {
+  var event_name = $('#event-name').val();
+  var event_type = $('select[name=event-type] option:selected').val();
+  var event_organizer = $('#event-organizer').val();
+  var event_presenter = $('#event-presenter').val();
+  var event_contact_email = $('#event-contact-email').val();
+  var event_date = $('#event-date').val();
+  var event_number_participant = $('#event-number-participant').val();
+  var event_description = $('#event-description').val();
+  var event_latitude = $('#event-latitude').val();
+  var event_longitude = $('#event-longitude').val();
+
+  var is_client_side_valid = validate_event_form(
+      event_name, event_type, event_organizer, event_presenter,
+      event_contact_email, event_date, event_number_participant,
+      event_description);
+  if (is_client_side_valid) {
+    // TODO
+  }
+
   // Delete Marker
   cancelMarker(marker_new_event);
-  alert('tetot')
   // Activate Default State
   activateDefaultState();
 }
@@ -396,4 +414,20 @@ function cancelAddEvent() {
   cancelMarker(marker_new_event);
   // Activate Default State
   activateDefaultState();
+}
+
+/**
+ * Event form validation.
+ * @param {string} str_name The event name value.
+ * @param {string} str_type The event type value.
+ * @param {string} str_organizer The event organizer value.
+ * @param {string} str_presenter The event presenter value.
+ * @param {string} str_contact_email The event's contact email value.
+ * @param {string} str_date The event date value.
+ * @param {string} str_number_participant The number of participant of the event.
+ * @param {string} str_description The event's description.
+ * @returns {boolean} is_all_valid The validity value of submitted event form.
+ */
+function validate_event_form(str_name, str_type, str_organizer, str_presenter, str_contact_email, str_date, str_number_participant, str_description) {
+    // TODO
 }

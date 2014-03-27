@@ -124,6 +124,14 @@ function getEventForm(event, mode) {
   var form_content = $('#event_form_content').html();
   var $form = $('<div>' + form_content + '</div>');
 
+  /**
+   * Set latitude and longitude value, whatever the mode!
+   * If it's from the new marker, before passing to this form,
+   * that marker location should be added to event attributes
+   */
+  $form.find('input[type=text]#event-latitude').attr('value', event['latitude']);
+  $form.find('input[type=text]#event-longitude').attr('value', event['longitude']);
+
   if (mode == ADD_EVENT_MODE) {
     $form.find(':button#submit_form').attr('onclick', 'addEvent()')
     $form.find(':button#cancel_form').attr('onclick', 'cancelAddEvent()')

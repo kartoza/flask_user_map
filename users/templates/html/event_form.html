@@ -3,79 +3,81 @@
       enctype="multipart/form-data">
 
     <div class="form-group">
-      <label for="name" class="col-lg-3 control-label">Name of the
+      <label for="event-name" class="col-lg-3 control-label">Name of the
       event</label>
         <div class="col-lg-8">
           <input type="text" class="form-control" placeholder="Required"
-              id="name" name="name" required value=""/>
+              id="event-name" name="event-name" required value=""/>
         </div>
     </div>
 
     <div class="form-group">
       <label for="type" class="col-lg-3 control-label">Type of the event</label>
       <div class="col-lg-8">
-        <select class="form-control">
-          <option>Presentation</option>
-          <option>Training</option>
-          <option>Workshop</option>
-          <option>Booth</option>
+        <select name="event-type" class="form-control">
+          <option value="0">Presentation</option>
+          <option value="1">Training</option>
+          <option value="2">Workshop</option>
+          <option value="3">Booth</option>
         </select>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="organizer" class="col-lg-3 control-label">Organizer</label>
+      <label for="event-organizer" class="col-lg-3 control-label">Organizer</label>
       <div class="col-lg-8">
         <input type="text" class="form-control" placeholder="Required"
-               id="organizer" name="organizer" required value=""/>
+               id="event-organizer" name="event-organizer" required value=""/>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="presenter" class="col-lg-3 control-label">Presenter</label>
+      <label for="event-presenter" class="col-lg-3 control-label">Presenter</label>
       <div class="col-lg-8">
         <input type="text" class="form-control" placeholder="Required"
-               id="presenter" name="presenter" required value=""/>
+               id="event-presenter" name="event-presenter" required value=""/>
        </div>
     </div>
 
     <div class="form-group">
-      <label for="contact-email" class="col-lg-3 control-label">Contact Email</label>
+      <label for="event-contact-email" class="col-lg-3 control-label">Contact
+      Email</label>
       <div class="col-lg-8">
         <input type="email" class="form-control" placeholder="Required"
-               id="contact-email" name="contact-email" value="" required />
+               id="event-contact-email" name="event-contact-email" value="" required />
       </div>
     </div>
 
     <div class="form-group">
-      <label for="date" class="col-lg-3 control-label">Date</label>
+      <label for="event-date" class="col-lg-3 control-label">Date</label>
       <div class="col-lg-8">
         <input type="text" class="form-control date-picker"
-          placeholder="Required" id="date" name="date" value="" required />
+          placeholder="Required" id="event-date" name="event-date" value=""
+          required />
       </div>
     </div>
 
     <div class="form-group">
-      <label for="number-participant" class="col-lg-3 control-label">Number of
-      Participant</label>
+      <label for="event-number-participant" class="col-lg-3 control-label">Number of Participant</label>
       <div class="col-lg-8">
         <input type="number" class="form-control" placeholder="Required"
-               id="number-participant" name="number-participant" value="" required />
+               id="event-number-participant" name="event-number-participant"
+               value="100" required />
       </div>
     </div>
 
     <div class="form-group">
-      <label for="type" class="col-lg-3 control-label">Description</label>
+      <label for="event-description" class="col-lg-3 control-label">Description</label>
       <div class="col-lg-8">
-        <textarea class="form-control" rows="3"></textarea>
+        <textarea id="event-description" class="form-control" rows="3"></textarea>
       </div>
     </div>
 
     <div class="form-group">
-      <input style="display: none;" type="text" id="lat" name="lat"
-             value=""/>
-      <input style="display: none;" type="text" id="lng" name="lng"
-             value=""/>
+      <input style="display: none;" type="text" id="event-latitude"
+             name="event-latitude" value=""/>
+      <input style="display: none;" type="text" id="event-longitude"
+             name="event-longitude" value=""/>
     </div>
 
     <div class="form-group">

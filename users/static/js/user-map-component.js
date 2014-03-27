@@ -287,7 +287,7 @@ function onAddEventMapClick(e) {
   $add_event_modal.modal({
     backdrop: false
   });
-  $("#date").datepicker();
+  $("#event-date").datepicker();
 }
 
 /**
