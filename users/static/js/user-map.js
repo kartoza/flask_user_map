@@ -381,10 +381,21 @@ function validate_user_form(str_name, str_email, str_website) {
  * AJAX call to server side to add event
  */
 function addEvent() {
-  var event_name = $('#event-name').val();
+  // Get JQuery Object
+  var $event_name_input = $('#event-name');
+  var $event_organizer_input = $('#event-organizer');
+  var $event_presenter_input = $('#event-presenter');
+
+  // Clear Form message from previous validation
+  $event_name_input.parent().removeClass('has-error');
+  $event_organizer_input.parent().removeClass('has-error');
+  $event_presenter_input.parent().removeClass('has-error');
+
+  // Get the Value of all form
+  var event_name = $event_name_input.val();
   var event_type = $('select[name=event-type] option:selected').val();
-  var event_organizer = $('#event-organizer').val();
-  var event_presenter = $('#event-presenter').val();
+  var event_organizer = $event_organizer_input.val();
+  var event_presenter = $event_presenter_input.val();
   var event_contact_email = $('#event-contact-email').val();
   var event_date = $('#event-date').val();
   var event_number_participant = $('#event-number-participant').val();
@@ -430,4 +441,39 @@ function cancelAddEvent() {
  */
 function validate_event_form(str_name, str_type, str_organizer, str_presenter, str_contact_email, str_date, str_number_participant, str_description) {
     // TODO
+  var is_name_valid, is_type_valid, is_organizer_valid, is_presenter_valid,
+      is_contact_email_valid, is_date_valid, is_number_participant_valid,
+      is_description_valid, is_all_valid;
+  if (typeof document.createElement('input').checkValidity == 'function') {
+    // This browser support HTML5 Validation
+    // Validate All by HTML5:
+    is_name_valid = document.getElementById('event-name').checkValidity();
+    is_organizer_valid = document.getElementById('event-organizer').checkValidity();
+    is_presenter_valid = document.getElementById('event-presenter').checkValidity()
+  } else {
+    is_name_valid = isRequiredSatistied(str_name);
+    is_organizer_valid = isRequiredSatistied(str_organizer);
+    is_presenter_valid = isRequiredSatistied(str_presenter);
+  }
+
+  is_all_valid = is_name_valid && is_organizer_valid && is_presenter_valid;
+  if (!is_name_valid) {
+    var $event_name_input = $('#event-name');
+    $event_name_input.parent().addClass('has-error');
+    $event_name_input.attr('placeholder', 'Event name is required');
+  }
+
+  if (!is_organizer_valid) {
+    var $event_organizer_input = $('#event-organizer');
+    $event_organizer_input.parent().addClass('has-error');
+    $event_organizer_input.attr('placeholder', 'Event organizer is required');
+  }
+
+  if (!is_presenter_valid) {
+    var $event_presenter_input = $('#event-presenter');
+    $event_presenter_input.parent().addClass('has-error');
+    $event_presenter_input.attr('placeholder', 'Event presenter is required');
+  }
+
+  return is_all_valid;
 }
