@@ -254,9 +254,10 @@ function onMapClick(e) {
   var markerLocation = e.latlng;
   marker_new_user = L.marker(markerLocation);
   map.addLayer(marker_new_user);
+  var wrappedLocation = L.latLng(markerLocation.lat, markerLocation.lng).wrap()
   var user = {
-    'latitude': markerLocation.lat.toFixed(8),
-    'longitude': markerLocation.lng.toFixed(8)
+    'latitude': wrappedLocation.lat.toFixed(8),
+    'longitude': wrappedLocation.lng.toFixed(8)
   };
   var popup = getUserFormPopup(user, ADD_USER_MODE);
   marker_new_user.bindPopup(popup).openPopup()
@@ -275,9 +276,10 @@ function onAddEventMapClick(e) {
   var markerLocation = e.latlng;
   marker_new_event = L.marker(markerLocation);
   map.addLayer(marker_new_event);
+  var wrappedLocation = L.latLng(markerLocation.lat, markerLocation.lng).wrap()
   var event = {
-    'latitude': markerLocation.lat.toFixed(8),
-    'longitude': markerLocation.lng.toFixed(8)
+    'latitude': wrappedLocation.lat.toFixed(8),
+    'longitude': wrappedLocation.lng.toFixed(8)
   };
   // Get event form
   var form = getEventForm(event, ADD_EVENT_MODE);
