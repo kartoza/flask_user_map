@@ -22,6 +22,8 @@
     <script src="/users/static/js/leaflet.js"></script>
     <script src="/users/static/js/leaflet.label.js"></script>
     <script language="javascript"
+          type="text/javascript" src="/users/static/js/modernizr.js"></script>
+    <script language="javascript"
             type="text/javascript" src="/users/static/js/user-map.js"></script>
     <script language="javascript"
             type="text/javascript" src="/users/static/js/user-map-component.js"></script>
@@ -53,6 +55,14 @@
 <!-- endblock of all the template -->
 
 <script type="text/javascript">
+  // Load JQuery datepicker UI if the browser does not support input type date
+  Modernizr.load({
+    test: Modernizr.inputtypes.date,
+    nope: ['/users/static/css/jquery.ui.core.css', '/users/static/css/jquery.ui.datepicker.css',
+      '/users/static/css/jquery.ui.theme.css', '/users/static/js/jquery.ui.core.js',
+      '/users/static/js/jquery.ui.widget.js', '/users/static/js/jquery.ui.datepicker.js']
+  });
+
   var map, base_map, data_privacy_content, data_privacy_control,
       user_menu_control, user_icon, trainer_icon, developer_icon,
       estimated_location_circle, current_mode;

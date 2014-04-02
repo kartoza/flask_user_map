@@ -83,6 +83,25 @@ def add_event(
     return guid
 
 
+def get_event(guid):
+    """Get an event given its GUID.
+
+    :param guid: Globally unique identifier for the requested event.
+    :type guid: str
+
+    :returns: An event expressed as a dictionary of key value pairs or None if
+        the given GUID does not exist.
+    :rtype: dict
+    """
+    conn = get_conn(APP.config['DATABASE'])
+    sql = 'SELECT * FROM event WHERE guid="%s"' % guid
+    events = query_db(conn, sql)
+    if len(events) == 0:
+        return None
+    else:
+        return events[0]
+
+
 def get_all_events():
     """Get all events from table event from database.
 

@@ -383,23 +383,33 @@ function validate_user_form(str_name, str_email, str_website) {
 function addEvent() {
   // Get JQuery Object
   var $event_name_input = $('#event-name');
+  var $event_type_input = $('#event-type');
   var $event_organizer_input = $('#event-organizer');
   var $event_presenter_input = $('#event-presenter');
+  var $event_contact_email_input = $('#event-contact-email');
+  var $event_date_input = $('#event-date');
+  var $event_number_participant_input = $('#event-number-participant');
+  var $event_description_input = $('#event-description');
 
   // Clear Form message from previous validation
   $event_name_input.parent().removeClass('has-error');
+  $event_type_input.parent().removeClass('has-error');
   $event_organizer_input.parent().removeClass('has-error');
   $event_presenter_input.parent().removeClass('has-error');
+  $event_contact_email_input.parent().removeClass('has-error');
+  $event_date_input.parent().removeClass('has-error');
+  $event_number_participant_input.parent().removeClass('has-error');
+  $event_description_input.parent().removeClass('has-error');
 
   // Get the Value of all form
   var event_name = $event_name_input.val();
   var event_type = $('select[name=event-type] option:selected').val();
   var event_organizer = $event_organizer_input.val();
   var event_presenter = $event_presenter_input.val();
-  var event_contact_email = $('#event-contact-email').val();
-  var event_date = $('#event-date').val();
-  var event_number_participant = $('#event-number-participant').val();
-  var event_description = $('#event-description').val();
+  var event_contact_email = $event_contact_email_input.val();
+  var event_date = $event_date_input.val();
+  var event_number_participant = $event_number_participant_input.val();
+  var event_description = $event_description_input.val();
   var event_latitude = $('#event-latitude').val();
   var event_longitude = $('#event-longitude').val();
 
@@ -408,7 +418,29 @@ function addEvent() {
       event_contact_email, event_date, event_number_participant,
       event_description);
   if (is_client_side_valid) {
-    // TODO
+    $.ajax({
+      type: 'POST',
+      url: '/add_event',
+      data: {
+        event_name: event_name,
+        event_type: event_type,
+        event_organizer: event_organizer,
+        event_presenter: event_presenter,
+        event_contact_email: event_contact_email,
+        event_date: event_date,
+        event_number_participant: event_number_participant,
+        event_description: event_description,
+        event_latitude: event_latitude,
+        event_longitude: event_longitude
+      },
+      success: function (response) {
+        if (response.type.toString() == 'Error') {
+          alert('error');
+        } else {
+          alert('successful');
+        }
+      }
+    });
   }
 
   // Delete Marker
@@ -440,27 +472,53 @@ function cancelAddEvent() {
  * @returns {boolean} is_all_valid The validity value of submitted event form.
  */
 function validate_event_form(str_name, str_type, str_organizer, str_presenter, str_contact_email, str_date, str_number_participant, str_description) {
-    // TODO
+  // TODO: FInishing all validation
   var is_name_valid, is_type_valid, is_organizer_valid, is_presenter_valid,
       is_contact_email_valid, is_date_valid, is_number_participant_valid,
-      is_description_valid, is_all_valid;
+      is_description_valid, is_all_valid
+
   if (typeof document.createElement('input').checkValidity == 'function') {
     // This browser support HTML5 Validation
     // Validate All by HTML5:
     is_name_valid = document.getElementById('event-name').checkValidity();
     is_organizer_valid = document.getElementById('event-organizer').checkValidity();
-    is_presenter_valid = document.getElementById('event-presenter').checkValidity()
+    is_presenter_valid = document.getElementById('event-presenter').checkValidity();
+    is_contact_email_valid = document.getElementById('event-contact-email').checkValidity();
+    if (Modernizr.inputtypes.date) {
+       is_date_valid = document.getElementById('event-date').checkValidity();
+    } else {
+      // TODO: Add manual date validation
+    }
+    if (Modernizr.inputtypes.number) {
+      is_number_participant_valid = document.getElementById('event-number-participant').checkValidity();
+    } else {
+      // TODO: Add manual number validation
+    }
+    is_description_valid = document.getElementById('event-description').checkValidity();
   } else {
     is_name_valid = isRequiredSatistied(str_name);
     is_organizer_valid = isRequiredSatistied(str_organizer);
     is_presenter_valid = isRequiredSatistied(str_presenter);
+    is_contact_email_valid = isRequiredSatistied(str_contact_email) && isEmailSatisfied(str_contact_email);
+    //TODO: Add manual date validation
+    is_number_participant_valid = isRequiredSatistied(str_number_participant);
+    //TODO: Add manual number validation
+    is_description_valid = isRequiredSatistied(str_description);
   }
 
-  is_all_valid = is_name_valid && is_organizer_valid && is_presenter_valid;
+  var valid_type = ['0', '1', '2', '3'];
+  valid_type.indexOf(str_type) != -1? is_type_valid = true: is_type_valid = false;
+
+  is_all_valid = is_name_valid && is_type_valid && is_organizer_valid && is_presenter_valid && is_contact_email_valid && is_date_valid && is_number_participant_valid && is_description_valid;
   if (!is_name_valid) {
     var $event_name_input = $('#event-name');
     $event_name_input.parent().addClass('has-error');
     $event_name_input.attr('placeholder', 'Event name is required');
+  }
+
+  if (!is_type_valid) {
+    var $event_type_input = $('#event-type');
+    $event_type_input.parent().addClass('has-error');
   }
 
   if (!is_organizer_valid) {
@@ -473,6 +531,30 @@ function validate_event_form(str_name, str_type, str_organizer, str_presenter, s
     var $event_presenter_input = $('#event-presenter');
     $event_presenter_input.parent().addClass('has-error');
     $event_presenter_input.attr('placeholder', 'Event presenter is required');
+  }
+
+  if (!is_contact_email_valid) {
+    var $event_contact_email_input = $('#event-contact-email');
+    $event_contact_email_input.parent().addClass('has-error');
+    $event_contact_email_input.attr('placeholder', 'Event email contact is required and needs to be a valid one');
+  }
+
+  if (!is_date_valid) {
+    var $event_date_input = $('#event-date');
+    $event_date_input.parent().addClass('has-error');
+    $event_date_input.attr('placeholder', 'Event date is not valid');
+  }
+
+  if (!is_number_participant_valid) {
+    var $event_number_participant_input = $('#event-number-participant');
+    $event_number_participant_input.parent().addClass('has-error');
+    $event_number_participant_input.attr('placeholder', 'Event number participant is required');
+  }
+
+  if (!is_description_valid) {
+    var $event_description_input = $('#event-description');
+    $event_description_input.parent().addClass('has-error');
+    $event_description_input.attr('placeholder', 'Event description is required');
   }
 
   return is_all_valid;

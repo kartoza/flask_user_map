@@ -24,6 +24,7 @@ from users.user import (
     get_user_by_email,
     get_all_users,
     get_role_name)
+from users.event import add_event, get_event
 from users.config import MAIL_ADMIN
 
 
@@ -403,3 +404,69 @@ def reminder_view():
 
     message['type'] = 'Success'
     return Response(json.dumps(message), mimetype='application/json')
+
+
+@APP.route('/add_event', methods=['POST'])
+def add_event_controller():
+    """Controller to add an event.
+
+    Handle post request via ajax and add the event to table event on users.db
+    """
+    # return any errors as json - see http://flask.pocoo.org/snippets/83/
+    for code in default_exceptions.iterkeys():
+        APP.error_handler_spec[None][code] = make_json_error
+
+    # Get data from form
+    event_name = str(request.form['event_name']).strip()
+    event_type = int(request.form['event_type'])
+    event_organizer = str(request.form['event_organizer']).strip()
+    event_presenter = str(request.form['event_presenter']).strip()
+    event_contact_email = str(request.form['event_contact_email']).strip()
+    event_date = str(request.form['event_date']).strip()
+    event_number_participant = int(
+        request.form['event_number_participant'])
+    event_description = str(request.form['event_description']).strip()
+    event_latitude = float(request.form['event_latitude'])
+    event_longitude = float(request.form['event_longitude'])
+
+    # Validate the data:
+    message = {}
+    if not is_required_valid(event_name):
+        message['event_name'] = 'Event name is required'
+    if event_type not in [0, 1, 2, 3]:
+        message['event_type'] = 'Event type is not valid'
+    if not is_required_valid(event_organizer):
+        message['event_organizer'] = 'Event organizer is required'
+    if not is_required_valid(event_presenter):
+        message['event_presenter'] = 'Event presenter is required'
+    if not is_email_address_valid(event_contact_email):
+        message['event_contact_email'] = 'Event contact email is not valid'
+    if not is_required_valid(event_description):
+        message['event_description'] = 'Event description is required'
+
+    # Process data
+    if len(message) != 0:
+        message['type'] = 'Error'
+        return Response(json.dumps(message), mimetype='application/json')
+    else:
+        # Add event
+        event = dict(
+            event_type=event_type,
+            name=event_name,
+            organizer=event_organizer,
+            presenter_name=event_presenter,
+            contact_email=event_contact_email,
+            date=event_date,
+            description=event_description,
+            number_participant=event_number_participant,
+            latitude=event_latitude,
+            longitude=event_longitude)
+        guid = add_event(**event)
+
+    # Prepare json for added event
+    added_event = get_event(guid)
+
+    #noinspection PyUnresolvedReferences
+    added_event_json = render_template('json/events.json', users=[added_event])
+    # Return Response
+    return Response(added_event_json, mimetype='application/json')

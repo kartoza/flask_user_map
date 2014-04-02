@@ -1,0 +1,16 @@
+{
+  "type": "FeatureCollection",
+  "features": [ {% for event in events %}
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "{{ event.name }}",
+        "popupContent": "{{ event.name }}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [{{ event.longitude }}, {{ event.latitude }}]
+      }
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]
+}

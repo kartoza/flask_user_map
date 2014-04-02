@@ -289,7 +289,11 @@ function onAddEventMapClick(e) {
   $add_event_modal.modal({
     backdrop: false
   });
-  $("#event-date").datepicker();
+
+  if (!Modernizr.inputtypes.date) {
+    // Build from jQuery UI
+    $("#event-date").datepicker();
+  }
 }
 
 /**

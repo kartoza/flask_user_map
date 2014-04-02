@@ -14,7 +14,7 @@
     <div class="form-group">
       <label for="type" class="col-lg-3 control-label">Type of the event</label>
       <div class="col-lg-8">
-        <select name="event-type" class="form-control">
+        <select name="event-type" class="form-control" id="event-type">
           <option value="0">Presentation</option>
           <option value="1">Training</option>
           <option value="2">Workshop</option>
@@ -51,9 +51,9 @@
     <div class="form-group">
       <label for="event-date" class="col-lg-3 control-label">Date</label>
       <div class="col-lg-8">
-        <input type="text" class="form-control date-picker"
+        <input type="date" class="form-control date-picker"
           placeholder="Required" id="event-date" name="event-date" value=""
-          required />
+          required/>
       </div>
     </div>
 
@@ -69,7 +69,7 @@
     <div class="form-group">
       <label for="event-description" class="col-lg-3 control-label">Description</label>
       <div class="col-lg-8">
-        <textarea id="event-description" class="form-control" rows="3"></textarea>
+        <textarea id="event-description" class="form-control" rows="5" required></textarea>
       </div>
     </div>
 
