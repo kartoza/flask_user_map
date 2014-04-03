@@ -441,6 +441,8 @@ def add_event_controller():
         message['event_presenter'] = 'Event presenter is required'
     if not is_email_address_valid(event_contact_email):
         message['event_contact_email'] = 'Event contact email is not valid'
+    if not is_required_valid(event_date):
+        message['event_date'] = 'Event date is required'
     if not is_required_valid(event_description):
         message['event_description'] = 'Event description is required'
 

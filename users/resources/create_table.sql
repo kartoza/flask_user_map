@@ -18,7 +18,7 @@
   organizer TEXT NOT NULL,
   presenter_name TEXT NOT NULL,
   contact_email TEXT NOT NULL,
-  date DATETIME NOT NULL,
+  date DATE NOT NULL,
   description TEXT NOT NULL,
   number_participant INTEGER NOT NULL,
   latitude FLOAT,

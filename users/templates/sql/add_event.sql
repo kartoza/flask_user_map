@@ -8,7 +8,7 @@ VALUES (
   "{{ organizer }}",
   "{{ presenter_name }}",
   "{{ contact_email }}",
-  {{ date }},
+  "{{ date }}",
   "{{ description }}",
   {{ number_participant }},
   {{ longitude }},

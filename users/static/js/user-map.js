@@ -435,9 +435,53 @@ function addEvent() {
       },
       success: function (response) {
         if (response.type.toString() == 'Error') {
-          alert('error');
+          if (typeof response.event_name != 'undefined') {
+            $event_name_input.parent().addClass('has-error');
+            $event_name_input.attr('placeholder', response.event_name.toString());
+          }
+
+          if (typeof response.event_type != 'undefined') {
+            $event_type_input.parent().addClass('has-error');
+          }
+
+          if (typeof response.event_organizer != 'undefined') {
+            $event_organizer_input.parent().addClass('has-error');
+            $event_organizer_input.attr('placeholder', response.event_organizer.toString());
+          }
+
+          if (typeof response.event_presenter != 'undefined') {
+            $event_presenter_input.parent().addClass('has-error');
+            $event_presenter_input.attr('placeholder', response.event_presenter.toString());
+          }
+
+          if (typeof response.event_contact_email != 'undefined') {
+            $event_contact_email_input.parent().addClass('has-error');
+            $event_contact_email_input.attr('placeholder', response.event_contact_email.toString());
+          }
+
+          if (typeof response.event_date != 'undefined') {
+            $event_date_input.parent().addClass('has-error');
+            $event_date_input.attr('placeholder', response.event_date.toString());
+          }
+
+          if (typeof response.event_description != 'undefined') {
+            $event_description_input.parent().addClass('has-error');
+            $event_description_input.attr('placeholder', response.event_description.toString());
+          }
         } else {
-          alert('successful');
+          //Clear marker
+          cancelMarker(marker_new_event);
+          // Close Add Event Modal
+          var $add_event_modal = $('#add-event-menu-modal');
+          $add_event_modal.modal('hide');
+          //TODO: Refresh Layer according to this event addition
+          activateDefaultState(); // Back to default state
+          var add_success_title = 'Information';
+          var add_success_info =
+                  'Thank you for adding the event related to InaSAFE! ' +
+                  'The event has entered the moderation queue and will be ' +
+                  'displayed on the map after being reviewed.';
+          showInformationModal(add_success_title, add_success_info);
         }
       }
     });
@@ -472,7 +516,6 @@ function cancelAddEvent() {
  * @returns {boolean} is_all_valid The validity value of submitted event form.
  */
 function validate_event_form(str_name, str_type, str_organizer, str_presenter, str_contact_email, str_date, str_number_participant, str_description) {
-  // TODO: FInishing all validation
   var is_name_valid, is_type_valid, is_organizer_valid, is_presenter_valid,
       is_contact_email_valid, is_date_valid, is_number_participant_valid,
       is_description_valid, is_all_valid
