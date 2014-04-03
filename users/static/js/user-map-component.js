@@ -291,8 +291,9 @@ function onAddEventMapClick(e) {
   });
 
   if (!Modernizr.inputtypes.date) {
-    // Build from jQuery UI
-    $("#event-date").datepicker();
+    // Remember that the wire date format for date input type is in ISO 8601, so as the fallback
+    // We build the datepicker from jQuery UI using ISO 8601 format
+    $("#event-date").datepicker({ dateFormat: "yy-mm-dd"});
   }
 }
 

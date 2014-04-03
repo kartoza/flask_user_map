@@ -36,3 +36,29 @@ function isURLSatisfied(str) {
   var pattern = new RegExp("https?://.+");
   return pattern.test(str);
 }
+
+/**
+ * Validate if a string is a non negative number.
+ * @param str
+ * @returns {boolean}
+ */
+function isNonNegativeNumber(str) {
+  if (str.length == 0) {
+    return false;
+  }
+
+  var intValue = parseInt(str, 10);
+  if (isNaN(intValue) || (intValue < 0)) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Validate if a date string is in ISO 8601 format (yyyyy-mm-dd)
+ * @param str
+ * @returns {boolean}
+ */
+function isISO8601DateFormat(str) {
+  return !isNaN(Date.parse(str));
+}

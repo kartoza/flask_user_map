@@ -487,12 +487,12 @@ function validate_event_form(str_name, str_type, str_organizer, str_presenter, s
     if (Modernizr.inputtypes.date) {
        is_date_valid = document.getElementById('event-date').checkValidity();
     } else {
-      // TODO: Add manual date validation
+      is_date_valid = isISO8601DateFormat(str_date);
     }
     if (Modernizr.inputtypes.number) {
       is_number_participant_valid = document.getElementById('event-number-participant').checkValidity();
     } else {
-      // TODO: Add manual number validation
+      is_number_participant_valid = isRequiredSatistied(str_number_participant) && isNonNegativeNumber(str_number_participant);
     }
     is_description_valid = document.getElementById('event-description').checkValidity();
   } else {
@@ -500,9 +500,8 @@ function validate_event_form(str_name, str_type, str_organizer, str_presenter, s
     is_organizer_valid = isRequiredSatistied(str_organizer);
     is_presenter_valid = isRequiredSatistied(str_presenter);
     is_contact_email_valid = isRequiredSatistied(str_contact_email) && isEmailSatisfied(str_contact_email);
-    //TODO: Add manual date validation
-    is_number_participant_valid = isRequiredSatistied(str_number_participant);
-    //TODO: Add manual number validation
+    is_date_valid = isISO8601DateFormat(str_date);
+    is_number_participant_valid = isRequiredSatistied(str_number_participant) && isNonNegativeNumber(str_number_participant);
     is_description_valid = isRequiredSatistied(str_description);
   }
 
