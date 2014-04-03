@@ -6,7 +6,7 @@ from unittest import TestCase
 
 import os
 from users import APP
-from users.event import add_event, get_all_events
+from users.event import add_event, get_event, get_all_events
 
 
 class TestEvent(TestCase):
@@ -41,6 +41,15 @@ class TestEvent(TestCase):
         self.assertIsNotNone(guid)
         number_of_events_after = len(get_all_events())
         self.assertEqual(number_of_events_before + 1, number_of_events_after)
+
+    def test_get_event(self):
+        """Test for get event function."""
+        guid = add_event(**self.event_to_add)
+        self.assertIsNotNone(guid)
+        event = get_event(None)
+        assert event is None
+        event = get_event(guid)
+        self.assertEqual('InaSAFE 2.0 Release', event['name'])
 
     def test_get_all_events(self):
         """Test for retrieving all events function."""
