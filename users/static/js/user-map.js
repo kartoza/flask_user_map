@@ -17,8 +17,6 @@
  * @const {int} USER_ROLE The number representation for user role.
  * @const {int} TRAINER_ROLE The number representation for trainer role.
  * @const {int} DEVELOPER_ROLE The number representation for developer role.
- * @const {int} PAST_EVENT The event that has been passed by now (now refers to the current date depends )
- * @const {int} NEXT_EVENT The event that has not been passed by now
  */
 var DEFAULT_MODE = 0;
 var ADD_USER_MODE = 1;
