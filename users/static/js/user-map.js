@@ -17,6 +17,8 @@
  * @const {int} USER_ROLE The number representation for user role.
  * @const {int} TRAINER_ROLE The number representation for trainer role.
  * @const {int} DEVELOPER_ROLE The number representation for developer role.
+ * @const {int} PAST_EVENT The event that has been passed by now (now refers to the current date depends )
+ * @const {int} NEXT_EVENT The event that has not been passed by now
  */
 var DEFAULT_MODE = 0;
 var ADD_USER_MODE = 1;
@@ -78,6 +80,16 @@ function refreshUserLayer(role) {
   var layer = getUserLayer(role);
   layer.clearLayers();
   addUsers(layer, role);
+}
+
+/**
+ * Refresh event layer based on the flag is_passed.
+ * @param {bool} is_passed The flag whether to refresh past event or next event layer
+ */
+function refreshEventLayer(is_passed) {
+  var layer = getEventLayer(is_passed);
+  layer.clearLayers();
+  addEvents(layer, is_passed)
 }
 
 /**
@@ -376,6 +388,46 @@ function validate_user_form(str_name, str_email, str_website) {
   return is_all_valid;
 }
 
+/**
+ * Add events to the respective layer based on the type of the event.
+ *
+ * @param {object} layer The layer that events will be added to.
+ * @param {bool} is_passed The flag whether to fetch passed events or next events
+ * @name L The Class from Leaflet.
+ * @property geoJson Property of L class.
+ * @property users Property of response object.
+ * @function addTo add child element to the map.
+ * @property properties Property of a feature.
+ * @property popupContent Property of properties.
+ * @function bindPopup Bind popup to marker
+ */
+function addEvents(layer, is_passed) {
+  $.ajax({
+    type: 'POST',
+    url: '/events.json',
+    dataType: 'json',
+    data: {
+      is_passed: is_passed
+    },
+    success: function (response) {
+      var event_icon = getEventIcon(is_passed);
+      L.geoJson(
+          response.events,
+          {
+            onEachFeature: onEachFeature,
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {icon: event_icon });
+            }
+          }).addTo(layer);
+    }
+  });
+  function onEachFeature(feature, layer) {
+    // Set the popup content if it does have the content
+    if (feature.properties && feature.properties.popupContent) {
+      layer.bindPopup(feature.properties.popupContent);
+    }
+  }
+}
 
 /**
  * AJAX call to server side to add event
@@ -474,7 +526,14 @@ function addEvent() {
           // Close Add Event Modal
           var $add_event_modal = $('#add-event-menu-modal');
           $add_event_modal.modal('hide');
-          //TODO: Refresh Layer according to this event addition
+
+          // Add new event to layer
+          var today = new Date();
+          var today_ignore_time = new Date(today.toDateString())
+          var this_event_date = new Date(event_date);
+          var is_passed = (this_event_date.getTime() < today_ignore_time.getTime());
+          refreshEventLayer(is_passed);
+
           activateDefaultState(); // Back to default state
           var add_success_title = 'Information';
           var add_success_info =

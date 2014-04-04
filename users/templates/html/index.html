@@ -67,7 +67,7 @@
 {% block js_container %}
   <script type="text/javascript">
     var marker_new_user, marker_new_event, overlays_layer, users_layer,
-        trainers_layer, developers_layer;
+        trainers_layer, developers_layer, past_events_layer, next_events_layer;
 
     $(document).ready(function () {
       //All Users Layer using MarkerCLusterGroup
@@ -94,22 +94,51 @@
             }
           }
       );
+      // All Events Layer using MarkerClusterGroup
+      past_events_layer = new L.markerClusterGroup(
+          {
+            iconCreateFunction: function (cluster) {
+              return L.divIcon({ html: '<div><span>' + cluster.getChildCount() + '</span></div>',
+                className: 'marker-cluster marker-cluster-trainer',
+                iconSize: L.point(40, 40)});
+            }
+          }
+      );
+      next_events_layer = new L.markerClusterGroup(
+          {
+            iconCreateFunction: function (cluster) {
+              return L.divIcon({ html: '<div><span>' + cluster.getChildCount() + '</span></div>',
+                className: 'marker-cluster marker-cluster-developer',
+                iconSize: L.point(40, 40)});
+            }
+          }
+      );
 
       //Add All Users to the right layer
       addUsers(users_layer, USER_ROLE);
       addUsers(trainers_layer, TRAINER_ROLE);
       addUsers(developers_layer, DEVELOPER_ROLE);
 
+      // Add all events to the right layer
+      addEvents(past_events_layer, true);
+      addEvents(next_events_layer, false);
+
       //Add All users layer to map
       users_layer.addTo(map);
       developers_layer.addTo(map);
       trainers_layer.addTo(map);
 
+      // Add all events layer to map
+      past_events_layer.addTo(map)
+      next_events_layer.addTo(map)
+
       //Specify all layers on overlays_layers control
       overlays_layer = {
         "Users": users_layer,
         "Developers": developers_layer,
-        "Trainers": trainers_layer
+        "Trainers": trainers_layer,
+        "Past Events": past_events_layer,
+        "Next Events": next_events_layer
       }
       L.control.layers(null, overlays_layer).addTo(map)
     })

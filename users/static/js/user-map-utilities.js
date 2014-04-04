@@ -38,6 +38,20 @@ function getUserIcon(user_role) {
 }
 
 /**
+ * Return event icon in regard to if it is a past event or not
+ * @param is_passed The flag.
+ */
+function getEventIcon(is_passed) {
+  var event_icon;
+  if (is_passed) {
+    event_icon = past_event_icon;
+  } else {
+    event_icon = next_event_icon;
+  }
+  return event_icon;
+}
+
+/**
  * Get User Layer that has been declared based on the role.
  * @param role The user role.
  */
@@ -50,6 +64,21 @@ function getUserLayer(role) {
   } else if (role == DEVELOPER_ROLE) {
     layer = developers_layer;
   }
+  return layer;
+}
+
+/**
+ * Get Event Layer depending on if it is past or not
+ * @param is_passed The flag whether to get past event layer or next event layer
+ */
+function getEventLayer(is_passed) {
+  var layer;
+  if (is_passed) {
+    layer = past_events_layer;
+  } else {
+    layer = next_events_layer;
+  }
+
   return layer;
 }
 

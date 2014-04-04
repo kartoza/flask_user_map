@@ -24,7 +24,7 @@ from users.user import (
     get_user_by_email,
     get_all_users,
     get_role_name)
-from users.event import add_event, get_event
+from users.event import add_event, get_event, get_past_events, get_next_events
 from users.config import MAIL_ADMIN
 
 
@@ -404,6 +404,31 @@ def reminder_view():
 
     message['type'] = 'Success'
     return Response(json.dumps(message), mimetype='application/json')
+
+
+@APP.route('/events.json', methods=['POST'])
+def events_view():
+    """Return a json document of events based on the event type (past/next)."""
+    # Get data:
+    is_passed_js_bool = str(request.form['is_passed'])
+    is_passed = (is_passed_js_bool == 'true')
+
+    # Get Events
+    if is_passed:
+        all_events = get_past_events()
+    else:
+        all_events = get_next_events()
+
+    #noinspection PyUnresolvedReferences
+    json_events = render_template('json/events.json', events=all_events)
+
+    events_json = (
+        '{'
+        ' "events": %s'
+        '}' % json_events
+    )
+    # Return Response
+    return Response(events_json, mimetype='application/json')
 
 
 @APP.route('/add_event', methods=['POST'])

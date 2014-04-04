@@ -114,3 +114,39 @@ def get_all_events():
 
     all_events = query_db(conn, sql)
     return all_events
+
+
+def get_past_events(from_date='now'):
+    """Get all past events from database.
+
+    :param from_date: The reference date. All event happens before this date
+        would be categorised as past events. Default to now
+    :type from_date: str
+
+    :returns: A list of all past event objects.
+    :rtype: list
+    """
+    conn = get_conn(APP.config['DATABASE'])
+
+    sql = 'SELECT * from event WHERE date(date) < date("%s")' % from_date
+
+    past_events = query_db(conn, sql)
+    return past_events
+
+
+def get_next_events(from_date='now'):
+    """Get all next events from database.
+
+    :param from_date: The reference date. All event happens at or after this
+        date would be categorised as next events. Default to now
+    :type from_date: str
+
+    :returns: A list of all next event objects.
+    :rtype: list
+    """
+    conn = get_conn(APP.config['DATABASE'])
+
+    sql = 'SELECT * from event WHERE date(date) >= date("%s")' % from_date
+
+    next_events = query_db(conn, sql)
+    return next_events
