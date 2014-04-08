@@ -22,4 +22,5 @@
   description TEXT NOT NULL,
   number_participant INTEGER NOT NULL,
   latitude FLOAT,
-  longitude FLOAT);
+  longitude FLOAT,
+  publish_status INTEGER DEFAULT 0);
