@@ -25,7 +25,7 @@ from users.user import (
     get_all_users,
     get_role_name)
 from users.event import add_event, get_event, get_past_events, get_next_events
-from users.config import MAIL_ADMIN
+from users.config import MAIL_ADMIN, SITE_ADMINS
 
 
 @APP.route('/')
@@ -492,6 +492,21 @@ def add_event_controller():
 
     # Prepare json for added event
     added_event = get_event(guid)
+
+    # Send Email to Site Administrators:
+    subject = '%s Event Registration' % APP.config['PROJECT_NAME']
+    #noinspection PyUnresolvedReferences
+    body = render_template(
+        'text/event_registration_email.txt',
+        project_name=APP.config['PROJECT_NAME'],
+        url=APP.config['PUBLIC_URL'],
+        event=added_event)
+    send_async_mail(
+        sender=MAIL_ADMIN,
+        recipients=SITE_ADMINS,
+        subject=subject,
+        text_body=body,
+        html_body='')
 
     #noinspection PyUnresolvedReferences
     added_event_json = render_template('json/events.json', users=[added_event])

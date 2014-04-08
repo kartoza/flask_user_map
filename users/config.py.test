@@ -38,6 +38,9 @@ MAIL_CONFIG = dict(
 # MAIL ADMINISTRATOR
 MAIL_ADMIN = ('InaSAFE User Map Administrator', MAIL_CONFIG['MAIL_USERNAME'])
 
+# SITE ADMINISTRATORS
+SITE_ADMINS = ['tim@linfiniti.com', 'akbargumbira@gmail.com']
+
 # USER ICONS: All icon paths that are used.
 # For now, there are only 3 icons that should be configured: user, trainer,
 # developer. And used the same shadow for all of the icons. Next time,

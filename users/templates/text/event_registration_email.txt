@@ -1,0 +1,7 @@
+Dear {{ project_name }} Site Administrator,
+
+A user of this site just added an event to the {{ project_name }} User Map at
+{{ url }}. To accept and publish this event, please click this link below:
+    - Link: {{ url }}/publish/{{ event.guid }}
+
+Regards

@@ -525,12 +525,6 @@ function addEvent() {
           var $add_event_modal = $('#add-event-menu-modal');
           $add_event_modal.modal('hide');
 
-          // Add new event to layer
-          var today = new Date();
-          var today_ignore_time = new Date(today.toDateString())
-          var this_event_date = new Date(event_date);
-          var is_passed = (this_event_date.getTime() < today_ignore_time.getTime());
-          refreshEventLayer(is_passed);
 
           activateDefaultState(); // Back to default state
           var add_success_title = 'Information';
