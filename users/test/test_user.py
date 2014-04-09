@@ -72,10 +72,10 @@ class TestUser(TestCase):
         self.assertEqual(user, None)
 
     def test_get_user(self):
-        """Test for getting user function."""
+        """Test for get_user function."""
         guid = add_user(**self.user_to_add)
         self.assertIsNotNone(guid)
-        user = get_user(None)
+        user = get_user('')
         assert user is None
         user = get_user(guid)
         self.assertEqual('Akbar', user['name'])
