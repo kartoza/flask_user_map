@@ -112,7 +112,7 @@ function getUserForm(user, mode) {
  */
 function getUserFormPopup(user, mode) {
   var form = getUserForm(user, mode);
-  var popup = L.popup();
+  var popup = L.popup({closeButton: false});
   popup.setContent(form);
   return popup;
 }
